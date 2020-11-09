@@ -1,24 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import { useAuthState } from './context/authContext/authContext';
+import Authenticated from './components/Authenticated/Authenticated';
+import Unauthenticated from './components/Unauthenticated/Unauthenticated';
+
+import { BrowserRouter as Routes } from 'react-router-dom';
 
 function App() {
+  const {
+    state: { user },
+  } = useAuthState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {user ? (
+        <Routes>
+          <Authenticated />
+        </Routes>
+      ) : (
+        <Unauthenticated />
+      )}
     </div>
   );
 }
