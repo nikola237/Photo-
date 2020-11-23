@@ -1,14 +1,13 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+
 import { useAdminState } from '../../context/authContext/adminContext/adminContext';
 
 const EditItem = () => {
   const { edit } = useAdminState();
-  const location = useLocation();
-  const [currentItem] = edit;
-  const { pathShort, tags, originalname, id, type } = currentItem;
+  console.log(edit, 'ovo je edit!!!');
 
-  console.log(location, 'ovo je props iz EDITA');
+  const [currentItem] = edit;
+  const { pathShort, tags, originalname, type } = currentItem;
 
   const changeHandler = (event) => {
     console.log(event.target.value);

@@ -6,16 +6,7 @@ const User = (props) => {
   return (
     <div>
       <Navigation />
-      <div>
-        <form>
-          <input placeholder="search item" />
-          <div>
-            <input name="audio" type="checkbox" />
-            <input name="video" type="checkbox" />
-            <input name="images" type="checkbox" />
-          </div>
-        </form>
-      </div>
+      <div>USER!!!!</div>
     </div>
   );
 };

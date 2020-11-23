@@ -1,5 +1,12 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useCallback,
+  useEffect,
+} from 'react';
 
+import api from '../../../api/api';
 const AdminStateContext = createContext();
 const AdminDispatchContext = createContext();
 
@@ -20,6 +27,16 @@ function adminReducer(state, action) {
         ...state,
         items: action.payload,
       };
+    case 'PAGE':
+      return {
+        ...state,
+        page: action.payload,
+      };
+    case 'TOTAL_PAGES':
+      return {
+        ...state,
+        totalPages: action.payload,
+      };
     case 'EDIT_ITEM':
       return {
         ...state,
@@ -34,11 +51,41 @@ function adminReducer(state, action) {
 function AdminProvider({ children }) {
   const [state, dispatch] = useReducer(adminReducer, {
     items: [],
-    type: 0,
-    kwords: '',
+    type: JSON.parse(window.localStorage.getItem('radioBtnValue')) || 0,
+    kwords: window.localStorage.getItem('kwordValue') || '',
     status: null,
     edit: null,
+    data: null,
+    page: 1,
+    totalPages: undefined,
   });
+
+  const getData = useCallback(() => {
+    async function getItems() {
+      const response = await api.post(
+        `/items/search?size=10&page=${state.page}`,
+        {
+          type: state.type,
+          kwords: state.kwords,
+        }
+      );
+      console.log(response.data, 'response');
+      dispatch({ type: 'ITEMS', payload: response.data.rows });
+      dispatch({ type: 'TOTAL_PAGES', payload: response.data.totalPages });
+    }
+    getItems();
+  }, [state.kwords, state.page, state.type]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      getData();
+    }, 1000);
+
+    return () => {
+      console.log('klirovao');
+      clearTimeout(timeout);
+    };
+  }, [getData]);
 
   return (
     <AdminStateContext.Provider value={state}>

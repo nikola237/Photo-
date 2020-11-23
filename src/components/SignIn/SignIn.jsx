@@ -2,8 +2,22 @@ import React, { useState } from 'react';
 
 import { useAuthState } from '../../context/authContext/authContext';
 
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
+
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+
+import Container from '@material-ui/core/Container';
+
+import { useStyles } from './SignIn.styles';
+
 const SignIn = () => {
-  const { login } = useAuthState();
+  const classes = useStyles();
+
+  const { login, status } = useAuthState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,7 +30,6 @@ const SignIn = () => {
   };
 
   const changeHandler = (event) => {
-    console.log(event.target.value);
     const { name, value } = event.currentTarget;
     if (name === 'email') {
       setEmail(value);
@@ -26,33 +39,59 @@ const SignIn = () => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={changeHandler}
-          value={email}
-          autoComplete="email"
-          required
-        />
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form onSubmit={submitHandler} className={classes.form} noValidate>
+          <div>
+            <TextField
+              id="email"
+              name="email"
+              type="email"
+              label="Email adress"
+              onChange={changeHandler}
+              value={email}
+              autoComplete="email"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+            />
+          </div>
+          <div>
+            <TextField
+              id="password"
+              name="password"
+              type="password"
+              label="Password"
+              onChange={changeHandler}
+              value={password}
+              autoComplete="current-password"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+            />
+          </div>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+        </form>
+        {status}
       </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={changeHandler}
-          value={password}
-          autoComplete="current-password"
-          required
-        />
-      </div>
-      <button type="submit">SignIn</button>
-    </form>
+    </Container>
   );
 };
 

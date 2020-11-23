@@ -7,38 +7,22 @@ import AdminRoutes from '../AdminRoutes/AdminRoutes';
 import Editor from '../../pages/Editor/Editor';
 import User from '../../pages/User/User';
 
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
-
 const Authenticated = () => {
-  const history = useHistory();
-  const {
-    state: { user },
-  } = useAuthState();
+  const { user } = useAuthState();
 
-  if (user.role === 2) {
-    history.push('/admin');
-    return (
-      <Router>
+  return (
+    <div>
+      {user.role === 2 ? (
         <AdminProvider>
           <AdminRoutes />
         </AdminProvider>
-      </Router>
-    );
-  } else if (user.role === 1) {
-    history.push('/editor');
-    return (
-      <Router>
+      ) : 'Error' ? (
         <Editor />
-      </Router>
-    );
-  } else {
-    history.push('/user');
-    return (
-      <Router>
+      ) : (
         <User />
-      </Router>
-    );
-  }
+      )}
+    </div>
+  );
 };
 
 export default Authenticated;

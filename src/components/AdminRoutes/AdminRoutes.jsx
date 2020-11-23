@@ -6,6 +6,7 @@ import Admin from '../../pages/Admin/Admin';
 import Navigation from '../Navigation/Navigation';
 import Users from '../../pages/Users/Users';
 import EditItem from '../../pages/EditItem/EditItem';
+import Upload from '../../pages/Upload/Upload';
 
 const AdminRoutes = () => {
   return (
@@ -14,15 +15,28 @@ const AdminRoutes = () => {
       <Switch>
         <Route path="/users" component={Users} />
         <Route path="/statistics" component={Statistics} />
+        <Route path="/upload" component={Upload} />
         <Route
           exact
           path="/edit/:id"
-          render={(props) => <EditItem {...props} />}
+          component={(props) => <EditItem {...props} />}
         />
-        <Route exact path="/admin" component={Admin} />
+        <Route exact path="/" component={Admin} />
       </Switch>
     </div>
   );
 };
 
 export default AdminRoutes;
+
+/* {type === 0
+          ? items.map((item) => (
+              <Grid item xs={12} sm={6} md={3} key={item.id ? item.id : 1}>
+                <Image key={item.id ? item.id : 1} {...item} />
+              </Grid>
+            ))
+          : type === 1
+          ? items.map((item) => <Video key={item.id ? item.id : 1} {...item} />)
+          : items.map((item) => (
+              <Audio key={item.id ? item.id : 1} {...item} />
+            ))} */

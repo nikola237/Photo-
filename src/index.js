@@ -5,11 +5,15 @@ import App from './App';
 
 import { AuthProvider } from './context/authContext/authContext';
 
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
+
 ReactDOM.render(
-  <React.StrictMode>
+  <ThemeProvider theme={theme}>
     <AuthProvider>
       <App />
     </AuthProvider>
-  </React.StrictMode>,
+  </ThemeProvider>,
+
   document.getElementById('root')
 );
