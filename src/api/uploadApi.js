@@ -6,7 +6,7 @@ const defaultOptions = {
     'Access-Control-Allow-Credentials': true,
     'Access-Control-Allow-Methods':
       'POST, GET, DELETE, OPTIONS, REMOVE, UPDATE',
-    'Content-Type': 'multipart/form-data',
+    // 'Content-Type': 'multipart/form-data',
   },
 };
 
@@ -15,9 +15,7 @@ let instance = axios.create(defaultOptions);
 instance.interceptors.request.use(function (config) {
   const token = localStorage.getItem('token');
 
-  config.headers['Authorization'] = token
-    ? `Bearer ${JSON.parse(token)}`
-    : null;
+  config.headers['Authorization'] = token ? `Bearer ${token}` : null;
 
   return config;
 });

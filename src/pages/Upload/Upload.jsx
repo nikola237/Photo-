@@ -41,7 +41,7 @@ const Upload = () => {
   };
   const formValue = Object.values(state);
 
-  const fileUploadHandler = async (event) => {
+  const fileUploadHandler = (event) => {
     event.preventDefault();
     if (selectedFile !== '' && state !== {}) {
       const data = selectedFile.map((item, index) =>
@@ -49,7 +49,7 @@ const Upload = () => {
       );
       console.log(data);
       let arr = [];
-
+      console.log(arr, 'ovo je arr');
       for (const [, newData] of Object.entries(data)) {
         let fd = new FormData();
         console.log(newData.tags, 'ovo je key newData');
@@ -78,6 +78,7 @@ const Upload = () => {
         type="file"
         onChange={fileChangeHandler}
         id="file-selector"
+        name="items"
         // accept=".jpg, .jpeg, .png"
         multiple
       />

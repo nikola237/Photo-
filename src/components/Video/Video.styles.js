@@ -5,6 +5,7 @@ export const useStyles = makeStyles({
     minWidth: 180,
     height: '100%',
   },
+  title: {},
   media: {
     height: 200,
     backgroundSize: 'inherit',

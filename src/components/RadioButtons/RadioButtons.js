@@ -5,6 +5,11 @@ import {
   useAdminDispatch,
 } from '../../context/authContext/adminContext/adminContext';
 
+import Radio from '@material-ui/core/Radio';
+
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
 const RadioButtons = () => {
   const { type } = useAdminState();
   const dispatch = useAdminDispatch();
@@ -13,44 +18,45 @@ const RadioButtons = () => {
     console.log(value, 'ovo je value');
 
     dispatch({ type: 'RADIO_BUTTONS', payload: parseInt(value) });
+    dispatch({ type: 'PAGE', payload: 1 });
   };
 
   useEffect(() => {
     window.localStorage.setItem('radioBtnValue', type);
   }, [type]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  // };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>Image</label>
-        <input
+    <FormControl>
+      <div>
+        <FormLabel>Image</FormLabel>
+        <Radio
           value={0}
           checked={type === 0}
           type="radio"
           onChange={handleButtonChange}
           name="image"
         />
-        <label>Audio</label>
-        <input
+        <FormLabel>Audio</FormLabel>
+        <Radio
           value={2}
           checked={type === 2}
           type="radio"
           onChange={handleButtonChange}
           name="audio"
         />
-        <label>Video</label>
-        <input
+        <FormLabel>Video</FormLabel>
+        <Radio
           value={1}
           checked={type === 1}
           type="radio"
           onChange={handleButtonChange}
           name="video"
         />
-      </form>
-    </div>
+      </div>
+    </FormControl>
   );
 };
 

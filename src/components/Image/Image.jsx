@@ -36,7 +36,7 @@ const Image = ({ originalname, pathShort, tags, id, filename }) => {
       {items[0]?.message ? (
         <div>{items[0].message}</div>
       ) : (
-        <div>
+        <div onContextMenu={(e) => e.preventDefault()}>
           <CardHeader title={`${originalname}`} />
 
           <CardMedia
@@ -45,7 +45,7 @@ const Image = ({ originalname, pathShort, tags, id, filename }) => {
           />
           <CardContent className={classes.content}>
             <Typography
-              variant="body2"
+              variant="body1"
               color="textSecondary"
               component="p"
             >{`TAGOVI: ${tags}`}</Typography>

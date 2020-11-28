@@ -16,7 +16,7 @@ const Authenticated = () => {
         <AdminProvider>
           <AdminRoutes />
         </AdminProvider>
-      ) : 'Error' ? (
+      ) : user.role === 1 ? (
         <Editor />
       ) : (
         <User />

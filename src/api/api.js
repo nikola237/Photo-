@@ -4,9 +4,11 @@ const defaultOptions = {
   baseURL: 'http://93.86.249.163:3030',
   headers: {
     'Access-Control-Allow-Credentials': true,
-    'Access-Control-Allow-Methods':
-      'POST, GET, DELETE, OPTIONS, REMOVE, UPDATE',
+    'Access-Control-Allow-Methods': 'POST, GET, DELETE, OPTIONS, UPDATE',
     'Content-Type': 'application/json',
+  },
+  data: {
+    data: {},
   },
 };
 

@@ -69,7 +69,7 @@ function AdminProvider({ children }) {
           kwords: state.kwords,
         }
       );
-      console.log(response.data, 'response');
+
       dispatch({ type: 'ITEMS', payload: response.data.rows });
       dispatch({ type: 'TOTAL_PAGES', payload: response.data.totalPages });
     }
@@ -82,7 +82,6 @@ function AdminProvider({ children }) {
     }, 1000);
 
     return () => {
-      console.log('klirovao');
       clearTimeout(timeout);
     };
   }, [getData]);

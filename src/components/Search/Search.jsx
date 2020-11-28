@@ -5,11 +5,15 @@ import {
   useAdminDispatch,
 } from '../../context/authContext/adminContext/adminContext';
 
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import { useStyles } from './Search.styles';
+
 const Search = () => {
   const dispatch = useAdminDispatch();
   const { kwords } = useAdminState();
 
-  console.log(kwords, 'ovo je kwords');
+  const classes = useStyles();
 
   useEffect(() => {
     window.localStorage.setItem('kwordValue', kwords);
@@ -33,19 +37,20 @@ const Search = () => {
     dispatch({ type: 'SEARCH', payload: filtred });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={kwords}
-          onChange={searchChangeHandler}
-          placeholder="search item"
-        />
-      </form>
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
+      </div>
+
+      <InputBase
+        placeholder="Search…"
+        onChange={searchChangeHandler}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+      />
     </div>
   );
 };

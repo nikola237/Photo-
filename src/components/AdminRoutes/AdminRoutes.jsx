@@ -6,7 +6,7 @@ import Admin from '../../pages/Admin/Admin';
 import Navigation from '../Navigation/Navigation';
 import Users from '../../pages/Users/Users';
 import EditItem from '../../pages/EditItem/EditItem';
-import Upload from '../../pages/Upload/Upload';
+import DragAndDrop from '../../pages/Upload/DragAndDrop';
 
 const AdminRoutes = () => {
   return (
@@ -15,7 +15,7 @@ const AdminRoutes = () => {
       <Switch>
         <Route path="/users" component={Users} />
         <Route path="/statistics" component={Statistics} />
-        <Route path="/upload" component={Upload} />
+        <Route path="/upload" component={DragAndDrop} />
         <Route
           exact
           path="/edit/:id"

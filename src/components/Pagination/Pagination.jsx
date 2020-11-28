@@ -6,7 +6,7 @@ import {
 } from '../../context/authContext/adminContext/adminContext';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+
 import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,7 @@ const PaginationComp = () => {
   const { page, totalPages } = useAdminState();
   const dispatch = useAdminDispatch();
   const classes = useStyles();
-  console.log(totalPages, 'ovo je TOTAL');
+
   const handleChange = (event, value) => {
     dispatch({ type: 'PAGE', payload: value });
   };
@@ -34,7 +34,6 @@ const PaginationComp = () => {
     <div>
       {totalPages ? (
         <div className={classes.root}>
-          <Typography>Page: {page}</Typography>
           <Pagination count={totalPages} page={page} onChange={handleChange} />
         </div>
       ) : null}
