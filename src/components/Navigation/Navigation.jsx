@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useAuthState } from '../../context/authContext/authContext';
+import { useAuthState } from '../../context/authContext';
 
 import AdminNav from '../AdminNav/AdminNav';
 import EditorNav from '../EditorNav/EditorNav';

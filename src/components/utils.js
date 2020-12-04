@@ -19,24 +19,3 @@ export const handleDownloadItem = async (pathShort, filename) => {
 export const removeItem = (id) => {
   console.log('usao');
 };
-
-// const [file] = selectedFile;
-// console.log(file, 'ovo je file');
-// fd.append('item', file);
-// fd.append('tags', 'usb, stick, proba');
-// fd.append('title', 'TEST1');
-// const response = await uploadApi.post('/item/add', fd, {
-//   onUploadProgress: (ProgressEvent) => {
-//     setProgress(
-//       Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
-//     );
-//   },
-// });
-
-// console.log(fd, 'ovo je el');
-// fd.append('item', el.item);
-// fd.append('tags', el.tags);
-// fd.append('title', el.title);
-// console.log(fd[index], 'ovo je fd');
-// const response = await uploadApi.post('/item/add', fd[index]);
-// console.log(response, 'ovo je response!!!');

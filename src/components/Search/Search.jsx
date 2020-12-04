@@ -1,23 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import {
-  useAdminState,
-  useAdminDispatch,
-} from '../../context/authContext/adminContext/adminContext';
-
+//styles
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { useStyles } from './Search.styles';
 
-const Search = () => {
-  const dispatch = useAdminDispatch();
-  const { kwords } = useAdminState();
-
+const Search = ({ dispatch, kwords }) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    window.localStorage.setItem('kwordValue', kwords);
-  }, [kwords]);
+  // useEffect(() => {
+  //   window.localStorage.setItem('kwordValue', kwords);
+  // }, [kwords]);
 
   const filterSearch = (value) => {
     let term;
@@ -46,6 +39,7 @@ const Search = () => {
       <InputBase
         placeholder="Search…"
         onChange={searchChangeHandler}
+        value={kwords}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,

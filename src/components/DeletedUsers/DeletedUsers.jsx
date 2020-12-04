@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
+
 //api
 import api from '../../api/api';
 
 //components
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 
 //styles
 import Table from '@material-ui/core/Table';
@@ -15,55 +16,27 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import { Button } from '@material-ui/core';
-import { useStyles } from './UsersTable.styles';
+import { useStyles } from './DeletedUsers.styles';
 
-const UsersTable = ({
-  dispatch,
-  setOpen,
-  setShowInput,
-  setId,
-  isLoading,
-  users,
-}) => {
+const DeletedUsers = ({ dispatch, users, isLoading }) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  console.log(isLoading, 'ovo je loading');
   const classes = useStyles();
 
   const getData = useCallback(() => {
-    const getActiveUsers = async () => {
-      try {
-        const response = await api.get(
-          `/users?size=${rowsPerPage}&page=${page}`
-        );
+    const getRemovedUsers = async () => {
+      const response = await api.get(
+        `/users/remove/?page=${page}&size=${rowsPerPage}`
+      );
 
-        dispatch({ type: 'USERS', payload: response.data.rows });
-      } catch (error) {
-        console.log(error, 'usao u error');
-      }
+      dispatch({ type: 'USERS', payload: response.data.rows });
     };
-    getActiveUsers();
+    getRemovedUsers();
   }, [dispatch, page, rowsPerPage]);
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage, dispatch, getData]);
-
-  const deleteUserById = async (id) => {
-    const response = await api.delete('/users/remove', { data: { id } });
-    dispatch({ type: 'IS_LOADING', payload: true });
-  };
-
-  const editUserById = async (id) => {
-    const response = await api.get(`/user/${id}`);
-
-    dispatch({ type: 'EDIT_USER', payload: response.data });
-    setId(id);
-
-    setShowInput(false);
-    setOpen(true);
-  };
+  }, [getData]);
 
   useEffect(() => {
     if (isLoading) {
@@ -79,6 +52,18 @@ const UsersTable = ({
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     // setPage(0);
+  };
+
+  const restoreUserById = async (id) => {
+    const response = await api.post(`/users/restore`, { id });
+
+    dispatch({ type: 'IS_LOADING', payload: true });
+  };
+
+  const removeUserById = async (id) => {
+    // dispatch({ type: 'REMOVE_USER', payload: id });
+    const response = await api.delete('/users', { data: { id } });
+    dispatch({ type: 'IS_LOADING', payload: true });
   };
 
   return (
@@ -111,11 +96,13 @@ const UsersTable = ({
                 <TableCell>{row.isActive}</TableCell>
                 <TableCell>{row.createdAt}</TableCell>
                 <TableCell>
-                  <Button onClick={() => deleteUserById(row.id)}>Remove</Button>
+                  <Button onClick={() => removeUserById(row.id)}>Remove</Button>
                 </TableCell>
 
                 <TableCell>
-                  <Button onClick={() => editUserById(row.id)}>Edit</Button>
+                  <Button onClick={() => restoreUserById(row.id)}>
+                    Restore
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -138,4 +125,4 @@ const UsersTable = ({
   );
 };
 
-export default UsersTable;
+export default DeletedUsers;

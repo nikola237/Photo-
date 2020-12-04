@@ -1,28 +1,13 @@
 import React, { useEffect } from 'react';
-
-import {
-  useAdminState,
-  useAdminDispatch,
-} from '../../context/authContext/adminContext/adminContext';
-
-import { makeStyles } from '@material-ui/core/styles';
-
+//styles
 import Pagination from '@material-ui/lab/Pagination';
+import { Grid } from '@material-ui/core';
+import { useStyles } from './Pagination.styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
-
-const PaginationComp = () => {
-  const { page, totalPages } = useAdminState();
-  const dispatch = useAdminDispatch();
+const PaginationComp = ({ dispatch, page, totalPages }) => {
   const classes = useStyles();
 
-  const handleChange = (event, value) => {
+  const handleChange = (value) => {
     dispatch({ type: 'PAGE', payload: value });
   };
 
@@ -31,13 +16,13 @@ const PaginationComp = () => {
   }, [page]);
 
   return (
-    <div>
+    <Grid container>
       {totalPages ? (
         <div className={classes.root}>
           <Pagination count={totalPages} page={page} onChange={handleChange} />
         </div>
       ) : null}
-    </div>
+    </Grid>
   );
 };
 

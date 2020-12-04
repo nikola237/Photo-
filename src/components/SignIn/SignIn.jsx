@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 
-import { useAuthState } from '../../context/authContext/authContext';
+import { useAuthState } from '../../context/authContext';
 
+//styles
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-
 import Container from '@material-ui/core/Container';
-
 import { useStyles } from './SignIn.styles';
 
 const SignIn = () => {

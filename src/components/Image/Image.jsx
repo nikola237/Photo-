@@ -1,74 +1,39 @@
 import React from 'react';
+// import { useHistory } from 'react-router-dom';
 
-import { useHistory } from 'react-router-dom';
+//components
+import ImageCard from '../ImageCard/ImageCard';
+import ErrorCard from '../ErrorCard/ErrorCard';
 
-import {
-  useAdminState,
-  useAdminDispatch,
-} from '../../context/authContext/adminContext/adminContext';
+//styles
 
-import { handleDownloadItem, removeItem } from '../utils.js';
+import { Grid } from '@material-ui/core';
+// import { useStyles } from './Image.styles';
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import CardContent from '@material-ui/core/CardContent';
-
-import { useStyles } from './Image.styles';
-
-const Image = ({ originalname, pathShort, tags, id, filename }) => {
-  const { items } = useAdminState();
-  const dispatch = useAdminDispatch();
-  const history = useHistory();
-
-  const classes = useStyles();
-
-  const handleItem = () => {
-    dispatch({ type: 'EDIT_ITEM', payload: id });
-    history.push(`/edit/${id}`);
-  };
+const Image = ({ items, dispatch, tab }) => {
+  // const classes = useStyles();
 
   return (
-    <Card className={classes.root} variant="outlined">
-      {items[0]?.message ? (
-        <div>{items[0].message}</div>
+    <Grid item container>
+      {items ? (
+        items.map((item) => {
+          if (items[0]?.message) {
+            return <ErrorCard key={1} {...item} />;
+          } else {
+            return (
+              <ImageCard
+                key={item.id}
+                {...item}
+                dispatch={dispatch}
+                tab={tab}
+              />
+            );
+          }
+        })
       ) : (
-        <div onContextMenu={(e) => e.preventDefault()}>
-          <CardHeader title={`${originalname}`} />
-
-          <CardMedia
-            className={classes.media}
-            image={`http://93.86.249.163:3030/items/display/${pathShort}`}
-          />
-          <CardContent className={classes.content}>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              component="p"
-            >{`TAGOVI: ${tags}`}</Typography>
-          </CardContent>
-
-          <CardActions>
-            <Button size="small" color="primary" onClick={handleItem}>
-              Edit
-            </Button>
-            <Button
-              size="small"
-              color="secondary"
-              onClick={() => handleDownloadItem(pathShort, filename)}
-            >
-              Download
-            </Button>
-            <Button size="small" color="primary" onClick={() => removeItem()}>
-              Delete
-            </Button>
-          </CardActions>
-        </div>
+        <div>Loading Iz imga</div>
       )}
-    </Card>
+    </Grid>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { useAuthState } from '../../context/authContext/authContext';
-import { AdminProvider } from '../../context/authContext/adminContext/adminContext';
+import { useAuthState } from '../../context/authContext';
 
 import AdminRoutes from '../AdminRoutes/AdminRoutes';
 import Editor from '../../pages/Editor/Editor';
@@ -13,9 +12,7 @@ const Authenticated = () => {
   return (
     <div>
       {user.role === 2 ? (
-        <AdminProvider>
-          <AdminRoutes />
-        </AdminProvider>
+        <AdminRoutes />
       ) : user.role === 1 ? (
         <Editor />
       ) : (

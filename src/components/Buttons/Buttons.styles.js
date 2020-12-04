@@ -1,15 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
-
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    height: '100%',
   },
   media: {
     height: 200,
     backgroundSize: 'inherit',
   },
-  content: {
-    padding: 20,
+  dialogPaper: {
+    minHeight: '80vh',
+    maxHeight: '80vh',
   },
-});
+}));

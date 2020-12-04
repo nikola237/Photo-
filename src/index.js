@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 
-import { AuthProvider } from './context/authContext/authContext';
+import { AuthProvider } from './context/authContext';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';

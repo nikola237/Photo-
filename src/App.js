@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useAuthState } from './context/authContext/authContext';
+import { useAuthState } from './context/authContext';
 
 import { BrowserRouter as Routes } from 'react-router-dom';
 import Spinner from './components/Spinner/Spinner';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuthState } from '../../context/authContext/authContext';
+import { useAuthState } from '../../context/authContext';
 
 import { useHistory } from 'react-router-dom';
 
@@ -28,6 +28,7 @@ import { useStyles } from './AdminNav.styles';
 const AdminNav = () => {
   const { user, logout } = useAuthState();
   const [open, setOpen] = useState(false);
+  const [selectedIcon, setSelectedIncon] = useState(0);
   const history = useHistory();
   const classes = useStyles();
 
@@ -39,39 +40,48 @@ const AdminNav = () => {
   };
   // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const handleLogout = () => {
+    history.push('');
+    logout();
+  };
+
   const itemsList = [
     {
       text: 'Dashboard',
       icon: <DashboardIcon />,
 
-      onClick: () => {
+      onClick: (index) => {
         history.push('/');
         setOpen(false);
+        setSelectedIncon(index);
       },
     },
     {
       text: 'Users',
       icon: <PeopleIcon />,
 
-      onClick: () => {
+      onClick: (index) => {
         history.push('/users');
         setOpen(false);
+        setSelectedIncon(index);
       },
     },
     {
       text: 'Statistics',
       icon: <EqualizerIcon />,
-      onClick: () => {
+      onClick: (index) => {
         history.push('/statistic');
         setOpen(false);
+        setSelectedIncon(index);
       },
     },
     {
       text: 'Upload',
       icon: <CloudUploadIcon />,
-      onClick: () => {
+      onClick: (index) => {
         history.push('/upload');
         setOpen(false);
+        setSelectedIncon(index);
       },
     },
   ];
@@ -92,7 +102,7 @@ const AdminNav = () => {
           </IconButton>
 
           <Typography className={classes.user}>{user.firstname}</Typography>
-          <Button variant="contained" color="secondary" onClick={logout}>
+          <Button variant="contained" color="secondary" onClick={handleLogout}>
             Sign Out
           </Button>
         </Toolbar>
@@ -116,8 +126,22 @@ const AdminNav = () => {
           {itemsList.map((item, index) => {
             const { text, icon, onClick } = item;
             return (
-              <ListItem button key={text} onClick={onClick}>
-                {icon && <ListItemIcon>{icon}</ListItemIcon>}
+              <ListItem
+                button
+                key={text}
+                onClick={() => onClick(index)}
+                selected={index === selectedIcon}
+                style={
+                  selectedIcon === index ? { backgroundColor: 'gray' } : null
+                }
+              >
+                {icon && (
+                  <ListItemIcon
+                    style={selectedIcon === index ? { color: 'white' } : null}
+                  >
+                    {icon}
+                  </ListItemIcon>
+                )}
                 <ListItemText primary={text} />
               </ListItem>
             );

@@ -1,4 +1,3 @@
-import api from '../../api/api';
 import React, {
   useState,
   useEffect,
@@ -6,12 +5,17 @@ import React, {
   useContext,
   useCallback,
 } from 'react';
+// import { useHistory } from 'react-router-dom';
+
+//api
+import api from '../api/api';
 
 //context
 const AuthContext = createContext();
 
 //provider
 function AuthProvider({ children }) {
+  // const history = useHistory();
   const [token, setToken] = useState(
     window.localStorage.getItem('token') || ''
   );
@@ -29,11 +33,11 @@ function AuthProvider({ children }) {
   const login = useCallback(async (email, password) => {
     try {
       const response = await api.post('/login', { email, password });
-      console.log(response, 'ovo je response');
+
       setToken(response.data.token);
-      setStatus(response.data.message);
       const user = await api.get(`/user/${response.data.userId}`);
-      console.log(user, 'ovo je user');
+      setStatus(response.data.message);
+
       if (user) {
         setUser(user.data);
       }

@@ -1,29 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import {
-  useAdminState,
-  useAdminDispatch,
-} from '../../context/authContext/adminContext/adminContext';
+// import {
+//   useAdminState,
+//   useAdminDispatch,
+// } from '../../context/authContext/adminContext/adminContext';
 
 import Radio from '@material-ui/core/Radio';
 
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-const RadioButtons = () => {
-  const { type } = useAdminState();
-  const dispatch = useAdminDispatch();
+const RadioButtons = ({ dispatch, page, type }) => {
   const handleButtonChange = (e) => {
+    dispatch({ type: 'ITEMS', payload: null });
     const { value } = e.currentTarget;
-    console.log(value, 'ovo je value');
 
     dispatch({ type: 'RADIO_BUTTONS', payload: parseInt(value) });
     dispatch({ type: 'PAGE', payload: 1 });
   };
 
-  useEffect(() => {
-    window.localStorage.setItem('radioBtnValue', type);
-  }, [type]);
+  // useEffect(() => {
+  //   window.localStorage.setItem('radioBtnValue', type);
+  // }, [type]);
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
