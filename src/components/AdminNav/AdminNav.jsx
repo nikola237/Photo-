@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { useAuthState } from '../../context/authContext';
-
 import { useHistory } from 'react-router-dom';
 
+//auth
+import { useAuthState } from '../../context/authContext';
+
+//styles
 import {
   AppBar,
   Toolbar,
@@ -23,6 +25,7 @@ import { Menu } from '@material-ui/icons';
 import clsx from 'clsx';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import FolderIcon from '@material-ui/icons/Folder';
 import { useStyles } from './AdminNav.styles';
 
 const AdminNav = () => {
@@ -80,6 +83,16 @@ const AdminNav = () => {
       icon: <CloudUploadIcon />,
       onClick: (index) => {
         history.push('/upload');
+        setOpen(false);
+        setSelectedIncon(index);
+      },
+    },
+
+    {
+      text: 'Projects',
+      icon: <FolderIcon />,
+      onClick: (index) => {
+        history.push('/projects');
         setOpen(false);
         setSelectedIncon(index);
       },

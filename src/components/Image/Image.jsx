@@ -6,7 +6,6 @@ import ImageCard from '../ImageCard/ImageCard';
 import ErrorCard from '../ErrorCard/ErrorCard';
 
 //styles
-
 import { Grid } from '@material-ui/core';
 // import { useStyles } from './Image.styles';
 

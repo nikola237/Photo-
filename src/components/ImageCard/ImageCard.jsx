@@ -3,6 +3,7 @@ import React from 'react';
 //components
 import RemoveButtons from '../RemoveButtons/RemoveButtons';
 import Buttons from '../Buttons/Buttons';
+
 //styles
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';

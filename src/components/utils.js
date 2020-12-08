@@ -1,11 +1,12 @@
 import api from '../api/api';
 
-export const handleDownloadItem = async (pathShort, filename) => {
-  //   console.log('usao u download');
+export const handleDownloadItem = async (pathShort, filename, value) => {
   console.log('usao u download');
-  const response = await api.get(`/items/download/${pathShort}`, {
+
+  const response = await api.get(`/items/download/${pathShort}/${value}`, {
     responseType: 'blob',
   });
+
   const data = window.URL.createObjectURL(new Blob([response.data]));
   const link = document.createElement('a');
 
@@ -14,8 +15,4 @@ export const handleDownloadItem = async (pathShort, filename) => {
 
   link.click();
   link.remove();
-};
-
-export const removeItem = (id) => {
-  console.log('usao');
 };
