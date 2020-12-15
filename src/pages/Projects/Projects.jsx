@@ -31,12 +31,10 @@ const Projects = () => {
         <Tab label="active projects" />
         <Tab label="removed projects" />
       </Tabs>
-      <Grid item container justify="center">
-        {/* <Search /> */}
-      </Grid>
+      <Grid item container justify="center"></Grid>
       <Grid item container justify="center">
         {tab === 0 && <ActiveProjects tab={tab} />}
-        {tab === 1 && <RemovedProjects />}
+        {tab === 1 && <RemovedProjects tab={tab} />}
       </Grid>
     </Grid>
   );

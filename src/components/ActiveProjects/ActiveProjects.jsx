@@ -111,7 +111,7 @@ const ActiveProjects = ({ tab }) => {
       getActiveProjects();
       dispatch({ type: 'IS_LOADING', payload: false });
     }
-  }, [isLoading]);
+  }, [getActiveProjects, isLoading]);
 
   const updateFieldValue = (field, value) => {
     dispatch({
@@ -188,9 +188,7 @@ const ActiveProjects = ({ tab }) => {
       {projects && (
         <ProjectsTable
           projects={projects}
-          tab={tab}
           dispatch={dispatch}
-          isLoading={isLoading}
           page={page}
           rowsPerPage={rowsPerPage}
           count={count}

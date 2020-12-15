@@ -8,7 +8,7 @@ import Video from '../../components/Video/Video';
 import Audio from '../../components/Audio/Audio';
 import Spinner from '../Spinner/Spinner';
 
-const MyItems = ({ dispatch, items, type, page }) => {
+const MyItems = ({ dispatch, items, type, page, error }) => {
   const { id } = JSON.parse(window.localStorage.getItem('user'));
 
   useEffect(() => {
@@ -21,10 +21,12 @@ const MyItems = ({ dispatch, items, type, page }) => {
             cancelToken: source.token,
           }
         );
-
+        console.log(response, 'ovo je response iz Myitems');
         dispatch({ type: 'ITEMS', payload: response.data.rows });
         dispatch({ type: 'TOTAL_PAGES', payload: response.data.totalPages });
       } catch (error) {
+        console.log(error, 'iz catcha');
+
         if (axios.isCancel(error)) {
           throw error;
         }
@@ -43,6 +45,7 @@ const MyItems = ({ dispatch, items, type, page }) => {
           {type === 0 && <Image items={items} dispatch={dispatch} />}
           {type === 1 && <Video items={items} dispatch={dispatch} />}
           {type === 2 && <Audio items={items} dispatch={dispatch} />}
+          {error && <div>{error}</div>}
         </>
       ) : (
         <Spinner />

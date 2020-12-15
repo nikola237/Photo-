@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 //api
 import api from '../../api/api';
@@ -13,21 +13,29 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
-import { useStyles } from './ProjectsTable.styles';
+import { useStyles } from './RemovedProjectsTable.styles';
 
-const ProjectsTable = ({ projects, dispatch, page, rowsPerPage, count }) => {
+const RemovedProjectsTable = ({
+  projects,
+  dispatch,
+  page,
+  rowsPerPage,
+  count,
+}) => {
   const classes = useStyles();
 
-  const handleRemoveProject = async (id) => {
-    const response = await api.delete('/projects/remove', { data: { id } });
-    dispatch({ type: 'IS_LOADING', payload: true });
-  };
-  const handleEditProject = async (id) => {
-    const response = await api.get(`/project/${id}`);
-    console.log(response.data, 'iz Edita');
-    dispatch({ type: 'EDIT_PROJECT', payload: response.data });
+  console.log(count, 'ovo je count');
 
+  const handleRemoveProject = async (id) => {
+    const response = await api.delete(`/projects`, { data: { id } });
     dispatch({ type: 'IS_LOADING', payload: true });
+    console.log(response, 'obrisan');
+  };
+
+  const handleRestoreProject = async (id) => {
+    const response = await api.post('/projects/restore', { id });
+    dispatch({ type: 'IS_LOADING', payload: true });
+    console.log(response);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -56,7 +64,7 @@ const ProjectsTable = ({ projects, dispatch, page, rowsPerPage, count }) => {
           {projects.map((project) => {
             if (project?.message) {
               return (
-                <TableRow align="center" scope="row" key={1}>
+                <TableRow align="center" scope="row" key={0}>
                   <TableCell>{project.message}</TableCell>
                 </TableRow>
               );
@@ -73,10 +81,9 @@ const ProjectsTable = ({ projects, dispatch, page, rowsPerPage, count }) => {
                       Remove
                     </Button>
                   </TableCell>
-
                   <TableCell>
-                    <Button onClick={() => handleEditProject(project.id)}>
-                      Edit
+                    <Button onClick={() => handleRestoreProject(project.id)}>
+                      Restore
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -99,4 +106,4 @@ const ProjectsTable = ({ projects, dispatch, page, rowsPerPage, count }) => {
   );
 };
 
-export default ProjectsTable;
+export default RemovedProjectsTable;

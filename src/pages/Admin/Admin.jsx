@@ -25,12 +25,24 @@ const INITIAL_STATE = {
   totalPages: undefined,
   isLoading: false,
   tab: 0,
+  error: null,
 };
 
 const Admin = () => {
   const [state, dispatch] = useReducer(adminReducer, INITIAL_STATE);
 
-  const { items, type, kwords, page, totalPages, isLoading, tab } = state;
+  const {
+    items,
+    type,
+    kwords,
+    page,
+    totalPages,
+    isLoading,
+    tab,
+    error,
+  } = state;
+
+  console.log(error, 'ovo je error');
 
   const classes = useStyles();
 
@@ -106,6 +118,7 @@ const Admin = () => {
             kwords={kwords}
             page={page}
             tab={tab}
+            error={error}
           />
         )}
       </Grid>

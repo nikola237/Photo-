@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 //api
 import api from '../../api/api';
-import axios from 'axios';
 
 //components
 import Spinner from '../../components/Spinner/Spinner';
@@ -30,6 +29,7 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
       const response = await api.get(
         `/users/remove/?page=${page}&size=${rowsPerPage}`
       );
+      console.log(response.data.rows, 'useri');
       setCount(response.data.totalItems);
       dispatch({ type: 'USERS', payload: response.data.rows });
     };
@@ -87,27 +87,39 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((row) => (
-              <TableRow align="center" scope="row" key={row.id}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.firstname}</TableCell>
-                <TableCell>{row.lastname}</TableCell>
-                <TableCell>{row.username}</TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>{row.role}</TableCell>
-                <TableCell>{row.isActive}</TableCell>
-                <TableCell>{row.createdAt}</TableCell>
-                <TableCell>
-                  <Button onClick={() => removeUserById(row.id)}>Remove</Button>
-                </TableCell>
+            {users.map((row) => {
+              if (users[0].message) {
+                return (
+                  <TableRow align="center" scope="row" key={1}>
+                    <TableCell>{row.message}</TableCell>
+                  </TableRow>
+                );
+              } else {
+                return (
+                  <TableRow align="center" scope="row" key={row.id}>
+                    <TableCell>{row.id}</TableCell>
+                    <TableCell>{row.firstname}</TableCell>
+                    <TableCell>{row.lastname}</TableCell>
+                    <TableCell>{row.username}</TableCell>
+                    <TableCell>{row.email}</TableCell>
+                    <TableCell>{row.role}</TableCell>
+                    <TableCell>{row.isActive}</TableCell>
+                    <TableCell>{row.createdAt}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => removeUserById(row.id)}>
+                        Remove
+                      </Button>
+                    </TableCell>
 
-                <TableCell>
-                  <Button onClick={() => restoreUserById(row.id)}>
-                    Restore
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                    <TableCell>
+                      <Button onClick={() => restoreUserById(row.id)}>
+                        Restore
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              }
+            })}
           </TableBody>
         </Table>
       ) : (

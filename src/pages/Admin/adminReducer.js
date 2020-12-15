@@ -47,6 +47,9 @@ export function adminReducer(state, action) {
         ...state,
         editItem: state.items.filter((item) => item.id === action.payload),
       };
+
+    case 'ERROR':
+      return { ...state, error: 'Nista nije pronadjeno' };
     default: {
       throw new Error(`Unhandled action type: ${action.type} `);
     }

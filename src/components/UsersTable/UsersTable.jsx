@@ -31,15 +31,13 @@ const UsersTable = ({
 
   const classes = useStyles();
 
-  console.log(users, 'ovo su user');
-
   const getData = useCallback(() => {
     const getActiveUsers = async () => {
       try {
         const response = await api.get(
           `/users?size=${rowsPerPage}&page=${page}`
         );
-        console.log(response, 'iz usera');
+
         setCount(response.data.totalItems);
         dispatch({ type: 'USERS', payload: response.data.rows });
       } catch (error) {
@@ -103,25 +101,37 @@ const UsersTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((row) => (
-              <TableRow align="center" scope="row" key={row.id}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.firstname}</TableCell>
-                <TableCell>{row.lastname}</TableCell>
-                <TableCell>{row.username}</TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>{row.role}</TableCell>
-                <TableCell>{String(row.isactive)}</TableCell>
-                <TableCell>{row.createdAt}</TableCell>
-                <TableCell>
-                  <Button onClick={() => deleteUserById(row.id)}>Remove</Button>
-                </TableCell>
+            {users.map((row) => {
+              if (users[0].message) {
+                return (
+                  <TableRow align="center" scope="row" key={1}>
+                    <TableCell>{row.message}</TableCell>
+                  </TableRow>
+                );
+              } else {
+              }
+              return (
+                <TableRow align="center" scope="row" key={row.id}>
+                  <TableCell>{row.id}</TableCell>
+                  <TableCell>{row.firstname}</TableCell>
+                  <TableCell>{row.lastname}</TableCell>
+                  <TableCell>{row.username}</TableCell>
+                  <TableCell>{row.email}</TableCell>
+                  <TableCell>{row.role}</TableCell>
+                  <TableCell>{row.isActive}</TableCell>
+                  <TableCell>{row.createdAt}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => deleteUserById(row.id)}>
+                      Remove
+                    </Button>
+                  </TableCell>
 
-                <TableCell>
-                  <Button onClick={() => editUserById(row.id)}>Edit</Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                  <TableCell>
+                    <Button onClick={() => editUserById(row.id)}>Edit</Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       ) : (
