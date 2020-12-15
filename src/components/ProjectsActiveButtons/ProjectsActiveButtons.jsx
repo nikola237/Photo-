@@ -13,6 +13,7 @@ const ProjectsActiveButtons = ({ id, dispatch }) => {
   };
   const handleEditProject = async (id) => {
     const response = await api.get(`/project/${id}`);
+    console.log(response.data, 'iz Edita');
     dispatch({ type: 'EDIT_PROJECT', payload: response.data });
 
     dispatch({ type: 'IS_LOADING', payload: true });

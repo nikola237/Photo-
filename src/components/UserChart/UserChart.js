@@ -1,0 +1,164 @@
+import React, { useEffect, useState } from 'react';
+import { HorizontalBar } from 'react-chartjs-2';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import ImageIcon from '@material-ui/icons/Image';
+
+function UserChart({ data, startDate, endDate }) {
+  const [dataUsr, setDataUsr] = useState({});
+  const [csvCount, setCsvCount] = useState({});
+
+  const optionsUsers = {
+    scales: {
+      yAxes: [
+        {
+          gridLines: {
+            color: '#ffff',
+          },
+          ticks: {
+            fontColor: '#ffff',
+            fontSize: 20,
+          },
+        },
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            color: '#ffff',
+          },
+          ticks: {
+            fontColor: '#ffff',
+            stepSize: 1,
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+    title: {
+      display: true,
+      fontColor: 'white',
+      text: 'Korisnici',
+      fontSize: 20,
+    },
+
+    legend: {
+      display: false,
+      labels: {
+        fontColor: '#ffff',
+        fontSize: 20,
+      },
+    },
+    maintainAspectRatio: false,
+    responsive: true,
+    tooltips: {
+      titleFontSize: 20,
+      bodyFontSize: 20,
+    },
+  };
+
+  let dataUsers = {
+    labels: [],
+    datasets: [
+      {
+        // label: 'Korisnici',
+        hoverBackgroundColor: '#959799',
+        hoverBorderColor: '#959799',
+        data: [],
+        backgroundColor: [],
+        borderWidth: 2,
+      },
+    ],
+  };
+
+  useEffect(() => {
+    if (data.length > 0) {
+      var count = {};
+      data.forEach((item) => {
+        if (count[item.user.username]) {
+          count[item.user.username] += 1;
+          return;
+        }
+        count[item.user.username] = 1;
+      });
+
+      var colors = [];
+      var borderColors = [];
+      for (let prop in count) {
+        if (count[prop] >= 2) {
+          colors.push(random_rgba());
+          borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
+        }
+      }
+
+      dataUsers.datasets[0].backgroundColor = colors;
+      dataUsers.labels.push(...Object.keys(count));
+      dataUsers.datasets[0].data = Object.values(count);
+      dataUsers.datasets[0].borderColor = borderColors;
+
+      setDataUsr(dataUsers);
+      setCsvCount(count);
+    }
+  }, [data]);
+
+  function random_rgba() {
+    var o = Math.round,
+      r = Math.random,
+      s = 255;
+    return (
+      'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
+    );
+  }
+  function downloadChart() {
+    const linkSource = document.getElementById('test').toDataURL('image/jpg');
+    const downloadLink = document.createElement('a');
+    document.body.appendChild(downloadLink);
+    downloadLink.href = linkSource;
+    downloadLink.target = '_self';
+    downloadLink.download = 'test' + '.png';
+    downloadLink.click();
+  }
+
+  function downloadCsv() {
+    var dwCsv = JSON.stringify(csvCount)
+      .replaceAll('"', '')
+      .replace('{', '')
+      .replace('}', '')
+      .replaceAll(',', '\n')
+      .replaceAll(':', ',');
+
+    var csv =
+      'sep=,\n Datum Pocetka, Datum Zavrsetka\n' +
+      startDate +
+      ',' +
+      endDate +
+      '\n\n Korisnicko Ime, Broj Preuzimanja\n' +
+      dwCsv;
+
+    var encodedUri = encodeURI(csv);
+    var link = document.createElement('a');
+    link.setAttribute(
+      'href',
+      'data:text/csv;charset=utf-8,\uFEFF' + encodedUri
+    );
+    link.setAttribute('download', 'Korisnici.csv');
+    link.click();
+  }
+  return (
+    <>
+      <button className="downloadButton" onClick={downloadChart}>
+        <ImageIcon />
+      </button>
+      <button className="downloadButton_csv" onClick={downloadCsv}>
+        <GetAppIcon />
+      </button>
+      <HorizontalBar
+        width="600"
+        height="250"
+        id="test"
+        data={dataUsr}
+        options={optionsUsers}
+      />
+    </>
+  );
+}
+
+export default UserChart;

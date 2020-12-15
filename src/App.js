@@ -3,21 +3,24 @@ import React from 'react';
 import { useAuthState } from './context/authContext';
 
 import { BrowserRouter as Routes } from 'react-router-dom';
-import Spinner from './components/Spinner/Spinner';
+// import Spinner from './components/Spinner/Spinner';
 
-const Authenticated = React.lazy(() =>
-  import('./components/Authenticated/Authenticated')
-);
+// const Authenticated = React.lazy(() =>
+//   import('./components/Authenticated/Authenticated')
+// );
 
-const Unauthenticated = React.lazy(() =>
-  import('./components/Unauthenticated/Unauthenticated')
-);
+// const Unauthenticated = React.lazy(() =>
+//   import('./components/Unauthenticated/Unauthenticated')
+// );
+
+import Authenticated from './components/Authenticated/Authenticated';
+import Unauthenticated from './components/Unauthenticated/Unauthenticated';
 
 function App() {
   const { user } = useAuthState();
 
   return (
-    <React.Suspense fallback={<Spinner />}>
+    <div>
       {user ? (
         <Routes>
           <Authenticated />
@@ -25,7 +28,7 @@ function App() {
       ) : (
         <Unauthenticated />
       )}
-    </React.Suspense>
+    </div>
   );
 }
 

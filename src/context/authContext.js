@@ -5,7 +5,6 @@ import React, {
   useContext,
   useCallback,
 } from 'react';
-// import { useHistory } from 'react-router-dom';
 
 //api
 import api from '../api/api';
@@ -15,7 +14,6 @@ const AuthContext = createContext();
 
 //provider
 function AuthProvider({ children }) {
-  // const history = useHistory();
   const [token, setToken] = useState(
     window.localStorage.getItem('token') || ''
   );
@@ -36,13 +34,14 @@ function AuthProvider({ children }) {
 
       setToken(response.data.token);
       const user = await api.get(`/user/${response.data.userId}`);
-      setStatus(response.data.message);
+      setStatus('Uspesno ste se ulogovali');
 
       if (user) {
         setUser(user.data);
       }
     } catch (error) {
       console.log('usao u error');
+
       setStatus('Incorrect email or password');
     }
   }, []);

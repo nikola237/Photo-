@@ -1,48 +1,48 @@
 import React from 'react';
+
+//provider
+import {
+  useProjectsState,
+  useProjectsDispatch,
+} from '../../context/projectsContext';
+
 //styles
 import Radio from '@material-ui/core/Radio';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-const RadioButtons = ({ dispatch, page, type }) => {
+const ProjectsRadioButtons = () => {
+  const dispatch = useProjectsDispatch();
+  const { type } = useProjectsState();
   const handleButtonChange = (e) => {
-    dispatch({ type: 'ITEMS', payload: null });
     const { value } = e.currentTarget;
 
+    console.log(value, 'ovo je value');
     dispatch({ type: 'RADIO_BUTTONS', payload: parseInt(value) });
-    dispatch({ type: 'PAGE', payload: 1 });
+    dispatch({ type: 'PROJECTS', payload: null });
   };
-
   return (
     <FormControl>
       <div>
-        <FormLabel>Image</FormLabel>
-        <Radio
-          value={0}
-          checked={type === 0}
-          type="radio"
-          onChange={handleButtonChange}
-          name="image"
-        />
-        <FormLabel>Audio</FormLabel>
-        <Radio
-          value={2}
-          checked={type === 2}
-          type="radio"
-          onChange={handleButtonChange}
-          name="audio"
-        />
-        <FormLabel>Video</FormLabel>
+        <FormLabel>Active</FormLabel>
         <Radio
           value={1}
           checked={type === 1}
           type="radio"
           onChange={handleButtonChange}
-          name="video"
+          name="active"
+        />
+        <FormLabel>Inactive</FormLabel>
+        <Radio
+          value={0}
+          checked={type === 0}
+          type="radio"
+          onChange={handleButtonChange}
+          name="inactive"
         />
       </div>
     </FormControl>
   );
 };
 
-export default RadioButtons;
+export default ProjectsRadioButtons;

@@ -8,15 +8,14 @@ import { useStyles } from './Search.styles';
 const Search = ({ dispatch, kwords }) => {
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   window.localStorage.setItem('kwordValue', kwords);
-  // }, [kwords]);
-
   const filterSearch = (value) => {
     let term;
     if (value !== '') {
       let searchTerm = value.toLowerCase();
-      term = searchTerm.replace(/([^,.]) /g, '$1, ');
+
+      term = searchTerm.replace(/^[,\s]+|[,\s]+$/g, '');
+      term = searchTerm.replace(/\s*,\s*/g, ',');
+      // term = searchTerm.replace(/([^,.]) /g, '$1, ');
     } else {
       term = '';
     }

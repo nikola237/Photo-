@@ -73,7 +73,7 @@ const AdminNav = () => {
       text: 'Statistics',
       icon: <EqualizerIcon />,
       onClick: (index) => {
-        history.push('/statistic');
+        history.push('/statistics');
         setOpen(false);
         setSelectedIncon(index);
       },

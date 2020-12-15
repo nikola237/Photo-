@@ -42,6 +42,11 @@ export function adminReducer(state, action) {
         ...state,
         isLoading: action.payload,
       };
+    case 'EDIT_ITEM':
+      return {
+        ...state,
+        editItem: state.items.filter((item) => item.id === action.payload),
+      };
     default: {
       throw new Error(`Unhandled action type: ${action.type} `);
     }

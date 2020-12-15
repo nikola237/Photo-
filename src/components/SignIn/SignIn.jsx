@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useAuthState } from '../../context/authContext';
 
@@ -10,6 +10,9 @@ import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 import { useStyles } from './SignIn.styles';
 
 const SignIn = () => {
@@ -18,6 +21,7 @@ const SignIn = () => {
   const { login, status } = useAuthState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [icon, setIcon] = useState(true);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -34,6 +38,10 @@ const SignIn = () => {
     } else if (name === 'password') {
       setPassword(value);
     }
+  };
+
+  const handleVisibility = (event) => {
+    setIcon((prev) => !prev);
   };
 
   return (
@@ -67,7 +75,7 @@ const SignIn = () => {
             <TextField
               id="password"
               name="password"
-              type="password"
+              type={icon ? 'password' : 'text'}
               label="Password"
               onChange={changeHandler}
               value={password}
@@ -77,6 +85,9 @@ const SignIn = () => {
               required
               fullWidth
             />
+            <IconButton onClick={handleVisibility}>
+              {icon ? <VisibilityOffIcon /> : <VisibilityIcon />}
+            </IconButton>
           </div>
           <Button
             type="submit"

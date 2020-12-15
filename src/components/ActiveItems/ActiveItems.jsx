@@ -9,40 +9,19 @@ import Video from '../../components/Video/Video';
 import Audio from '../../components/Audio/Audio';
 import Spinner from '../Spinner/Spinner';
 
-const ActiveItems = ({
-  dispatch,
-  items,
-  type,
-  kwords,
-  page,
-  isLoading,
-  setOpen,
-}) => {
+const ActiveItems = ({ dispatch, items, type, kwords, page, isLoading }) => {
   const getData = useCallback(() => {
-    const source = axios.CancelToken.source();
-
     const getActiveItems = async () => {
       try {
-        const response = await api.post(
-          `/items/search?size=10&page=${page}`,
-          {
-            type: type,
-            kwords: kwords,
-          },
-          { cancelToken: source.token }
-        );
+        const response = await api.post(`/items/search?size=10&page=${page}`, {
+          type: type,
+          kwords: kwords,
+        });
 
         dispatch({ type: 'ITEMS', payload: response.data.rows });
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          throw error;
-        }
-      }
+      } catch (error) {}
     };
     getActiveItems();
-    return () => {
-      source.cancel();
-    };
   }, [dispatch, kwords, page, type]);
 
   useEffect(() => {

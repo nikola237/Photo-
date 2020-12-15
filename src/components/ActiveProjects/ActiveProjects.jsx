@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useCallback } from 'react';
 //api
 import api from '../../api/api';
 
@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
 function activeProjectsReducer(state, action) {
+  console.log(action.payload, 'iz reducera');
   switch (action.type) {
     case 'PROJECTS':
       return {
@@ -32,7 +33,7 @@ function activeProjectsReducer(state, action) {
       return {
         ...state,
         projectName: action.payload.projectname,
-        isActive: action.payload.isActive,
+        isActive: action.payload.isactive,
         projectId: action.payload.id,
       };
     case 'REMOVE_PROJECT':
@@ -45,6 +46,23 @@ function activeProjectsReducer(state, action) {
         ...state,
         isLoading: action.payload,
       };
+    case 'PAGE_PAGINATION':
+      return {
+        ...state,
+
+        page: action.payload,
+      };
+    case 'ROWS_PAGE_PAGINATION':
+      return {
+        ...state,
+        rowsPerPage: action.payload,
+      };
+    case 'COUNT_PAGINATION':
+      return {
+        ...state,
+        count: action.payload,
+      };
+
     default: {
       throw new Error(`Unhandled action type: ${action.type} `);
     }
@@ -58,20 +76,35 @@ const ActiveProjects = ({ tab }) => {
     isActive: 1,
     projectId: null,
     isLoading: false,
+    page: 1,
+    rowsPerPage: 5,
+    count: 0,
   });
 
-  const { projects, projectName, isActive, projectId, isLoading } = state;
+  const {
+    projects,
+    projectName,
+    isActive,
+    projectId,
+    isLoading,
+    page,
+    rowsPerPage,
+    count,
+  } = state;
 
-  console.log(projects, 'iz stejta');
-  const getActiveProjects = async () => {
-    const response = await api.get('/projects');
-
+  console.log(isActive, 'iz stejta');
+  const getActiveProjects = useCallback(async () => {
+    const response = await api.get(
+      `/projects?size=${rowsPerPage}&page=${page}`
+    );
+    dispatch({ type: 'COUNT_PAGINATION', payload: response.data.totalItems });
+    console.log(response.data, 'projekti');
     dispatch({ type: 'PROJECTS', payload: response.data.rows });
-  };
+  }, [page, rowsPerPage]);
 
   useEffect(() => {
     getActiveProjects();
-  }, []);
+  }, [getActiveProjects]);
 
   useEffect(() => {
     if (isLoading) {
@@ -93,14 +126,11 @@ const ActiveProjects = ({ tab }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (projectName === '') {
-      console.log('usao');
       return;
     }
 
     const response = await api.post('/projects', {
       projectname: projectName,
-
-      //za editovanje
       isactive: isActive,
     });
     dispatch({ type: 'IS_LOADING', payload: true });
@@ -111,7 +141,7 @@ const ActiveProjects = ({ tab }) => {
   const handleEditedProject = async () => {
     const response = await api.put(`/project/${projectId}`, {
       projectname: projectName,
-      isActive: isActive,
+      isactive: isActive,
       projectId: projectId,
     });
     dispatch({ type: 'IS_LOADING', payload: true });
@@ -121,7 +151,6 @@ const ActiveProjects = ({ tab }) => {
   return (
     <Grid container justify="center">
       <Grid item container direction="row" justify="center">
-        Create new Project
         <form>
           <TextField
             autoFocus
@@ -162,6 +191,9 @@ const ActiveProjects = ({ tab }) => {
           tab={tab}
           dispatch={dispatch}
           isLoading={isLoading}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          count={count}
         />
       )}
     </Grid>

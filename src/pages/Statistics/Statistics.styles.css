@@ -1,0 +1,137 @@
+.container{
+  padding:1%;
+  background-color: #e0a041 !important;
+  height: initial !important;
+  min-height: 100vh;
+}
+.heading{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  color:white;
+  padding:0 !important;
+  height: 90px;
+}
+.picker{
+  width: max-content;
+  background-color: #343a40!important;
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66); 
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66);
+  border-radius: 6px;
+}
+.date-input{
+  margin:20px !important;
+}
+.totalCount{
+  background-color: #343a40!important;
+  color: white;
+  padding: 20px;
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66); 
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66);
+  border-radius: 6px;
+  margin-left: 1%;
+
+}
+.totalCount-title{
+margin:0;
+
+}
+.totalCount-number{
+  text-align: center;
+  font-weight: 600;
+  font-size:30px;
+  margin:0;
+}
+.chart-wrapper{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 1.5% 0;
+  position: relative;
+  height:43vh; 
+  width:97vw;
+
+}
+.chart{
+  flex:0 0 45%;
+  height: 400px;
+  background-color: #343a40!important;
+  padding:2%;
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66); 
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66);
+  border-radius: 6px;
+  
+
+}
+
+
+.user-wrapper{
+  flex:0 0 90%;
+  margin-top:30px;
+}
+
+.user-title{
+  text-align: center;
+  font-size: 30px;
+  margin:0;
+  font-weight: 600;
+  margin:30px auto;
+  width: 30%;
+  background-color: #343a40!important;
+  color: white;
+  padding: 5px;
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66); 
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66);
+  border-radius: 6px;
+}
+
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.typeButton{
+  background-color: #343a40!important;
+  color: white;
+  padding: 20px;
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66); 
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.66);
+  border-radius: 6px;
+  margin-left: 1%;
+  flex: 1 1 10%;
+  cursor: pointer;
+  transition: all ease-in .3s;
+}
+.typeButton:hover{
+  opacity:0.9;
+  transform: scale(1.02);
+}
+.typeButton-text{
+  vertical-align: middle;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+}
+.active{
+  background: linear-gradient(45deg, #3b843e 30%, rgb(59 181 64) 90%);
+  box-shadow: 3px 5px 15px 5px rgba(0,0,0,0.44);
+  color: white !important;
+  font-weight: 600;
+}   
+
+.downloadButton{
+  color: white;
+  background-color: #343a40;
+  border: 1px solid white;
+  border-radius: 5px;
+  float: right;
+}
+.downloadButton_csv{
+  color: white;
+  background-color: #343a40;
+  border: 1px solid white;
+  border-radius: 5px;
+  float: left;
+}

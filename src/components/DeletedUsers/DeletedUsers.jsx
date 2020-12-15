@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 //api
 import api from '../../api/api';
+import axios from 'axios';
 
 //components
 import Spinner from '../../components/Spinner/Spinner';
@@ -21,6 +22,7 @@ import { useStyles } from './DeletedUsers.styles';
 const DeletedUsers = ({ dispatch, users, isLoading }) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [count, setCount] = useState(0);
   const classes = useStyles();
 
   const getData = useCallback(() => {
@@ -28,7 +30,7 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
       const response = await api.get(
         `/users/remove/?page=${page}&size=${rowsPerPage}`
       );
-
+      setCount(response.data.totalItems);
       dispatch({ type: 'USERS', payload: response.data.rows });
     };
     getRemovedUsers();
@@ -46,12 +48,12 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
   }, [dispatch, getData, isLoading]);
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    setPage(newPage + 1);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
-    // setPage(0);
+    setPage(1);
   };
 
   const restoreUserById = async (id) => {
@@ -115,9 +117,9 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
-        count={50}
+        count={count}
         rowsPerPage={rowsPerPage}
-        page={page}
+        page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />

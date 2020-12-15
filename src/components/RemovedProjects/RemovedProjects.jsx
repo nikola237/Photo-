@@ -32,7 +32,7 @@ const RemovedProjects = () => {
 
   const getRemovedProjects = async () => {
     const response = await api.get('/projects/remove/');
-    // console.log(response.data.rows, 'iz obrisanih');
+
     dispatch({ type: 'REMOVED_PROJECTS', payload: response.data.rows });
   };
 

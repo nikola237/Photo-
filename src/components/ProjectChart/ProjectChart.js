@@ -1,0 +1,165 @@
+import React, { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import ImageIcon from '@material-ui/icons/Image';
+
+function ProjectChart({ data, startDate, endDate }) {
+  const [dataProj, setDataProj] = useState([]);
+  const [csvCount, setCsvCount] = useState({});
+  const optionsProject = {
+    maintainAspectRatio: false,
+    responsive: true,
+    tooltips: {
+      titleFontSize: 20,
+      bodyFontSize: 20,
+    },
+    legend: {
+      display: false,
+      labels: {
+        fontColor: '#ffff',
+        fontSize: 25,
+      },
+    },
+    title: {
+      display: true,
+      fontColor: 'white',
+      text: 'Projekti',
+      fontSize: 20,
+    },
+    scales: {
+      xAxes: [
+        {
+          gridLines: {
+            color: '#ffff',
+          },
+          ticks: {
+            fontColor: '#ffff',
+            fontSize: 20,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          gridLines: {
+            color: '#ffff',
+          },
+          ticks: {
+            fontColor: '#ffff',
+            stepSize: 1,
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+  let dataProject = {
+    labels: [],
+    datasets: [
+      {
+        hoverBackgroundColor: '#959799',
+        hoverBorderColor: '#959799',
+        data: [],
+        backgroundColor: [],
+        borderColor: [],
+        borderWidth: 2,
+      },
+    ],
+  };
+
+  useEffect(() => {
+    if (data.length > 0) {
+      var countProjects = {};
+
+      data.forEach((item) => {
+        if (countProjects[item.project.projectname]) {
+          countProjects[item.project.projectname] += 1;
+          return;
+        }
+        countProjects[item.project.projectname] = 1;
+      });
+
+      var colorsProjects = [];
+      var borderColorsProject = [];
+      for (let prop in countProjects) {
+        if (countProjects[prop] >= 2) {
+          colorsProjects.push(random_rgba());
+          borderColorsProject.push(
+            colorsProjects[colorsProjects.length - 1].replace('0.3', '1')
+          );
+        }
+      }
+
+      dataProject.labels.push(...Object.keys(countProjects));
+      dataProject.datasets[0].data = Object.values(countProjects);
+      dataProject.datasets[0].backgroundColor = colorsProjects;
+      dataProject.datasets[0].borderColor = borderColorsProject;
+
+      setDataProj(dataProject);
+      setCsvCount(countProjects);
+    }
+  }, [data]);
+
+  function random_rgba() {
+    var o = Math.round,
+      r = Math.random,
+      s = 255;
+    return (
+      'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
+    );
+  }
+  function downloadChart() {
+    const linkSource = document.getElementById('bar').toDataURL('image/jpg');
+    const downloadLink = document.createElement('a');
+    document.body.appendChild(downloadLink);
+    downloadLink.href = linkSource;
+    downloadLink.target = '_self';
+    downloadLink.download = 'bar' + '.png';
+    downloadLink.click();
+  }
+
+  function downloadCsv() {
+    var dwCsv = JSON.stringify(csvCount)
+      .replaceAll('"', '')
+      .replace('{', '')
+      .replace('}', '')
+      .replaceAll(',', '\n')
+      .replaceAll(':', ',');
+
+    var csv =
+      'sep=,\n Datum Pocetka, Datum Zavrsetka\n' +
+      startDate +
+      ',' +
+      endDate +
+      '\n\n Naziv Projekta, Broj Preuzimanja\n' +
+      dwCsv;
+
+    var encodedUri = encodeURI(csv);
+    var link = document.createElement('a');
+    link.setAttribute(
+      'href',
+      'data:text/csv;charset=utf-8,\uFEFF' + encodedUri
+    );
+    link.setAttribute('download', 'Projekti.csv');
+    link.click();
+  }
+
+  return (
+    <>
+      <button className="downloadButton" onClick={downloadChart}>
+        <ImageIcon />
+      </button>
+      <button className="downloadButton_csv" onClick={downloadCsv}>
+        <GetAppIcon />
+      </button>
+      <Bar
+        width="600"
+        height="250"
+        data={dataProj}
+        options={optionsProject}
+        id="bar"
+      />
+    </>
+  );
+}
+
+export default ProjectChart;

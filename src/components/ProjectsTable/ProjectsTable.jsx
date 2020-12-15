@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-// //api
-// import api from '../../api/api';
-
 //components
 import ProjectsRemovedButtons from '../ProjectsRemovedButtons/ProjectsRemovedButtons';
 import ProjectsActiveButtons from '../ProjectsActiveButtons/ProjectsActiveButtons';
@@ -16,16 +13,32 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import { Button } from '@material-ui/core';
+
 import { useStyles } from './ProjectsTable.styles';
 
-const ProjectsTable = ({ projects, tab, dispatch, isLoading }) => {
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+const ProjectsTable = ({
+  projects,
+  tab,
+  dispatch,
+  isLoading,
+  page,
+  rowsPerPage,
+  count,
+}) => {
+  // const [page, setPage] = useState(1);
+  // const [rowsPerPage, setRowsPerPage] = useState(5);
+  // const [count, setCount] = useState(0);
   const classes = useStyles();
 
-  const handleChangePage = () => {};
-  const handleChangeRowsPerPage = () => {};
+  const handleChangePage = (newPage) => {
+    dispatch({ type: 'PAGE_PAGINATION', payload: newPage + 1 });
+    // setPage(newPage + 1);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    // setRowsPerPage(+event.target.value);
+    dispatch({ type: 'ROWS_PAGE_PAGINATION', payload: +event.target.value });
+    dispatch({ type: 'PAGE_PAGINATION', payload: 1 });
+  };
 
   return (
     <TableContainer component={Paper} className={classes.table}>
@@ -81,9 +94,9 @@ const ProjectsTable = ({ projects, tab, dispatch, isLoading }) => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
-        count={50}
+        count={count}
         rowsPerPage={rowsPerPage}
-        page={page}
+        page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />

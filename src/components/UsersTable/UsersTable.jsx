@@ -27,9 +27,11 @@ const UsersTable = ({
 }) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [count, setCount] = useState(0);
 
-  console.log(isLoading, 'ovo je loading');
   const classes = useStyles();
+
+  console.log(users, 'ovo su user');
 
   const getData = useCallback(() => {
     const getActiveUsers = async () => {
@@ -37,7 +39,8 @@ const UsersTable = ({
         const response = await api.get(
           `/users?size=${rowsPerPage}&page=${page}`
         );
-
+        console.log(response, 'iz usera');
+        setCount(response.data.totalItems);
         dispatch({ type: 'USERS', payload: response.data.rows });
       } catch (error) {
         console.log(error, 'usao u error');
@@ -73,12 +76,12 @@ const UsersTable = ({
   }, [dispatch, getData, isLoading]);
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    setPage(newPage + 1);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
-    // setPage(0);
+    setPage(1);
   };
 
   return (
@@ -108,7 +111,7 @@ const UsersTable = ({
                 <TableCell>{row.username}</TableCell>
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.role}</TableCell>
-                <TableCell>{row.isActive}</TableCell>
+                <TableCell>{String(row.isactive)}</TableCell>
                 <TableCell>{row.createdAt}</TableCell>
                 <TableCell>
                   <Button onClick={() => deleteUserById(row.id)}>Remove</Button>
@@ -128,9 +131,9 @@ const UsersTable = ({
       <TablePagination
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
-        count={50}
+        count={count}
         rowsPerPage={rowsPerPage}
-        page={page}
+        page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
