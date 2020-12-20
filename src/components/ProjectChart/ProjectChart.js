@@ -4,7 +4,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import ImageIcon from '@material-ui/icons/Image';
 
 function ProjectChart({ data, startDate, endDate }) {
-  const [dataProj, setDataProj] = useState([]);
+  const [dataProj, setDataProj] = useState({});
   const [csvCount, setCsvCount] = useState({});
   const optionsProject = {
     maintainAspectRatio: false,
@@ -81,12 +81,12 @@ function ProjectChart({ data, startDate, endDate }) {
       var colorsProjects = [];
       var borderColorsProject = [];
       for (let prop in countProjects) {
-        if (countProjects[prop] >= 2) {
+        // if (countProjects[prop] >= 2) {
           colorsProjects.push(random_rgba());
           borderColorsProject.push(
             colorsProjects[colorsProjects.length - 1].replace('0.3', '1')
           );
-        }
+        // }
       }
 
       dataProject.labels.push(...Object.keys(countProjects));
@@ -100,20 +100,22 @@ function ProjectChart({ data, startDate, endDate }) {
   }, [data]);
 
   function random_rgba() {
-    var o = Math.round,
-      r = Math.random,
-      s = 255;
+    // var o = Math.round,
+    //   r = Math.random,
+    //   s = 255;
     return (
-      'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
+      "hsla(" + Math.random() * 360 + ", 100%, 75%,0.7)"
+      // 'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
     );
   }
+  
   function downloadChart() {
     const linkSource = document.getElementById('bar').toDataURL('image/jpg');
     const downloadLink = document.createElement('a');
     document.body.appendChild(downloadLink);
     downloadLink.href = linkSource;
     downloadLink.target = '_self';
-    downloadLink.download = 'bar' + '.png';
+    downloadLink.download = 'Projekti' + '.png';
     downloadLink.click();
   }
 
@@ -152,8 +154,6 @@ function ProjectChart({ data, startDate, endDate }) {
         <GetAppIcon />
       </button>
       <Bar
-        width="600"
-        height="250"
         data={dataProj}
         options={optionsProject}
         id="bar"

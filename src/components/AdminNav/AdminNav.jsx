@@ -115,7 +115,7 @@ const AdminNav = () => {
           </IconButton>
 
           <Typography className={classes.user}>{user.firstname}</Typography>
-          <Button variant="contained" color="secondary" onClick={handleLogout}>
+          <Button variant="contained"  onClick={handleLogout}>
             Sign Out
           </Button>
         </Toolbar>

@@ -3,6 +3,7 @@ import { HorizontalBar } from 'react-chartjs-2';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import ImageIcon from '@material-ui/icons/Image';
 
+
 function UserChart({ data, startDate, endDate }) {
   const [dataUsr, setDataUsr] = useState({});
   const [csvCount, setCsvCount] = useState({});
@@ -59,7 +60,6 @@ function UserChart({ data, startDate, endDate }) {
     labels: [],
     datasets: [
       {
-        // label: 'Korisnici',
         hoverBackgroundColor: '#959799',
         hoverBorderColor: '#959799',
         data: [],
@@ -73,20 +73,24 @@ function UserChart({ data, startDate, endDate }) {
     if (data.length > 0) {
       var count = {};
       data.forEach((item) => {
-        if (count[item.user.username]) {
-          count[item.user.username] += 1;
-          return;
+        if(item.user != null){
+          if (count[item.user.username]) {
+            count[item.user.username] += 1;
+            return;
+          }
+          count[item.user.username] = 1;
         }
-        count[item.user.username] = 1;
+        
       });
 
       var colors = [];
       var borderColors = [];
       for (let prop in count) {
-        if (count[prop] >= 2) {
+        console.log(count[prop]);
+        // if (count[prop] >= 2) {
           colors.push(random_rgba());
           borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
-        }
+        // }
       }
 
       dataUsers.datasets[0].backgroundColor = colors;
@@ -98,13 +102,14 @@ function UserChart({ data, startDate, endDate }) {
       setCsvCount(count);
     }
   }, [data]);
-
+  
   function random_rgba() {
-    var o = Math.round,
-      r = Math.random,
-      s = 255;
+    // var o = Math.round,
+    //   r = Math.random,
+    //   s = 255;
     return (
-      'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
+      "hsla(" + Math.random() * 360 + ", 100%, 75%, 0.7)"
+      // 'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
     );
   }
   function downloadChart() {
@@ -113,7 +118,7 @@ function UserChart({ data, startDate, endDate }) {
     document.body.appendChild(downloadLink);
     downloadLink.href = linkSource;
     downloadLink.target = '_self';
-    downloadLink.download = 'test' + '.png';
+    downloadLink.download = 'Korisnici' + '.png';
     downloadLink.click();
   }
 
@@ -151,8 +156,6 @@ function UserChart({ data, startDate, endDate }) {
         <GetAppIcon />
       </button>
       <HorizontalBar
-        width="600"
-        height="250"
         id="test"
         data={dataUsr}
         options={optionsUsers}

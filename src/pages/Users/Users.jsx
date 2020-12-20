@@ -96,18 +96,19 @@ const Users = () => {
     <Grid container className={classes.itemContainer}>
       <Grid item container justify="center">
         <Tabs
+        className={classes.tabs}
           value={tab}
           indicatorColor="primary"
           textColor="primary"
           onChange={handleChangeTab}
           aria-label="disabled tabs example"
         >
-          <Tab label="active Users" />
+          <Tab label="aktivni Korisnici" />
 
-          <Tab label="deleted users" />
+          <Tab label="obrisani korisnici" />
         </Tabs>
       </Grid>
-      <div>
+      <div className={classes.tableWrapper}>
         {tab === 0 && (
           <AtiveUsers
             dispatch={dispatch}

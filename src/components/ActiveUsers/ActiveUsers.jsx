@@ -14,8 +14,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Select from '@material-ui/core/Select';
-// import { useStyles } from './ActiveUsers.styles';
-
+ import { useStyles } from './ActiveUsers.styles';
+import AddIcon from '@material-ui/icons/Add';
 const ActiveUsers = ({
   dispatch,
   firstname,
@@ -31,7 +31,7 @@ const ActiveUsers = ({
   const [open, setOpen] = useState(false);
   const [showInput, setShowInput] = useState(true);
   const [id, setId] = useState(null);
-  // const classes = useStyles();
+   const classes = useStyles();
 
   const handleClickOpen = () => {
     setShowInput(true);
@@ -79,14 +79,17 @@ const ActiveUsers = ({
     setOpen(false);
   };
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" alignItems='flex-start'>
       <Dialog
+      className={classes.dialog}
         disableBackdropClick={true}
         open={open}
         // onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Create User</DialogTitle>
+        {showInput ?
+        <DialogTitle id="form-dialog-title">Kreiraj Korisnika</DialogTitle>:
+        <DialogTitle id="form-dialog-title">Izmeni Korisnika</DialogTitle>}
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <TextField
@@ -94,7 +97,7 @@ const ActiveUsers = ({
               name="firstname"
               margin="dense"
               id="first name"
-              label="first name"
+              label="Ime"
               type="text"
               fullWidth
               autoComplete="first name"
@@ -106,7 +109,7 @@ const ActiveUsers = ({
               name="lastname"
               margin="dense"
               id="last name"
-              label="last name"
+              label="Prezime"
               type="text"
               fullWidth
               autoComplete="last name"
@@ -118,7 +121,7 @@ const ActiveUsers = ({
               name="username"
               margin="dense"
               id="username"
-              label="username"
+              label="Korisničko ime"
               type="username"
               fullWidth
               autoComplete="username"
@@ -143,7 +146,7 @@ const ActiveUsers = ({
                 name="password"
                 margin="dense"
                 id="password"
-                label="password"
+                label="Lozinka"
                 type="password"
                 fullWidth
                 autoComplete="password"
@@ -162,26 +165,29 @@ const ActiveUsers = ({
               value={role}
               onChange={(e) => updateFieldValue(e.target.name, e.target.value)}
             >
-              <option value={0}>User</option>
-              <option value={1}>Editor</option>
-              <option value={2}>Admin</option>
+              <option value={0}>Korisnik</option>
+              <option value={1}>Urednik</option>
+              <option value={2}>Administrator</option>
             </Select>
           </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={resetForm} color="primary">
-            Cancel
+            Odustani
           </Button>
           {showInput ? (
             <Button onClick={handleSubmit} color="primary">
-              Submit
+              Sačuvaj
             </Button>
           ) : (
-            <Button onClick={handleEditedUser}>Submit Edited</Button>
+            <Button onClick={handleEditedUser}>Sačuvaj Izmene</Button>
           )}
         </DialogActions>
       </Dialog>
-
+      <Button color="primary" className={classes.buttonCreate} onClick={handleClickOpen}>
+       {/* <AddIcon/> */}
+        Kreiraj Korisnika
+      </Button> 
       <UsersTable
         dispatch={dispatch}
         setOpen={setOpen}
@@ -192,9 +198,7 @@ const ActiveUsers = ({
         tab={tab}
       />
 
-      <Button color="primary" onClick={handleClickOpen}>
-        Create user
-      </Button>
+
     </Grid>
   );
 };

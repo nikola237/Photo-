@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
 import ImageIcon from '@material-ui/icons/Image';
 
-function TopProjectChart(props) {
-  const [dataProj, setDataProj] = useState([]);
+function TopProjectChart({data}) {
+  const [dataProj, setDataProj] = useState({});
   const optionsProject = {
     maintainAspectRatio: false,
     responsive: true,
@@ -65,11 +65,11 @@ function TopProjectChart(props) {
   };
 
   useEffect(() => {
-    if (props.data.length > 0) {
+    if (data.length > 0) {
       var countProjects = {};
       var countTopProjects = {};
 
-      props.data.forEach((item) => {
+      data.forEach((item) => {
         if (countProjects[item.project.projectname]) {
           countProjects[item.project.projectname] += 1;
           return;
@@ -83,7 +83,6 @@ function TopProjectChart(props) {
             countProjects[a] > countProjects[b] ? a : b
           );
           countTopProjects[project] = countProjects[project];
-          console.log(countTopProjects);
           delete countProjects[project];
         }
       }
@@ -91,12 +90,12 @@ function TopProjectChart(props) {
       var colorsProjects = [];
       var borderColorsProject = [];
       for (let prop in countTopProjects) {
-        if (countTopProjects[prop] >= 2) {
+        // if (countTopProjects[prop] >= 2) {
           colorsProjects.push(random_rgba());
           borderColorsProject.push(
             colorsProjects[colorsProjects.length - 1].replace('0.3', '1')
           );
-        }
+        // }
       }
 
       dataProject.labels.push(...Object.keys(countTopProjects));
@@ -106,14 +105,15 @@ function TopProjectChart(props) {
 
       setDataProj(dataProject);
     }
-  }, [props.data]);
+  }, [data]);
 
   function random_rgba() {
-    var o = Math.round,
-      r = Math.random,
-      s = 255;
+    // var o = Math.round,
+    //   r = Math.random,
+    //   s = 255;
     return (
-      'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
+      "hsla(" + Math.random() * 360 + ", 100%, 75%,0.7)"
+      // 'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
     );
   }
   function downloadChart() {
@@ -132,8 +132,6 @@ function TopProjectChart(props) {
         <ImageIcon />
       </button>
       <HorizontalBar
-        width="600"
-        height="250"
         data={dataProj}
         options={optionsProject}
         id="bar"

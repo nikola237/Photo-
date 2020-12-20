@@ -16,7 +16,8 @@ import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import { Button } from '@material-ui/core';
 import { useStyles } from './UsersTable.styles';
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 const UsersTable = ({
   dispatch,
   setOpen,
@@ -81,6 +82,19 @@ const UsersTable = ({
     setRowsPerPage(+event.target.value);
     setPage(1);
   };
+  const filterDate = (date)=>{
+    var dateN = date.split('T')[0];
+    const today = new Date(dateN)
+
+    const year = today.getFullYear()
+    
+    const month = `${today.getMonth() + 1}`.padStart(2, "0")
+    
+    const day = `${today.getDate()}`.padStart(2, "0")
+    
+    const stringDate = [day, month, year].join(".") 
+    return stringDate;
+  }
 
   return (
     <TableContainer component={Paper} className={classes.table}>
@@ -89,15 +103,15 @@ const UsersTable = ({
           <TableHead>
             <TableRow align="center">
               <TableCell>Id</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last name</TableCell>
-              <TableCell>Username</TableCell>
+              <TableCell>Ime</TableCell>
+              <TableCell>Prezime</TableCell>
+              <TableCell>Korisničko ime</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell>Created at</TableCell>
-              <TableCell>Remove</TableCell>
-              <TableCell>Edit</TableCell>
+              <TableCell>Uloga</TableCell>
+              <TableCell>Aktivan  </TableCell>
+              <TableCell>Kreiran</TableCell>
+              <TableCell>Ukloni</TableCell>
+              <TableCell>Izmeni</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -117,17 +131,19 @@ const UsersTable = ({
                   <TableCell>{row.lastname}</TableCell>
                   <TableCell>{row.username}</TableCell>
                   <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.role}</TableCell>
-                  <TableCell>{row.isActive}</TableCell>
-                  <TableCell>{row.createdAt}</TableCell>
+                  <TableCell>
+                    {row.role==0&&<h3>Korisnik</h3>}
+                    {row.role==1&&<h3>Urednik</h3>}
+                    {row.role==2&&<h3>Administrator</h3>}
+                  </TableCell>
+                  <TableCell>{row.isactive&&<h3>Da</h3>||<h3>Ne</h3>}</TableCell>
+                  <TableCell>{filterDate(row.createdAt)}</TableCell>
                   <TableCell>
                     <Button onClick={() => deleteUserById(row.id)}>
-                      Remove
-                    </Button>
+                    <DeleteIcon fontSize="large" style={{ color: 'white' }} /></Button>
                   </TableCell>
-
                   <TableCell>
-                    <Button onClick={() => editUserById(row.id)}>Edit</Button>
+                    <Button onClick={() => editUserById(row.id)}><EditIcon fontSize="large" style={{ color: 'white' }} /></Button>
                   </TableCell>
                 </TableRow>
               );
@@ -139,11 +155,13 @@ const UsersTable = ({
       )}
 
       <TablePagination
+      className={classes.pagination}
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
+        labelRowsPerPage="Rezultata po stranici"
         count={count}
         rowsPerPage={rowsPerPage}
-        page={page - 1}
+        page={page - 1} 
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
