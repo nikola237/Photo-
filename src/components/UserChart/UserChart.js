@@ -73,24 +73,14 @@ function UserChart({ data, startDate, endDate }) {
     if (data.length > 0) {
       var count = {};
       data.forEach((item) => {
-        if(item.user != null){
-          if (count[item.user.username]) {
-            count[item.user.username] += 1;
-            return;
-          }
-          count[item.user.username] = 1;
-        }
-        
+        count[item.username] = item.statsCount
       });
 
       var colors = [];
       var borderColors = [];
       for (let prop in count) {
-        console.log(count[prop]);
-        // if (count[prop] >= 2) {
           colors.push(random_rgba());
           borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
-        // }
       }
 
       dataUsers.datasets[0].backgroundColor = colors;
@@ -104,12 +94,9 @@ function UserChart({ data, startDate, endDate }) {
   }, [data]);
   
   function random_rgba() {
-    // var o = Math.round,
-    //   r = Math.random,
-    //   s = 255;
+
     return (
       "hsla(" + Math.random() * 360 + ", 100%, 75%, 0.7)"
-      // 'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
     );
   }
   function downloadChart() {

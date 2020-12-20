@@ -70,11 +70,8 @@ function TopProjectChart({data}) {
       var countTopProjects = {};
 
       data.forEach((item) => {
-        if (countProjects[item.project.projectname]) {
-          countProjects[item.project.projectname] += 1;
-          return;
-        }
-        countProjects[item.project.projectname] = 1;
+          countProjects[item.projectname] = item.statsCount
+
       });
 
       for (let index = 0; index < 5; index++) {

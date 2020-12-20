@@ -43,7 +43,8 @@ const classes = useStyles();
       new Date().getDate()
   );
 
-  const [data, setData] = useState({});
+  const [dataProjects, setDataProjects] = useState({});
+  const [dataUsers, setDataUsers] = useState({});
 
   const handleDateChangeStart = (date) => {
     setSelectedDateStart(
@@ -59,28 +60,29 @@ const classes = useStyles();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await api.get(
-          `http://93.86.249.163:3030/stats?size=10000&startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
+        // const result = await api.get(
+        //   `http://93.86.249.163:3030/stats?size=10000&startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
+        // )
+        const projects = await api.get(
+          `http://93.86.249.163:3030/stats/projects?startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
         )
-
-        setData(result.data.rows);
-        setDownloads(result.data.totalItems);
+        const users = await api.get(
+          `http://93.86.249.163:3030/stats/users?startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
+        )
+        var countDownloads = 0;
+        users.data.statCount.forEach(item => {
+          countDownloads += item.statsCount
+        });
+        setDataProjects(projects.data.statCount)
+        setDataUsers(users.data.statCount)
+        setDownloads(countDownloads);
         
       } catch (error) {
-        setData([]);
+        setDataProjects([]);
+        setDataUsers([]);
+        setDownloads(0)
       }
-      // const result = await api.get(
-      //   `http://93.86.249.163:3030/stats?size=10000&startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
-      // )
-      // if (
-      //   result.data.rows.length > 0 &&
-      //   result.data.rows[0].message !== 'Nothing found.'
-      // ) {
-      //   setData(result.data.rows);
-      //   setDownloads(result.data.totalItems);
-      // } else {
-      //   setData([]);
-      // }
+
     };
     fetchData();
   }, [selectedDateStart, selectedDateEnd, type]);
@@ -123,6 +125,7 @@ const classes = useStyles();
           </MuiPickersUtilsProvider>
         </Grid>
         <Grid container item sm={12} md={6} className={classes.buttons}>
+          
             <div 
             className={` ${type==0 ? classes.active : classes.typeButton}`}
               onClick={() => changeType(0)}
@@ -147,36 +150,39 @@ const classes = useStyles();
               <p className="totalCount-number">{downloads}</p>
             </div>
         </Grid>
+        
       </Grid>
 
-      {data.length > 0 && (
+      {dataUsers.length > 0 && (
         <div className="chart-wrapper">
           <div className="chart">
             <UserChart
-              data={data}
+              data={dataUsers}
               startDate={selectedDateStart}
               endDate={selectedDateEnd}
             ></UserChart>
           </div>
           <div className="chart">
-            <TopUserChart data={data}></TopUserChart>
+            <TopUserChart data={dataUsers}></TopUserChart>
           </div>
         </div>
       )}
-      {data.length > 0 && (
+      {dataProjects.length > 0 && (
         <div className="chart-wrapper">
           <div className="chart">
             <ProjectChart
-              data={data}
+              data={dataProjects}
               startDate={selectedDateStart}
               endDate={selectedDateEnd}
             ></ProjectChart>
           </div>
           <div className="chart">
-            <TopProjectChart data={data}></TopProjectChart>
+            <TopProjectChart data={dataProjects}></TopProjectChart>
           </div>
         </div>
       )}
+            {dataUsers.length==0&&dataProjects.length == 0&& <h1 className='noResults'>Nema rezultata za izabrane kriterijume</h1>}
+
     </Grid>
   );
 };

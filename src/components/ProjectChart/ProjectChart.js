@@ -69,24 +69,19 @@ function ProjectChart({ data, startDate, endDate }) {
   useEffect(() => {
     if (data.length > 0) {
       var countProjects = {};
-
       data.forEach((item) => {
-        if (countProjects[item.project.projectname]) {
-          countProjects[item.project.projectname] += 1;
-          return;
-        }
-        countProjects[item.project.projectname] = 1;
+        // if (item.isactive) {
+          countProjects[item.projectname] = item.statsCount
+        // }
       });
 
       var colorsProjects = [];
       var borderColorsProject = [];
       for (let prop in countProjects) {
-        // if (countProjects[prop] >= 2) {
           colorsProjects.push(random_rgba());
           borderColorsProject.push(
             colorsProjects[colorsProjects.length - 1].replace('0.3', '1')
           );
-        // }
       }
 
       dataProject.labels.push(...Object.keys(countProjects));
@@ -100,12 +95,9 @@ function ProjectChart({ data, startDate, endDate }) {
   }, [data]);
 
   function random_rgba() {
-    // var o = Math.round,
-    //   r = Math.random,
-    //   s = 255;
+ 
     return (
       "hsla(" + Math.random() * 360 + ", 100%, 75%,0.7)"
-      // 'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
     );
   }
   

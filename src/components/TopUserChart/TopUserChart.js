@@ -86,11 +86,8 @@ function TopUserChart({ data }) {
       });
 
       data.forEach((item) => {
-        if (countProjects[item.project.projectname]) {
-          countProjects[item.project.projectname] += 1;
-          return;
-        }
-        countProjects[item.project.projectname] = 1;
+        count[item.username] = item.statsCount
+
       });
       for (let index = 0; index < 5; index++) {
         if (Object.keys(count).length > 0) {
@@ -105,10 +102,8 @@ function TopUserChart({ data }) {
       var colors = [];
       var borderColors = [];
       for (let prop in countTop) {
-        // if (countTop[prop] >= 2) {
           colors.push(random_rgba());
           borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
-        // }
       }
 
       dataUsers.datasets[0].backgroundColor = colors;
@@ -121,12 +116,9 @@ function TopUserChart({ data }) {
   }, [data]);
 
   function random_rgba() {
-    // var o = Math.round,
-    //   r = Math.random,
-    //   s = 255;
+ 
     return (
       "hsla(" + Math.random() * 360 + ", 100%, 75%,0.7)"
-      // 'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
     );
   }
   function downloadChart() {
