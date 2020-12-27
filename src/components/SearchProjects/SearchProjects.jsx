@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 
 import {
   useProjectsState,
@@ -19,7 +19,6 @@ const SearchProjects = () => {
   const searchChangeHandler = (event) => {
     const { value } = event.currentTarget;
     dispatch({ type: 'KWORDS', payload: value });
-    console.log(value, 'iz searcha');
   };
 
   return (

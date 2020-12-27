@@ -28,8 +28,8 @@ const Projects = () => {
         onChange={handleChangeTab}
         aria-label="disabled tabs example"
       >
-        <Tab label="active projects" />
-        <Tab label="removed projects" />
+        <Tab label="projekti" />
+        <Tab label="obrisani projekti" />
       </Tabs>
       <Grid item container justify="center"></Grid>
       <Grid item container justify="center">

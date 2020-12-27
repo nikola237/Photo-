@@ -12,19 +12,20 @@ import Users from '../../pages/Users/Users';
 import DragAndDrop from '../../pages/Upload/DragAndDrop';
 import Projects from '../../pages/Projects/Projects';
 import ProjectsDownload from '../../pages/ProjectsDownload/ProjectsDownload';
-import EditItem from '../../pages/EditItem/EditItem';
+// import EditItem from '../../pages/EditItem/EditItem';
+
 const AdminRoutes = () => {
   return (
     <div>
       <Navigation />
       <Switch>
-        <Route path="/users" component={Users} />
-        <Route path="/statistics" component={Statistics} />
-        <Route path="/upload" component={DragAndDrop} />
-        <Route exact path="/projects" component={Projects} />
         <ProjectsProvider>
+          <Route path="/users" component={Users} />
+          <Route path="/statistics" component={Statistics} />
+          <Route path="/upload" component={DragAndDrop} />
+          <Route exact path="/projects" component={Projects} />
           <Route exact path="/download/:id" component={ProjectsDownload} />
-          <Route exact path="/edit/:id" component={EditItem} />
+          {/* <Route exact path="/edit/:id" component={EditItem} /> */}
           <Route exact path="/" component={Admin} />
         </ProjectsProvider>
       </Switch>

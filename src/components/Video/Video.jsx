@@ -1,29 +1,15 @@
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
 
 // component
 import VideoCard from '../VideoCard/VideoCard';
 import ErrorCard from '../ErrorCard/ErrorCard';
 
-//utils
-// import { handleDownloadItem, removeItem } from '../utils.js';
-
 //styles
 import { Grid } from '@material-ui/core';
-// import { useStyles } from './Video.styles';
 
-const Video = ({ items, dispatch, tab }) => {
-  // const history = useHistory();
-
-  // const classes = useStyles();
-
-  // const handleItem = () => {
-  //   dispatch({ type: 'EDIT_ITEM', payload: id });
-  //   history.push(`/edit/${id}`);
-  // };
-
+const Video = ({ items, dispatch, tab, editMode }) => {
   return (
-    <Grid item container>
+    <Grid item container spacing={2} justify="center">
       {items &&
         items.map((item) => {
           if (items[0]?.message) {
@@ -35,6 +21,8 @@ const Video = ({ items, dispatch, tab }) => {
                 {...item}
                 dispatch={dispatch}
                 tab={tab}
+                editMode={editMode}
+                items={items}
               />
             );
           }

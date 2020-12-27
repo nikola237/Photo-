@@ -8,9 +8,19 @@ const RadioButtons = ({ dispatch, page, type }) => {
   const handleButtonChange = (e) => {
     dispatch({ type: 'ITEMS', payload: null });
     const { value } = e.currentTarget;
+    console.log(value, 'iz buttona');
 
     dispatch({ type: 'RADIO_BUTTONS', payload: parseInt(value) });
     dispatch({ type: 'PAGE', payload: 1 });
+    if (value === '2') {
+      dispatch({ type: 'FILTER_EXT', payload: 'mp3' });
+    }
+    if (value === '1') {
+      dispatch({ type: 'FILTER_EXT', payload: 'mp4' });
+    }
+    if (value === '0') {
+      dispatch({ type: 'FILTER_EXT', payload: 'jpg' });
+    }
   };
 
   return (

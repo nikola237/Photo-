@@ -4,6 +4,8 @@ import api from '../../api/api';
 //styles
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreIcon from '@material-ui/icons/Restore';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const RemoveButtons = ({ id, dispatch }) => {
   const handleRestoreItem = async (id) => {
@@ -25,15 +27,14 @@ const RemoveButtons = ({ id, dispatch }) => {
         size="small"
         color="primary"
       >
-        Restore
+        <Tooltip title="Vrati">
+          <RestoreIcon />
+        </Tooltip>
       </Button>
-      <Button
-        onClick={() => handleDeleteItem(id)}
-        startIcon={<DeleteIcon />}
-        size="small"
-        color="primary"
-      >
-        Delete
+      <Button onClick={() => handleDeleteItem(id)} size="small" color="primary">
+        <Tooltip title="Obrisi">
+          <DeleteIcon />
+        </Tooltip>
       </Button>
     </div>
   );

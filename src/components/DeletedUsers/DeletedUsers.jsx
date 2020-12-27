@@ -17,6 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import { Button } from '@material-ui/core';
 import { useStyles } from './DeletedUsers.styles';
+import RestoreIcon from '@material-ui/icons/Restore';
 
 const DeletedUsers = ({ dispatch, users, isLoading }) => {
   const [page, setPage] = useState(1);
@@ -62,10 +63,18 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
     dispatch({ type: 'IS_LOADING', payload: true });
   };
 
-  const removeUserById = async (id) => {
-    // dispatch({ type: 'REMOVE_USER', payload: id });
-    const response = await api.delete('/users', { data: { id } });
-    dispatch({ type: 'IS_LOADING', payload: true });
+  const filterDate = (date) => {
+    var dateN = date.split('T')[0];
+    const today = new Date(dateN);
+
+    const year = today.getFullYear();
+
+    const month = `${today.getMonth() + 1}`.padStart(2, '0');
+
+    const day = `${today.getDate()}`.padStart(2, '0');
+
+    const stringDate = [day, month, year].join('.');
+    return stringDate;
   };
 
   return (
@@ -74,16 +83,15 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow align="center">
-              <TableCell>Id</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last name</TableCell>
-              <TableCell>Username</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell>Created at</TableCell>
-              <TableCell>Remove</TableCell>
-              <TableCell>Edit</TableCell>
+              <TableCell align="center">Id</TableCell>
+              <TableCell align="center">Ime</TableCell>
+              <TableCell align="center">Prezime</TableCell>
+              <TableCell align="center">Korisničko ime</TableCell>
+              <TableCell align="center">Email</TableCell>
+              <TableCell align="center">Uloga</TableCell>
+              <TableCell align="center">Aktivan </TableCell>
+              <TableCell align="center">Kreiran</TableCell>
+              <TableCell align="center">Vrati Korisnika</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -97,23 +105,26 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
               } else {
                 return (
                   <TableRow align="center" scope="row" key={row.id}>
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.firstname}</TableCell>
-                    <TableCell>{row.lastname}</TableCell>
-                    <TableCell>{row.username}</TableCell>
-                    <TableCell>{row.email}</TableCell>
-                    <TableCell>{row.role}</TableCell>
-                    <TableCell>{row.isActive}</TableCell>
-                    <TableCell>{row.createdAt}</TableCell>
-                    <TableCell>
-                      <Button onClick={() => removeUserById(row.id)}>
-                        Remove
-                      </Button>
+                    <TableCell align="center">{row.id}</TableCell>
+                    <TableCell align="center">{row.firstname}</TableCell>
+                    <TableCell align="center">{row.lastname}</TableCell>
+                    <TableCell align="center">{row.username}</TableCell>
+                    <TableCell align="center">{row.email}</TableCell>
+                    <TableCell align="center">
+                      {row.role === 0 && <h3>Korisnik</h3>}
+                      {row.role === 1 && <h3>Urednik</h3>}
+                      {row.role === 2 && <h3>Administrator</h3>}
+                    </TableCell>
+                    <TableCell align="center">
+                      {(row.isactive && <h3>Da</h3>) || <h3>Ne</h3>}
+                    </TableCell>
+                    <TableCell align="center">
+                      {filterDate(row.createdAt)}
                     </TableCell>
 
-                    <TableCell>
+                    <TableCell align="center">
                       <Button onClick={() => restoreUserById(row.id)}>
-                        Restore
+                        <RestoreIcon />
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -127,6 +138,7 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
       )}
 
       <TablePagination
+        className={classes.pagination}
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
         count={count}

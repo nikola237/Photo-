@@ -61,6 +61,7 @@ function TopUserChart({ data }) {
         hoverBorderColor: '#959799',
         data: [],
         backgroundColor: [],
+        borderColor: [],
         borderWidth: 2,
       },
     ],
@@ -72,19 +73,20 @@ function TopUserChart({ data }) {
       var countTop = {};
       var countProjects = {};
       data.forEach((item) => {
-        if (count[item.user.username]) {
-          count[item.user.username] += 1;
-          return;
+        if (item.user != null) {
+          if (count[item.user.username]) {
+            count[item.user.username] += 1;
+            return;
+          }
+          count[item.user.username] = 1;
         }
-        count[item.user.username] = 1;
+        // }else{
+        //   alert('Greska: postoji null korisnik')
+        // }
       });
 
       data.forEach((item) => {
-        if (countProjects[item.project.projectname]) {
-          countProjects[item.project.projectname] += 1;
-          return;
-        }
-        countProjects[item.project.projectname] = 1;
+        count[item.username] = item.statsCount;
       });
       for (let index = 0; index < 5; index++) {
         if (Object.keys(count).length > 0) {
@@ -92,7 +94,6 @@ function TopUserChart({ data }) {
             count[a] > count[b] ? a : b
           );
           countTop[user] = count[user];
-          console.log(countTop);
           delete count[user];
         }
       }
@@ -100,10 +101,8 @@ function TopUserChart({ data }) {
       var colors = [];
       var borderColors = [];
       for (let prop in countTop) {
-        if (countTop[prop] >= 2) {
-          colors.push(random_rgba());
-          borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
-        }
+        colors.push(random_rgba());
+        borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
       }
 
       dataUsers.datasets[0].backgroundColor = colors;
@@ -116,12 +115,7 @@ function TopUserChart({ data }) {
   }, [data]);
 
   function random_rgba() {
-    var o = Math.round,
-      r = Math.random,
-      s = 255;
-    return (
-      'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
-    );
+    return 'hsla(' + Math.random() * 360 + ', 100%, 75%,0.7)';
   }
   function downloadChart() {
     const linkSource = document.getElementById('test').toDataURL('image/jpg');
@@ -138,13 +132,7 @@ function TopUserChart({ data }) {
       <button className="downloadButton" onClick={downloadChart}>
         <ImageIcon />
       </button>
-      <Bar
-        width="600"
-        height="250"
-        id="test"
-        data={dataUsr}
-        options={optionsUsers}
-      />
+      <Bar id="test" data={dataUsr} options={optionsUsers} />
     </>
   );
 }

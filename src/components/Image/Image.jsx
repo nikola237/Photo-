@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
 
 //components
 import ImageCard from '../ImageCard/ImageCard';
@@ -7,13 +6,10 @@ import ErrorCard from '../ErrorCard/ErrorCard';
 
 //styles
 import { Grid } from '@material-ui/core';
-// import { useStyles } from './Image.styles';
 
-const Image = ({ items, dispatch, tab }) => {
-  // const classes = useStyles();
-
+const Image = ({ items, dispatch, tab, editMode }) => {
   return (
-    <Grid item container>
+    <Grid container spacing={2} justify="center">
       {items ? (
         items.map((item) => {
           if (items[0]?.message) {
@@ -25,6 +21,8 @@ const Image = ({ items, dispatch, tab }) => {
                 {...item}
                 dispatch={dispatch}
                 tab={tab}
+                editMode={editMode}
+                items={items}
               />
             );
           }

@@ -51,6 +51,7 @@ const SingleItemUpload = ({
             ) : (
               <Card className={classes.root} key={file.name}>
                 <Avatar alt="Remy Sharp" src={file.preview} />
+
                 <CardContent>
                   <Typography>{file.name}</Typography>
                 </CardContent>

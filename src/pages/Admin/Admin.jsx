@@ -10,8 +10,14 @@ import ActiveItems from '../../components/ActiveItems/ActiveItems';
 import DeletedItems from '../../components/DeletedItems/DeletedItems';
 import MyItems from '../../components/MyItems/MyItems';
 import PaginationComp from '../../components/Pagination/Pagination';
+import SnackbarAuth from '../../components/SnackbarAuth/SnackbarAuth';
+import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
+import Footer from '../../components/Footer/Footer';
+import Divider from '@material-ui/core/Divider';
+import ExtensionsFilter from '../../components/ExtenionsFilter/ExtensionsFilter';
 
 //styles
+import Container from '@material-ui/core/Container';
 import { Grid } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -26,6 +32,14 @@ const INITIAL_STATE = {
   isLoading: false,
   tab: 0,
   error: null,
+  autoSuggestion: [],
+  tagsKwords: '',
+  extensionFilter: '',
+  editMode: {
+    status: false,
+    itemId: null,
+    tags: null,
+  },
 };
 
 const Admin = () => {
@@ -40,22 +54,25 @@ const Admin = () => {
     isLoading,
     tab,
     error,
+    autoSuggestion,
+    tagsKwords,
+    extensionFilter,
+    editMode,
   } = state;
-
-  console.log(error, 'ovo je error');
 
   const classes = useStyles();
 
   const handleChangeTab = (event, newValue) => {
     dispatch({ type: 'ITEMS', payload: null });
-
+    dispatch({ type: 'PAGE', payload: 1 });
     dispatch({ type: 'TAB', payload: newValue });
+    dispatch({ type: 'FILTER_EXT', payload: '' });
   };
 
   useEffect(() => {}, [tab]);
 
   return (
-    <Grid container direction="column" className={classes.itemContainer}>
+    <Container maxWidth="xl" className={classes.itemContainer}>
       <Grid item container className={classes.offset} direction="column">
         <Grid item container justify="center">
           <Tabs
@@ -63,10 +80,11 @@ const Admin = () => {
             indicatorColor="primary"
             textColor="primary"
             onChange={handleChangeTab}
+            className={classes.tabs}
           >
-            <Tab label="active items" />
-            <Tab label="deleted items" />
-            <Tab label="my Items" />
+            <Tab label="Aktivni itemi" color="white" />
+            <Tab label="Obrisani itemi" />
+            <Tab label="Dodati itemi korisnika" />
           </Tabs>
         </Grid>
         <Grid
@@ -75,8 +93,20 @@ const Admin = () => {
           className={classes.searchContainer}
           justify="center"
         >
-          <Search kwords={kwords} dispatch={dispatch} />
+          <Search
+            kwords={kwords}
+            dispatch={dispatch}
+            autoSuggestion={autoSuggestion}
+            isLoading={isLoading}
+            tagsKwords={tagsKwords}
+          />
+          <ExtensionsFilter
+            dispatch={dispatch}
+            type={type}
+            extensionFilter={extensionFilter}
+          />
         </Grid>
+
         <Grid
           item
           container
@@ -87,49 +117,61 @@ const Admin = () => {
           <RadioButtons dispatch={dispatch} page={page} type={type} />
         </Grid>
       </Grid>
-      <Grid item container justify="center">
-        {tab === 0 && (
-          <ActiveItems
-            dispatch={dispatch}
-            items={items}
-            type={type}
-            kwords={kwords}
-            page={page}
-            isLoading={isLoading}
-            tab={tab}
-          />
-        )}
-        {tab === 1 && (
-          <DeletedItems
-            dispatch={dispatch}
-            items={items}
-            type={type}
-            kwords={kwords}
-            page={page}
-            isLoading={isLoading}
-            tab={tab}
-          />
-        )}
-        {tab === 2 && (
-          <MyItems
-            dispatch={dispatch}
-            items={items}
-            type={type}
-            kwords={kwords}
-            page={page}
-            tab={tab}
-            error={error}
-          />
-        )}
-      </Grid>
-      <Grid item container justify="center" className={classes.pagination}>
+      {tab === 0 && (
+        <ActiveItems
+          dispatch={dispatch}
+          items={items}
+          type={type}
+          kwords={kwords}
+          page={page}
+          isLoading={isLoading}
+          tab={tab}
+          extensionFilter={extensionFilter}
+          editMode={editMode}
+        />
+      )}
+      {tab === 1 && (
+        <DeletedItems
+          dispatch={dispatch}
+          items={items}
+          type={type}
+          kwords={kwords}
+          page={page}
+          isLoading={isLoading}
+          tab={tab}
+          extensionFilter={extensionFilter}
+          editMode={editMode}
+        />
+      )}
+      {tab === 2 && (
+        <MyItems
+          dispatch={dispatch}
+          items={items}
+          type={type}
+          kwords={kwords}
+          page={page}
+          tab={tab}
+          error={error}
+          extensionFilter={extensionFilter}
+          editMode={editMode}
+          isLoading={isLoading}
+        />
+      )}
+      <Grid container item justify="center" className={classes.pagination}>
         <PaginationComp
           dispatch={dispatch}
           page={page}
           totalPages={totalPages}
         />
       </Grid>
-    </Grid>
+      <Divider flexItem />
+      <Grid item container className={classes.footer}>
+        <Footer />
+      </Grid>
+
+      <SnackbarAlert />
+      <SnackbarAuth />
+    </Container>
   );
 };
 

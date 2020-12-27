@@ -6,8 +6,7 @@ import { useStyles } from './Pagination.styles';
 
 const PaginationComp = ({ dispatch, page, totalPages }) => {
   const classes = useStyles();
-
-  const handleChange = (value) => {
+  const handleChange = (event, value) => {
     dispatch({ type: 'PAGE', payload: value });
   };
 
@@ -16,11 +15,15 @@ const PaginationComp = ({ dispatch, page, totalPages }) => {
   }, [page]);
 
   return (
-    <Grid container>
+    <Grid container justify="center" className={classes.pagination}>
       {totalPages ? (
-        <div className={classes.root}>
-          <Pagination count={totalPages} page={page} onChange={handleChange} />
-        </div>
+        <Pagination
+          color="primary"
+          count={totalPages}
+          page={page}
+          onChange={handleChange}
+          className={classes.root}
+        />
       ) : null}
     </Grid>
   );

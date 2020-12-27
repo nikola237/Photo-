@@ -59,7 +59,6 @@ function UserChart({ data, startDate, endDate }) {
     labels: [],
     datasets: [
       {
-        // label: 'Korisnici',
         hoverBackgroundColor: '#959799',
         hoverBorderColor: '#959799',
         data: [],
@@ -73,20 +72,14 @@ function UserChart({ data, startDate, endDate }) {
     if (data.length > 0) {
       var count = {};
       data.forEach((item) => {
-        if (count[item.user.username]) {
-          count[item.user.username] += 1;
-          return;
-        }
-        count[item.user.username] = 1;
+        count[item.username] = item.statsCount;
       });
 
       var colors = [];
       var borderColors = [];
       for (let prop in count) {
-        if (count[prop] >= 2) {
-          colors.push(random_rgba());
-          borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
-        }
+        colors.push(random_rgba());
+        borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
       }
 
       dataUsers.datasets[0].backgroundColor = colors;
@@ -100,12 +93,7 @@ function UserChart({ data, startDate, endDate }) {
   }, [data]);
 
   function random_rgba() {
-    var o = Math.round,
-      r = Math.random,
-      s = 255;
-    return (
-      'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
-    );
+    return 'hsla(' + Math.random() * 360 + ', 100%, 75%, 0.7)';
   }
   function downloadChart() {
     const linkSource = document.getElementById('test').toDataURL('image/jpg');
@@ -113,7 +101,7 @@ function UserChart({ data, startDate, endDate }) {
     document.body.appendChild(downloadLink);
     downloadLink.href = linkSource;
     downloadLink.target = '_self';
-    downloadLink.download = 'test' + '.png';
+    downloadLink.download = 'Korisnici' + '.png';
     downloadLink.click();
   }
 
@@ -150,13 +138,7 @@ function UserChart({ data, startDate, endDate }) {
       <button className="downloadButton_csv" onClick={downloadCsv}>
         <GetAppIcon />
       </button>
-      <HorizontalBar
-        width="600"
-        height="250"
-        id="test"
-        data={dataUsr}
-        options={optionsUsers}
-      />
+      <HorizontalBar id="test" data={dataUsr} options={optionsUsers} />
     </>
   );
 }

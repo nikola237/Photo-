@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 //components
 import DeletedUsers from '../../components/DeletedUsers/DeletedUsers';
 import AtiveUsers from '../../components/ActiveUsers/ActiveUsers';
-
+import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
 //styles
 import { Grid } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
@@ -88,6 +88,12 @@ const Users = () => {
 
   const classes = useStyles();
 
+  // console.log(firstname);
+  // console.log(lastname);
+  // console.log(username);
+  // console.log(email);
+  // console.log(role);
+
   const handleChangeTab = (event, newValue) => {
     dispatch({ type: 'TAB', payload: newValue });
   };
@@ -96,18 +102,18 @@ const Users = () => {
     <Grid container className={classes.itemContainer}>
       <Grid item container justify="center">
         <Tabs
+          className={classes.tabs}
           value={tab}
           indicatorColor="primary"
           textColor="primary"
           onChange={handleChangeTab}
           aria-label="disabled tabs example"
         >
-          <Tab label="active Users" />
-
-          <Tab label="deleted users" />
+          <Tab label="aktivni Korisnici" />
+          <Tab label="obrisani korisnici" />
         </Tabs>
       </Grid>
-      <div>
+      <div className={classes.tableWrapper}>
         {tab === 0 && (
           <AtiveUsers
             dispatch={dispatch}
@@ -129,6 +135,7 @@ const Users = () => {
           />
         )}
       </div>
+      <SnackbarAlert />
     </Grid>
   );
 };

@@ -4,15 +4,14 @@ import api from '../../api/api';
 
 //components
 import ProjectsTable from '../ProjectsTable/ProjectsTable';
-import TextField from '@material-ui/core/TextField';
 
 //style
 import { Grid } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Tooltip from '@material-ui/core/Tooltip';
 
 function activeProjectsReducer(state, action) {
-  console.log(action.payload, 'iz reducera');
   switch (action.type) {
     case 'PROJECTS':
       return {
@@ -25,16 +24,28 @@ function activeProjectsReducer(state, action) {
       return {
         ...state,
         projectName: '',
-        isActive: 1,
-        projectId: null,
+        isactive: false,
+      };
+    case 'IN_EDIT_MODE':
+      return {
+        ...state,
+        editMode: {
+          status: action.payload.status,
+          rowKey: action.payload.rowKey,
+          newProject: action.payload.newProject,
+        },
       };
 
     case 'EDIT_PROJECT':
       return {
         ...state,
-        projectName: action.payload.projectname,
-        isActive: action.payload.isactive,
-        projectId: action.payload.id,
+        projectname: action.payload.projectname,
+        isActiveProject: action.payload.isActiveProject,
+      };
+    case 'IS_ACTIVE':
+      return {
+        ...state,
+        isactiveFilter: action.payload,
       };
     case 'REMOVE_PROJECT':
       return {
@@ -69,38 +80,44 @@ function activeProjectsReducer(state, action) {
   }
 }
 
-const ActiveProjects = ({ tab }) => {
+const ActiveProjects = () => {
   const [state, dispatch] = useReducer(activeProjectsReducer, {
     projects: null,
-    projectName: '',
-    isActive: 1,
+    projectname: '',
+    isactiveFilter: '',
     projectId: null,
     isLoading: false,
+    isActiveProject: false,
     page: 1,
     rowsPerPage: 5,
     count: 0,
+    editMode: {
+      status: false,
+      rowKey: null,
+      newProject: false,
+    },
   });
 
   const {
     projects,
-    projectName,
-    isActive,
-    projectId,
+    projectname,
+    isactiveFilter,
+    isActiveProject,
     isLoading,
     page,
     rowsPerPage,
     count,
+    editMode,
   } = state;
 
-  console.log(isActive, 'iz stejta');
   const getActiveProjects = useCallback(async () => {
     const response = await api.get(
-      `/projects?size=${rowsPerPage}&page=${page}`
+      `/projects?size=${rowsPerPage}&page=${page}&isactive=${isactiveFilter}`
     );
     dispatch({ type: 'COUNT_PAGINATION', payload: response.data.totalItems });
-    console.log(response.data, 'projekti');
+
     dispatch({ type: 'PROJECTS', payload: response.data.rows });
-  }, [page, rowsPerPage]);
+  }, [isactiveFilter, page, rowsPerPage]);
 
   useEffect(() => {
     getActiveProjects();
@@ -113,78 +130,54 @@ const ActiveProjects = ({ tab }) => {
     }
   }, [getActiveProjects, isLoading]);
 
-  const updateFieldValue = (field, value) => {
+  const handleActivivity = (event) => {
+    dispatch({ type: 'IS_ACTIVE', payload: event.target.value });
     dispatch({
-      type: 'UPDATE_FIELD_VALUE',
+      type: 'IN_EDIT_MODE',
       payload: {
-        field,
-        value,
+        status: false,
+        rowKey: null,
+        newProject: false,
       },
     });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (projectName === '') {
-      return;
-    }
+  const handleClickOpen = () => {
+    const createNewProject = [
+      {
+        id: Math.floor(Math.random() * 1000),
+      },
+      ...projects,
+    ];
 
-    const response = await api.post('/projects', {
-      projectname: projectName,
-      isactive: isActive,
+    dispatch({
+      type: 'IN_EDIT_MODE',
+      payload: {
+        status: true,
+        rowKey: createNewProject[0].id,
+        newProject: true,
+      },
     });
-    dispatch({ type: 'IS_LOADING', payload: true });
-    dispatch({ type: 'RESET' });
-    console.log(response, 'ovo je response');
-  };
-
-  const handleEditedProject = async () => {
-    const response = await api.put(`/project/${projectId}`, {
-      projectname: projectName,
-      isactive: isActive,
-      projectId: projectId,
-    });
-    dispatch({ type: 'IS_LOADING', payload: true });
-    dispatch({ type: 'RESET' });
+    dispatch({ type: 'PROJECTS', payload: createNewProject });
   };
 
   return (
     <Grid container justify="center">
-      <Grid item container direction="row" justify="center">
-        <form>
-          <TextField
-            autoFocus
-            name="projectName"
-            margin="dense"
-            id="project"
-            label="add project name"
-            type="text"
-            fullWidth
-            autoComplete="project"
-            required
-            onChange={(e) => updateFieldValue(e.target.name, e.target.value)}
-            value={projectName}
-          />
-          <Select
-            native
-            labelId="isActive"
-            name="isActive"
-            id="select"
-            value={isActive}
-            onChange={(e) => updateFieldValue(e.target.name, +e.target.value)}
-          >
-            <option value={1}>Active</option>
-            <option value={0}>Inactive</option>
-          </Select>
-          {projectId !== null ? (
-            <Button onClick={handleEditedProject}>Submit Edited</Button>
-          ) : (
-            <Button onClick={handleSubmit} type="submit">
-              Submit
-            </Button>
-          )}
-        </form>
-      </Grid>
+      <Tooltip title="Dodaj Projekat">
+        <AddCircleIcon fontSize="large" onClick={handleClickOpen} />
+      </Tooltip>
+      <Select
+        native
+        labelId="isactiveFilter"
+        name="isactiveFilter"
+        id="isactiveFilter"
+        value={isactiveFilter}
+        onChange={handleActivivity}
+      >
+        <option value={''}>Bez filtera</option>
+        <option value={1}>Aktivni</option>
+        <option value={0}>Neaktivni</option>
+      </Select>
       {projects && (
         <ProjectsTable
           projects={projects}
@@ -192,6 +185,9 @@ const ActiveProjects = ({ tab }) => {
           page={page}
           rowsPerPage={rowsPerPage}
           count={count}
+          editMode={editMode}
+          projectname={projectname}
+          isActiveProject={isActiveProject}
         />
       )}
     </Grid>

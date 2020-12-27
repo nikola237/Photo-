@@ -1,29 +1,16 @@
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
 
 //components
 import AudioCard from '../AudioCard/AudioCard';
 import ErrorCard from '../ErrorCard/ErrorCard';
 
-// utils
-// import { handleDownloadItem, removeItem } from '../utils';
-
 //styles
-// import { useStyles } from './Audio.styles';
+import { useStyles } from './Audio.styles';
 import { Grid } from '@material-ui/core';
 
-const Audio = ({ items, dispatch, tab }) => {
-  // const history = useHistory();
-
-  // const classes = useStyles();
-
-  // const handleItem = () => {
-  //   dispatch({ type: 'EDIT_ITEM', payload: id });
-  //   history.push(`/edit/${id}`);
-  // };
-
+const Audio = ({ items, dispatch, tab, editMode }) => {
   return (
-    <Grid item container>
+    <Grid item container spacing={2} justify="center">
       {items ? (
         items.map((item) => {
           if (items[0]?.message) {
@@ -35,6 +22,8 @@ const Audio = ({ items, dispatch, tab }) => {
                 {...item}
                 dispatch={dispatch}
                 tab={tab}
+                editMode={editMode}
+                items={items}
               />
             );
           }

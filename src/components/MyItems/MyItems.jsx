@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useCallback } from 'react';
+
 //api
 import api from '../../api/api';
 //components
@@ -8,43 +8,54 @@ import Video from '../../components/Video/Video';
 import Audio from '../../components/Audio/Audio';
 import Spinner from '../Spinner/Spinner';
 
-const MyItems = ({ dispatch, items, type, page, error }) => {
+const MyItems = ({
+  dispatch,
+  items,
+  type,
+  page,
+  error,
+  editMode,
+  isLoading,
+}) => {
   const { id } = JSON.parse(window.localStorage.getItem('user'));
 
-  useEffect(() => {
-    const source = axios.CancelToken.source();
+  const getData = useCallback(() => {
     const getItems = async () => {
       try {
         const response = await api.get(
-          `/items/user/${id}?size=10&page=${page}&type=${type}`,
-          {
-            cancelToken: source.token,
-          }
+          `/items/user/${id}?size=10&page=${page}&type=${type}`
         );
-        console.log(response, 'ovo je response iz Myitems');
+
         dispatch({ type: 'ITEMS', payload: response.data.rows });
         dispatch({ type: 'TOTAL_PAGES', payload: response.data.totalPages });
-      } catch (error) {
-        console.log(error, 'iz catcha');
-
-        if (axios.isCancel(error)) {
-          throw error;
-        }
-      }
+      } catch (error) {}
     };
     getItems();
-    return () => {
-      source.cancel();
-    };
   }, [dispatch, id, page, type]);
+
+  useEffect(() => {
+    getData();
+  }, [dispatch, getData, id, page, type]);
+  useEffect(() => {
+    if (isLoading) {
+      getData();
+      dispatch({ type: 'IS_LOADING', payload: false });
+    }
+  }, [dispatch, getData, isLoading]);
 
   return (
     <div>
       {items ? (
         <>
-          {type === 0 && <Image items={items} dispatch={dispatch} />}
-          {type === 1 && <Video items={items} dispatch={dispatch} />}
-          {type === 2 && <Audio items={items} dispatch={dispatch} />}
+          {type === 0 && (
+            <Image items={items} dispatch={dispatch} editMode={editMode} />
+          )}
+          {type === 1 && (
+            <Video items={items} dispatch={dispatch} editMode={editMode} />
+          )}
+          {type === 2 && (
+            <Audio items={items} dispatch={dispatch} editMode={editMode} />
+          )}
           {error && <div>{error}</div>}
         </>
       ) : (

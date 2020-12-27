@@ -28,11 +28,6 @@ const EditItem = () => {
 
   const { pathShort, tags, originalname, type } = editItem;
 
-  // console.log(pathShort, 'ovo je pathShort');
-  console.log(tags, 'ovo je tags');
-  console.log(originalname, 'ovo je originalname');
-  // console.log(type, 'ovo je type');
-
   useEffect(() => {
     if (editItemId !== null) {
       async function getItemById() {
@@ -61,6 +56,14 @@ const EditItem = () => {
       originalname,
     });
     if (response.status === 200) {
+      projectsDispatch({
+        type: 'SNACKBAR',
+        payload: {
+          message: 'Uspesno ste izmenili item',
+          severity: 'success',
+          open: true,
+        },
+      });
       history.push('/');
     }
     console.log(response, 'response itema');

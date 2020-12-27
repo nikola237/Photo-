@@ -54,7 +54,6 @@ const ProjectsDownload = () => {
         kword: kwords,
         isactive: type,
       });
-      console.log(response, 'ovo je response');
 
       dispatch({ type: 'PROJECTS', payload: response.data.rows });
     };
@@ -73,8 +72,6 @@ const ProjectsDownload = () => {
 
   const handleChangeCheckbox = (event) => {
     dispatch({ type: 'PROJECT_ID', payload: +event.target.value });
-
-    console.log(+event.target.value);
   };
   return (
     <Grid container justify="center">
@@ -95,19 +92,17 @@ const ProjectsDownload = () => {
               );
             } else {
               return (
-                <div key={project.id}>
-                  <Paper>
-                    <Checkbox
-                      value={project.id}
-                      checked={project.checked}
-                      onChange={handleChangeCheckbox}
-                      color="primary"
-                      type="checkbox"
-                      inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    />
-                    {project.projectname}
-                  </Paper>
-                </div>
+                <Paper key={project.id}>
+                  <Checkbox
+                    value={project.id}
+                    checked={project.checked}
+                    onChange={handleChangeCheckbox}
+                    color="primary"
+                    type="checkbox"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                  {project.projectname}1
+                </Paper>
               );
             }
           })

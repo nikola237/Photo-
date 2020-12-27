@@ -59,6 +59,29 @@ function projectsReducer(state, action) {
           [action.payload.field]: action.payload.value,
         },
       };
+
+    case 'SNACKBAR':
+      return {
+        ...state,
+        snackbar: {
+          ...state.snackbar,
+          message: action.payload.message,
+          severity: action.payload.severity,
+          open: action.payload.open,
+        },
+      };
+
+    case 'SNACKBAR_AUTH':
+      return {
+        ...state,
+        snackbarAuth: {
+          ...state.snackbar,
+          message: action.payload.message,
+          severity: action.payload.severity,
+          open: action.payload.open,
+        },
+      };
+
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -76,11 +99,16 @@ const ProjectsProvider = ({ children }) => {
     kwords: '',
     type: 1,
     projectId: null,
-    editItemId: null,
-    editItem: {
-      tags: '',
-      originalname: '',
-      pathShort: null,
+    // editItemId: null,
+    // editItem: {
+    //   tags: '',
+    //   originalname: '',
+    //   pathShort: null,
+    // },
+    snackbar: {
+      message: 'PRIMER PRIMER',
+      severity: 'success',
+      open: false,
     },
   });
 

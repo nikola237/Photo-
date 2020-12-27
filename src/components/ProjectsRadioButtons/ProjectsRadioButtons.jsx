@@ -10,6 +10,7 @@ import {
 import Radio from '@material-ui/core/Radio';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Select from '@material-ui/core/Select';
 
 const ProjectsRadioButtons = () => {
   const dispatch = useProjectsDispatch();
@@ -19,12 +20,13 @@ const ProjectsRadioButtons = () => {
 
     console.log(value, 'ovo je value');
     dispatch({ type: 'RADIO_BUTTONS', payload: parseInt(value) });
+
     dispatch({ type: 'PROJECTS', payload: null });
   };
   return (
     <FormControl>
       <div>
-        <FormLabel>Active</FormLabel>
+        <FormLabel>Aktivni</FormLabel>
         <Radio
           value={1}
           checked={type === 1}
@@ -32,7 +34,7 @@ const ProjectsRadioButtons = () => {
           onChange={handleButtonChange}
           name="active"
         />
-        <FormLabel>Inactive</FormLabel>
+        <FormLabel>Neaktivni</FormLabel>
         <Radio
           value={0}
           checked={type === 0}

@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
+import RestoreIcon from '@material-ui/icons/Restore';
 import { useStyles } from './RemovedProjectsTable.styles';
 
 const RemovedProjectsTable = ({
@@ -46,18 +47,31 @@ const RemovedProjectsTable = ({
     dispatch({ type: 'ROWS_PAGE_PAGINATION', payload: +event.target.value });
     dispatch({ type: 'PAGE_PAGINATION', payload: 1 });
   };
+  const filterDate = (date) => {
+    if (!date) {
+      return null;
+    }
+
+    var dateN = date.split('T')[0];
+    const today = new Date(dateN);
+    const year = today.getFullYear();
+    const month = `${today.getMonth() + 1}`.padStart(2, '0');
+    const day = `${today.getDate()}`.padStart(2, '0');
+    const stringDate = [day, month, year].join('.');
+    return stringDate;
+  };
 
   return (
     <TableContainer component={Paper} className={classes.table}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow align="center">
-            <TableCell>Id</TableCell>
-            <TableCell>Project Name</TableCell>
-            <TableCell>Is Active</TableCell>
-            <TableCell>Created At</TableCell>
-            <TableCell>Remove Project</TableCell>
-            <TableCell>Edit Project</TableCell>
+            <TableCell align="center">Id</TableCell>
+            <TableCell align="center">Ime Projekta</TableCell>
+            <TableCell align="center">Aktivan</TableCell>
+            <TableCell align="center">Kreiran</TableCell>
+            {/* <TableCell align="center">Remove Project</TableCell> */}
+            <TableCell align="center">Izmeni</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -65,26 +79,30 @@ const RemovedProjectsTable = ({
             if (project?.message) {
               return (
                 <TableRow align="center" scope="row" key={0}>
-                  <TableCell>{project.message}</TableCell>
+                  <TableCell align="center">{project.message}</TableCell>
                 </TableRow>
               );
             } else {
               return (
                 <TableRow align="center" scope="row" key={project.id}>
-                  <TableCell>{project.id}</TableCell>
-                  <TableCell>{project.projectname}</TableCell>
-                  <TableCell>{String(project.isactive)}</TableCell>
-                  <TableCell>{project.createdAt}</TableCell>
+                  <TableCell align="center">{project.id}</TableCell>
+                  <TableCell align="center">{project.projectname}</TableCell>
+                  <TableCell align="center">
+                    {String(project.isactive ? 'Da' : 'Ne')}
+                  </TableCell>
+                  <TableCell align="center">
+                    {filterDate(project.createdAt)}
+                  </TableCell>
 
-                  <TableCell>
-                    <Button onClick={() => handleRemoveProject(project.id)}>
+                  {/*<TableCell>
+                     <Button onClick={() => handleRemoveProject(project.id)}>
                       Remove
                     </Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleRestoreProject(project.id)}>
-                      Restore
-                    </Button>
+                  </TableCell> */}
+                  <TableCell align="center">
+                    <RestoreIcon
+                      onClick={() => handleRestoreProject(project.id)}
+                    />
                   </TableCell>
                 </TableRow>
               );

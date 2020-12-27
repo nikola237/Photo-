@@ -1,11 +1,58 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
-  table: {
-    minWidth: 650,
-  },
+  // table: {
+  //   minWidth: 650,
+  // },
   itemContainer: {
     paddingLeft: 85,
     paddingRight: 50,
   },
+  form: {
+    width: 350,
+  },
+  // buttonCreate: {
+  //   '&.MuiButton-textPrimary': {
+  //     background: '#343a40',
+  //     color: 'white',
+  //     borderRadius: '9px',
+  //     width: 'fit-content',
+  //     padding: '15px ',
+  //     margin: '10px 0',
+  //     boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
+  //     '&:hover': {
+  //       backgroundColor: '#343a40de',
+  //     },
+  //   },
+  // },
+  // dialog: {
+  //   '& .MuiDialog-paperWidthSm': {
+  //     backgroundColor: 'white',
+  //     background: ' white',
+  //     borderRadius: '8px',
+  //     '& .MuiDialogContent-root': {
+  //       padding: '30px',
+  //     },
+  //     '& .MuiFormControl-fullWidth': {
+  //       padding: '15px',
+  //     },
+  //     '& .MuiFormLabel-root': {},
+  //     '& .MuiDialogTitle-root': {
+  //       background: '#595b5d',
+  //       padding: '20px',
+  //       borderBottom: '1px solid #949494',
+  //       '& .MuiTypography-h6': {
+  //         textAlign: 'center',
+  //         fontSize: '23px',
+  //         color: 'white',
+  //         fontWeight: 700,
+  //       },
+  //     },
+  //     '& .MuiButton-root': {
+  //       border: '1px solid grey',
+  //       borderRadius: '9px',
+  //       padding: '10px',
+  //     },
+  //   },
+  // },
 }));

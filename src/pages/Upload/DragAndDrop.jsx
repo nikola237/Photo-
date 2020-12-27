@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 //drop zone
 import { useDropzone } from 'react-dropzone';
 
@@ -11,16 +11,10 @@ import MultipleItemUpload from '../../components/MultipleItemUpload/MultipleItem
 
 //styles
 import { Grid } from '@material-ui/core';
-// import Divider from '@material-ui/core/Divider';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-// import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-// import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
-// import CardContent from '@material-ui/core/CardContent';
 import { useStyles } from './DragAndDrop.styles';
-
-// import play from '../../assets/play.png';
 
 function uploadReducer(state, action) {
   switch (action.type) {
@@ -42,7 +36,6 @@ function uploadReducer(state, action) {
   }
 }
 const DragAndDrop = () => {
-  // const [files, setFiles] = useState(null);
   const [state, dispatch] = useReducer(uploadReducer, {
     files: null,
     title: '',
@@ -51,7 +44,7 @@ const DragAndDrop = () => {
 
   const { files, title, tags } = state;
 
-  console.log(title, tags);
+  console.log(files);
 
   const classes = useStyles();
 

@@ -20,7 +20,11 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(
     JSON.parse(window.localStorage.getItem('user')) || null
   );
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState({
+    message: 'AUTH PRIMER',
+    severity: 'success',
+    open: false,
+  });
 
   useEffect(() => {
     window.localStorage.setItem('token', token);
@@ -34,28 +38,42 @@ function AuthProvider({ children }) {
 
       setToken(response.data.token);
       const user = await api.get(`/user/${response.data.userId}`);
-      setStatus('Uspesno ste se ulogovali');
 
-      if (user) {
+      console.log(user, 'iz usera');
+      if (user.status === 200) {
+        console.log('usao u auth');
         setUser(user.data);
+        setStatus({
+          message: 'Uspesno ste se ulogovali',
+          severity: 'success',
+          open: true,
+        });
       }
     } catch (error) {
-      console.log('usao u error');
-
-      setStatus('Incorrect email or password');
+      setStatus({
+        message: 'Neispravan email ili password',
+        severity: 'error',
+        open: true,
+      });
     }
   }, []);
 
   //logout
   const logout = () => {
     window.localStorage.clear();
-    setStatus(null);
+    setStatus({
+      message: 'Neispravan email ili password',
+      severity: 'error',
+      open: false,
+    });
     setUser(null);
     setToken('');
   };
 
   return (
-    <AuthContext.Provider value={{ status, token, user, login, logout }}>
+    <AuthContext.Provider
+      value={{ status, setStatus, token, user, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
