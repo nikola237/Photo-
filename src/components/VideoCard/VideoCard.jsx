@@ -1,8 +1,11 @@
 import React from 'react';
+//authProvider
+import { useAuthState } from '../../context/authContext';
 
 //components
 import RemoveButtons from '../RemoveButtons/RemoveButtons';
 import Buttons from '../Buttons/Buttons';
+import EditorButtons from '../EditorButtons/EditorButtons';
 
 //styles
 import { Grid } from '@material-ui/core';
@@ -26,6 +29,7 @@ const VideoCard = ({
   editMode,
   items,
 }) => {
+  const { user } = useAuthState();
   const classes = useStyles();
 
   const handleTextArea = (event) => {
@@ -63,21 +67,39 @@ const VideoCard = ({
             </Typography>
           )}
         </CardContent>
-
-        <CardActions className={classes.buttons}>
-          {tab !== 1 ? (
-            <Buttons
-              dispatch={dispatch}
-              id={id}
-              pathShort={pathShort}
-              filename={filename}
-              editMode={editMode}
-              items={items}
-            />
-          ) : (
-            <RemoveButtons dispatch={dispatch} id={id} />
-          )}
-        </CardActions>
+        {user.role === 2 ? (
+          <CardActions className={classes.buttons}>
+            {tab !== 1 ? (
+              <Buttons
+                dispatch={dispatch}
+                id={id}
+                pathShort={pathShort}
+                filename={filename}
+                tags={tags}
+                editMode={editMode}
+                items={items}
+              />
+            ) : (
+              <RemoveButtons dispatch={dispatch} id={id} />
+            )}
+          </CardActions>
+        ) : user.role === 1 ? (
+          <CardActions className={classes.buttons}>
+            {tab !== 1 ? (
+              <EditorButtons
+                dispatch={dispatch}
+                id={id}
+                pathShort={pathShort}
+                filename={filename}
+                tags={tags}
+                editMode={editMode}
+                items={items}
+              />
+            ) : (
+              <RemoveButtons dispatch={dispatch} id={id} />
+            )}
+          </CardActions>
+        ) : null}
       </Card>
     </Grid>
   );

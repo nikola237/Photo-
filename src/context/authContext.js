@@ -35,14 +35,9 @@ function AuthProvider({ children }) {
   const login = useCallback(async (email, password) => {
     try {
       const response = await api.post('/login', { email, password });
-
       setToken(response.data.token);
-      const user = await api.get(`/user/${response.data.userId}`);
-
-      console.log(user, 'iz usera');
-      if (user.status === 200) {
-        console.log('usao u auth');
-        setUser(user.data);
+      if (response.status === 200) {
+        setUser(response.data.user);
         setStatus({
           message: 'Uspesno ste se ulogovali',
           severity: 'success',

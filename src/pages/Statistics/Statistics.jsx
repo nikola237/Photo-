@@ -139,14 +139,12 @@ const Statistics = () => {
             <p>Slike</p>
           </div>
           <div
-            className={classes.typeButton}
             className={` ${type === 1 ? classes.active : classes.typeButton}`}
             onClick={() => changeType(1)}
           >
             <p>Video</p>
           </div>
           <div
-            className={classes.typeButton}
             className={` ${type === 2 ? classes.active : classes.typeButton}`}
             onClick={() => changeType(2)}
           >

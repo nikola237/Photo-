@@ -10,6 +10,11 @@ export function adminReducer(state, action) {
         ...state,
         kwords: action.payload,
       };
+    case 'PROBA':
+      return {
+        ...state,
+        proba: action.payload,
+      };
     case 'ITEMS':
       return {
         ...state,
@@ -48,11 +53,6 @@ export function adminReducer(state, action) {
         editItem: state.items.filter((item) => item.id === action.payload),
       };
 
-    // case 'RESET_SUGGESTION':
-    //   return {
-    //     ...state,
-    //     tagsKwords: action.payload,
-    //   };
     case 'ADD_SUGGESTION':
       return {
         ...state,
@@ -61,7 +61,7 @@ export function adminReducer(state, action) {
     case 'ADD_KWORD_SUGGESTION':
       return {
         ...state,
-        kwords: action.payload,
+        tagsKwords: action.payload,
       };
     case 'PAGINATION':
       return {

@@ -10,7 +10,7 @@ export const useStyles = makeStyles({
   },
 
   media: {
-    height: 150,
+    width: '100%',
     backgroundSize: 'inherit',
   },
 

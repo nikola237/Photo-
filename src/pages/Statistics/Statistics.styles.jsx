@@ -76,7 +76,6 @@ export const useStyles = makeStyles((theme) => ({
     color: '#fff',
     padding: '0 20px',
     WebkitBoxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
-    boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
     borderRadius: '6px',
     marginLeft: '1%',
     flex: '1 1 10%',

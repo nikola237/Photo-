@@ -99,12 +99,6 @@ const ProjectsProvider = ({ children }) => {
     kwords: '',
     type: 1,
     projectId: null,
-    // editItemId: null,
-    // editItem: {
-    //   tags: '',
-    //   originalname: '',
-    //   pathShort: null,
-    // },
     snackbar: {
       message: 'PRIMER PRIMER',
       severity: 'success',

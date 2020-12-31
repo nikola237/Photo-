@@ -29,13 +29,15 @@ const ActiveUsers = ({
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    if (inEditMode.status) {
+      return;
+    }
     const createNewUser = [
       {
-        id: Math.floor(Math.random() * 1000),
+        id: Math.floor(Math.random() * 5000),
       },
       ...users,
     ];
-    console.log(createNewUser.id, 'ovo je NU');
     setInEditMode({
       status: true,
       rowKey: createNewUser[0].id,
@@ -45,14 +47,17 @@ const ActiveUsers = ({
   };
 
   return (
-    <Grid container direction="column" alignItems="flex-start">
+    <Grid container direction="column" alignItems="flex-start" spacing={3}>
       <Grid item container direction="row">
         <Tooltip title="Dodaj Korisnika">
-          <PersonAddIcon fontSize="large" onClick={handleClickOpen} />
+          <PersonAddIcon
+            fontSize="large"
+            onClick={handleClickOpen}
+            className={classes.addUser}
+          />
         </Tooltip>
       </Grid>
-
-      <Grid item container>
+      <Grid container item className={classes.content}>
         <UsersTable
           dispatch={dispatch}
           isLoading={isLoading}

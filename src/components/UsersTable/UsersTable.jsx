@@ -24,6 +24,7 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
+import Box from '@material-ui/core/Box';
 
 const UsersTable = ({
   dispatch,
@@ -69,25 +70,25 @@ const UsersTable = ({
     try {
       const response = await api.delete('/users/remove', { data: { id } });
       dispatch({ type: 'IS_LOADING', payload: true });
-
-      projectsDispatch({
-        type: 'SNACKBAR',
-        payload: {
-          message: 'Uspesno ste obrisali korisnika',
-          severity: 'success',
-          open: true,
-        },
-      });
+      if (response.status === 200) {
+        projectsDispatch({
+          type: 'SNACKBAR',
+          payload: {
+            message: 'Uspesno ste obrisali korisnika',
+            severity: 'success',
+            open: true,
+          },
+        });
+      }
     } catch (error) {}
   };
 
   const editUserById = async (id, index) => {
     const [editUser] = users.filter((user) => user.id === id);
-    console.log(editUser, 'ovo je user');
+
     if (editUser) {
       const { firstname, lastname, username, email, role } = editUser;
 
-      // console.log(firstname, lastname, username, email, role);
       dispatch({
         type: 'EDIT_USER',
         payload: {
@@ -146,7 +147,6 @@ const UsersTable = ({
 
   //ikone
   const handleIconCancle = (id) => {
-    console.log(id, 'iz cancela');
     if (inEditMode.newUser) {
       const remove = users.filter((user) => user.id !== id);
       dispatch({ type: 'USERS', payload: remove });
@@ -158,15 +158,26 @@ const UsersTable = ({
     dispatch({ type: 'RESET' });
   };
   const handleIconSave = async (event) => {
-    if (
-      inEditMode.newUser ||
-      firstname === '' ||
-      lastname === '' ||
-      username === '' ||
-      email === '' ||
-      password === '' ||
-      role === ''
-    ) {
+    if (inEditMode.newUser && inEditMode.status) {
+      if (
+        firstname === '' ||
+        lastname === '' ||
+        username === '' ||
+        email === '' ||
+        role === '' ||
+        password === ''
+      ) {
+        projectsDispatch({
+          type: 'SNACKBAR',
+          payload: {
+            message: 'Bez praznih polja',
+            severity: 'success',
+            open: true,
+          },
+        });
+        return;
+      }
+
       const response = await api.post('/users', {
         firstname,
         lastname,
@@ -175,65 +186,88 @@ const UsersTable = ({
         role,
         password,
       });
-      console.log(response, 'iz usera');
+
       dispatch({ type: 'IS_LOADING', payload: true });
-      projectsDispatch({
-        type: 'SNACKBAR',
-        payload: {
-          message: 'Uspesno ste kreirali korisnika',
-          severity: 'success',
-          open: true,
-        },
+      if (response.status === 200) {
+        projectsDispatch({
+          type: 'SNACKBAR',
+          payload: {
+            message: 'Uspesno ste kreirali korisnika',
+            severity: 'success',
+            open: true,
+          },
+        });
+      }
+      setInEditMode({
+        status: false,
+        rowKey: null,
+        newUser: false,
+      });
+      return;
+    } else {
+      try {
+        const response = await api.put(`/user/${inEditMode.rowKey}`, {
+          firstname,
+          lastname,
+          username,
+          email,
+          role,
+        });
+        dispatch({ type: 'IS_LOADING', payload: true });
+        if (response.status === 200) {
+          projectsDispatch({
+            type: 'SNACKBAR',
+            payload: {
+              message: 'Uspesno ste izmenili korisnika',
+              severity: 'success',
+              open: true,
+            },
+          });
+        }
+      } catch (error) {}
+
+      setInEditMode({
+        status: false,
+        rowKey: null,
       });
     }
-    try {
-      const response = await api.put(`/user/${inEditMode.rowKey}`, {
-        firstname,
-        lastname,
-        username,
-        email,
-        role,
-      });
-      dispatch({ type: 'IS_LOADING', payload: true });
-      projectsDispatch({
-        type: 'SNACKBAR',
-        payload: {
-          message: 'Uspesno ste izmenili korisnika',
-          severity: 'success',
-          open: true,
-        },
-      });
-    } catch (error) {}
-
-    setInEditMode({
-      status: false,
-      rowKey: null,
-    });
   };
   return (
     <TableContainer component={Paper} className={classes.table}>
       {users ? (
         <Table className={classes.table} aria-label="simple table">
-          <TableHead>
+          <TableHead className={classes.head}>
             <TableRow>
-              <TableCell align="center">Id</TableCell>
-              <TableCell align="center">Ime</TableCell>
-              <TableCell align="center">Prezime</TableCell>
-              <TableCell align="center">Korisnik</TableCell>
-              <TableCell align="center">Email</TableCell>
-              <TableCell align="center">Uloga</TableCell>
-              <TableCell align="center">
+              <TableCell className={classes.headTitle} align="center">
+                Id
+              </TableCell>
+              <TableCell className={classes.headTitle} align="center">
+                Ime
+              </TableCell>
+              <TableCell className={classes.headTitle} align="center">
+                Prezime
+              </TableCell>
+              <TableCell className={classes.headTitle} align="center">
+                Korisnik
+              </TableCell>
+              <TableCell className={classes.headTitle} align="center">
+                Email
+              </TableCell>
+              <TableCell className={classes.headTitle} align="center">
+                Rola
+              </TableCell>
+              <TableCell className={classes.headTitle} align="center">
                 {inEditMode.status && inEditMode.newUser
                   ? 'Lozinka'
                   : 'Aktivan'}
               </TableCell>
-              <TableCell align="center">
-                {inEditMode.status && inEditMode.newUser ? null : 'Kreiran'}
+              <TableCell className={classes.headTitle} align="center">
+                {'Kreiran'}
               </TableCell>
-              <TableCell align="center">
+              <TableCell className={classes.headTitle} align="center">
                 {inEditMode.status ? 'Sacuvaj' : 'Izmeni'}
               </TableCell>
-              <TableCell align="center">
+              <TableCell className={classes.headTitle} align="center">
                 {inEditMode.status ? 'Odustani' : 'Ukloni'}
               </TableCell>
             </TableRow>
@@ -250,121 +284,215 @@ const UsersTable = ({
               }
               return (
                 <TableRow align="center" scope="row" key={row.id}>
-                  <TableCell>{row.id}</TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
+                    {row.id}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
-                      <TextField
-                        autoFocus
-                        id="firstname"
-                        name="firstname"
-                        onChange={(e) =>
-                          updateFieldValue(e.target.name, e.target.value)
-                        }
-                        value={firstname}
-                      />
+                      <Box width={100}>
+                        <TextField
+                          autoFocus
+                          id="firstname"
+                          name="firstname"
+                          onChange={(e) =>
+                            updateFieldValue(e.target.name, e.target.value)
+                          }
+                          value={firstname}
+                        />
+                      </Box>
                     ) : (
                       row.firstname
                     )}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
-                      <TextField
-                        name="lastname"
-                        id="lastname"
-                        value={lastname}
-                        onChange={(e) =>
-                          updateFieldValue(e.target.name, e.target.value)
-                        }
-                      />
+                      <Box width={100}>
+                        <TextField
+                          name="lastname"
+                          id="lastname"
+                          value={lastname}
+                          onChange={(e) =>
+                            updateFieldValue(e.target.name, e.target.value)
+                          }
+                        />
+                      </Box>
                     ) : (
                       row.lastname
                     )}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
-                      <TextField
-                        name="username"
-                        id="username"
-                        onChange={(e) =>
-                          updateFieldValue(e.target.name, e.target.value)
-                        }
-                        value={username}
-                      />
+                      <Box width={100}>
+                        <TextField
+                          name="username"
+                          id="username"
+                          onChange={(e) =>
+                            updateFieldValue(e.target.name, e.target.value)
+                          }
+                          value={username}
+                        />
+                      </Box>
                     ) : (
                       row.username
                     )}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
-                      <TextField
-                        name="email"
-                        id="email"
-                        onChange={(e) =>
-                          updateFieldValue(e.target.name, e.target.value)
-                        }
-                        value={email}
-                      />
+                      <Box width={170}>
+                        <TextField
+                          name="email"
+                          id="email"
+                          onChange={(e) =>
+                            updateFieldValue(e.target.name, e.target.value)
+                          }
+                          value={email}
+                        />
+                      </Box>
                     ) : (
                       row.email
                     )}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
-                      <Select
-                        native
-                        labelId="User role"
-                        name="role"
-                        id="select"
-                        value={role}
-                        onChange={(e) =>
-                          updateFieldValue(e.target.name, e.target.value)
-                        }
-                      >
-                        <option value={0}>user</option>
-                        <option value={1}>editor</option>
-                        <option value={2}>admin</option>
-                      </Select>
+                      <Box width={120}>
+                        <Select
+                          native
+                          labelId="User role"
+                          name="role"
+                          id="select"
+                          value={role}
+                          onChange={(e) =>
+                            updateFieldValue(e.target.name, e.target.value)
+                          }
+                        >
+                          <option value={0}>user</option>
+                          <option value={1}>editor</option>
+                          <option value={2}>admin</option>
+                        </Select>
+                      </Box>
                     ) : (
                       <>
-                        {row.role === 0 && <h3>user</h3>}
-                        {row.role === 1 && <h3>editor</h3>}
-                        {row.role === 2 && <h3>admin</h3>}
+                        {row.role === 0 && <p>user</p>}
+                        {row.role === 1 && <p>editor</p>}
+                        {row.role === 2 && <p>admin</p>}
                       </>
                     )}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {inEditMode.status &&
                     inEditMode.newUser &&
                     inEditMode.rowKey === row.id ? (
-                      <TextField
-                        name="password"
-                        id="password"
-                        onChange={(e) =>
-                          updateFieldValue(e.target.name, e.target.value)
-                        }
-                        value={password}
-                      />
+                      <Box width={100}>
+                        <TextField
+                          name="password"
+                          id="password"
+                          onChange={(e) =>
+                            updateFieldValue(e.target.name, e.target.value)
+                          }
+                          value={password}
+                        />
+                      </Box>
                     ) : (
-                      (row.isactive && <h3>Da</h3>) || <h3>Ne</h3>
+                      (row.isactive && <p>Da</p>) || <p>Ne</p>
                     )}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {filterDate(row.createdAt)}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
-                      <CheckCircleIcon onClick={() => handleIconSave()} />
+                      <CheckCircleIcon
+                        style={{ color: '#4caf50', cursor: 'pointer' }}
+                        onClick={() => handleIconSave()}
+                      />
                     ) : (
-                      <EditIcon onClick={() => editUserById(row.id, index)} />
+                      <EditIcon
+                        style={{ color: '#64b5f6', cursor: 'pointer' }}
+                        onClick={() => editUserById(row.id, index)}
+                      />
                     )}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell
+                    align="center"
+                    className={
+                      inEditMode.status && inEditMode.rowKey === row.id
+                        ? classes.selected
+                        : null
+                    }
+                  >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
                       <CancelIcon
+                        style={{ color: '#d32f2f', cursor: 'pointer' }}
                         onClick={() => handleIconCancle(inEditMode.rowKey)}
                       />
                     ) : (
-                      <DeleteIcon onClick={() => deleteUserById(row.id)} />
+                      <DeleteIcon
+                        style={{ color: '#d32f2f', cursor: 'pointer' }}
+                        onClick={() => deleteUserById(row.id)}
+                      />
                     )}
                   </TableCell>
                 </TableRow>

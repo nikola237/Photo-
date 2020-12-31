@@ -4,11 +4,13 @@ import React, { useReducer } from 'react';
 import DeletedUsers from '../../components/DeletedUsers/DeletedUsers';
 import AtiveUsers from '../../components/ActiveUsers/ActiveUsers';
 import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
+import Footer from '../../components/Footer/Footer';
 //styles
 import { Grid } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useStyles } from './Users.styles';
+import Container from '@material-ui/core/Container';
 
 function usersReducer(state, action) {
   switch (action.type) {
@@ -88,24 +90,18 @@ const Users = () => {
 
   const classes = useStyles();
 
-  // console.log(firstname);
-  // console.log(lastname);
-  // console.log(username);
-  // console.log(email);
-  // console.log(role);
-
   const handleChangeTab = (event, newValue) => {
     dispatch({ type: 'TAB', payload: newValue });
   };
 
   return (
-    <Grid container className={classes.itemContainer}>
+    <Container maxWidth="xl" className={classes.itemContainer} justify="center">
       <Grid item container justify="center">
         <Tabs
           className={classes.tabs}
           value={tab}
-          indicatorColor="primary"
-          textColor="primary"
+          // indicatorColor="primary"
+          // textColor="primary"
           onChange={handleChangeTab}
           aria-label="disabled tabs example"
         >
@@ -113,7 +109,7 @@ const Users = () => {
           <Tab label="obrisani korisnici" />
         </Tabs>
       </Grid>
-      <div className={classes.tableWrapper}>
+      <Grid item container className={classes.content}>
         {tab === 0 && (
           <AtiveUsers
             dispatch={dispatch}
@@ -134,9 +130,12 @@ const Users = () => {
             isLoading={isLoading}
           />
         )}
-      </div>
+      </Grid>
+      <Grid item container className={classes.footer}>
+        <Footer />
+      </Grid>
       <SnackbarAlert />
-    </Grid>
+    </Container>
   );
 };
 

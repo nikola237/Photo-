@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+//provider
+import { useProjectsDispatch } from '../../context/projectsContext';
+
 //api
 import api from '../../api/api';
 
@@ -15,7 +18,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import { Button } from '@material-ui/core';
 import { useStyles } from './DeletedUsers.styles';
 import RestoreIcon from '@material-ui/icons/Restore';
 
@@ -24,13 +26,13 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [count, setCount] = useState(0);
   const classes = useStyles();
+  const projectsDispatch = useProjectsDispatch();
 
   const getData = useCallback(() => {
     const getRemovedUsers = async () => {
       const response = await api.get(
         `/users/remove/?page=${page}&size=${rowsPerPage}`
       );
-      console.log(response.data.rows, 'useri');
       setCount(response.data.totalItems);
       dispatch({ type: 'USERS', payload: response.data.rows });
     };
@@ -59,6 +61,16 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
 
   const restoreUserById = async (id) => {
     const response = await api.post(`/users/restore`, { id });
+    if (response.status === 200) {
+      projectsDispatch({
+        type: 'SNACKBAR',
+        payload: {
+          message: 'Uspesno ste obrisali korisnika',
+          severity: 'success',
+          open: true,
+        },
+      });
+    }
 
     dispatch({ type: 'IS_LOADING', payload: true });
   };
@@ -81,17 +93,35 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
     <TableContainer component={Paper} className={classes.table}>
       {users ? (
         <Table className={classes.table} aria-label="simple table">
-          <TableHead>
+          <TableHead className={classes.head}>
             <TableRow align="center">
-              <TableCell align="center">Id</TableCell>
-              <TableCell align="center">Ime</TableCell>
-              <TableCell align="center">Prezime</TableCell>
-              <TableCell align="center">Korisničko ime</TableCell>
-              <TableCell align="center">Email</TableCell>
-              <TableCell align="center">Uloga</TableCell>
-              <TableCell align="center">Aktivan </TableCell>
-              <TableCell align="center">Kreiran</TableCell>
-              <TableCell align="center">Vrati Korisnika</TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Id
+              </TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Ime
+              </TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Prezime
+              </TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Korisničko ime
+              </TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Email
+              </TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Rola
+              </TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Aktivan{' '}
+              </TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Kreiran
+              </TableCell>
+              <TableCell align="center" className={classes.headTitle}>
+                Vrati Korisnika
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -111,21 +141,22 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
                     <TableCell align="center">{row.username}</TableCell>
                     <TableCell align="center">{row.email}</TableCell>
                     <TableCell align="center">
-                      {row.role === 0 && <h3>Korisnik</h3>}
-                      {row.role === 1 && <h3>Urednik</h3>}
-                      {row.role === 2 && <h3>Administrator</h3>}
+                      {row.role === 0 && <p>Korisnik</p>}
+                      {row.role === 1 && <p>Urednik</p>}
+                      {row.role === 2 && <p>Administrator</p>}
                     </TableCell>
                     <TableCell align="center">
-                      {(row.isactive && <h3>Da</h3>) || <h3>Ne</h3>}
+                      {(row.isactive && <p>Da</p>) || <p>Ne</p>}
                     </TableCell>
                     <TableCell align="center">
                       {filterDate(row.createdAt)}
                     </TableCell>
 
                     <TableCell align="center">
-                      <Button onClick={() => restoreUserById(row.id)}>
-                        <RestoreIcon />
-                      </Button>
+                      <RestoreIcon
+                        style={{ color: '#64b5f6', cursor: 'pointer' }}
+                        onClick={() => restoreUserById(row.id)}
+                      />
                     </TableCell>
                   </TableRow>
                 );

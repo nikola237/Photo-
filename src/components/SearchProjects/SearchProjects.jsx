@@ -28,7 +28,7 @@ const SearchProjects = () => {
       </div>
 
       <InputBase
-        placeholder="Search project"
+        placeholder="Pretrazi projekte"
         onChange={searchChangeHandler}
         value={kwords}
         classes={{

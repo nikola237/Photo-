@@ -1,8 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
 //api
 import api from '../../api/api';
+
 //components
 import RemovedProjectsTable from '../RemovedProjectsTable/RemovedProjectsTable';
+
+//styles
+import { Grid } from '@material-ui/core';
 
 function RemovedProjectsReducer(state, action) {
   console.log(action.payload, 'iz obrisanih');
@@ -69,7 +73,7 @@ const RemovedProjects = ({ tab }) => {
   }, [isLoading]);
 
   return (
-    <div>
+    <Grid container justify="center" style={{ paddingTop: '100px' }}>
       {projects && (
         <RemovedProjectsTable
           projects={projects}
@@ -79,7 +83,7 @@ const RemovedProjects = ({ tab }) => {
           count={count}
         />
       )}
-    </div>
+    </Grid>
   );
 };
 

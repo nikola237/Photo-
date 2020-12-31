@@ -5,18 +5,16 @@ import play from '../../assets/play.png';
 
 ///styles
 import TextField from '@material-ui/core/TextField';
-import { Grid } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
+import { CardActions, Grid } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { useStyles } from './SingleItemUpload.styles';
-
+import CloseIcon from '@material-ui/icons/Close';
+import Box from '@material-ui/core/Box';
 const SingleItemUpload = ({
-  files,
+  file,
   title,
   tags,
   dispatch,
@@ -33,61 +31,115 @@ const SingleItemUpload = ({
       },
     });
   };
+  const handleRemoveItem = (name) => {
+    dispatch({ type: 'REMOVE_FILE', payload: name });
+  };
 
   return (
-    <Grid container>
-      <Paper>
-        {files &&
-          files.map((file) =>
-            file.type !== 'image/jpeg' ? (
-              <Card className={classes.root} key={file.name}>
-                <Avatar alt="Remy Sharp" src={play} />
-                <CardContent>
-                  <Typography>{file.name}</Typography>
-                </CardContent>
-
-                <Divider />
-              </Card>
-            ) : (
-              <Card className={classes.root} key={file.name}>
-                <Avatar alt="Remy Sharp" src={file.preview} />
-
-                <CardContent>
-                  <Typography>{file.name}</Typography>
-                </CardContent>
-
-                <Divider />
-              </Card>
-            )
-          )}
-        <form onSubmit={fileUploadHandler}>
-          <TextField
-            autoFocus
-            name="title"
-            margin="dense"
-            id="title"
-            label="title"
-            type="text"
-            fullWidth
-            autoComplete="title"
-            required
-            onChange={(e) => updateFieldValue(e.target.name, e.target.value)}
-            value={title}
-          />
-          <TextField
-            name="tags"
-            margin="dense"
-            id="tags"
-            label="tags"
-            type="text"
-            fullWidth
-            autoComplete="tags"
-            required
-            onChange={(e) => updateFieldValue(e.target.name, e.target.value)}
-            value={tags}
-          />
-        </form>
-      </Paper>
+    <Grid item container xs={12} sm={6} md={4}>
+      {file.type !== 'image/jpeg' ? (
+        <Card className={classes.root}>
+          <Box className={classes.box}>
+            <CloseIcon
+              onClick={() => handleRemoveItem(file.name)}
+              className={classes.button}
+            />
+          </Box>
+          <Box className={classes.avatar}>
+            <Avatar
+              className={classes.avatarImgMulti}
+              alt="Remy Sharp"
+              src={play}
+            />
+          </Box>
+          <CardContent className={classes.content}>
+            <Typography>{file.name.toLowerCase()}</Typography>
+          </CardContent>
+          <CardActions>
+            <form className={classes.txtForm} onSubmit={fileUploadHandler}>
+              <TextField
+                autoFocus
+                name="title"
+                margin="dense"
+                id="title"
+                label="title"
+                type="text"
+                fullWidth
+                autoComplete="title"
+                onChange={(e) =>
+                  updateFieldValue(e.target.name, e.target.value)
+                }
+                value={title}
+              />
+              <TextField
+                name="tags"
+                margin="dense"
+                id="tags"
+                label="tags"
+                type="text"
+                fullWidth
+                autoComplete="tags"
+                onChange={(e) =>
+                  updateFieldValue(e.target.name, e.target.value)
+                }
+                value={tags}
+              />
+            </form>
+          </CardActions>
+        </Card>
+      ) : (
+        <Grid item container xs={12} sm={6} md={4} lg={3}>
+          <Card className={classes.root}>
+            <Box className={classes.box}>
+              <CloseIcon
+                onClick={() => handleRemoveItem(file.name)}
+                className={classes.button}
+              />
+            </Box>
+            <Box className={classes.avatar}>
+              <Avatar
+                className={classes.avatarImgMulti}
+                alt="Remy Sharp"
+                src={play}
+              />
+            </Box>
+            <CardContent className={classes.content}>
+              <Typography>{file.name.toLowerCase()}</Typography>
+            </CardContent>
+            <CardActions>
+              <form className={classes.txtForm} onSubmit={fileUploadHandler}>
+                <TextField
+                  autoFocus
+                  name="title"
+                  margin="dense"
+                  id="title"
+                  label="title"
+                  type="text"
+                  fullWidth
+                  autoComplete="title"
+                  onChange={(e) =>
+                    updateFieldValue(e.target.name, e.target.value)
+                  }
+                  value={title}
+                />
+                <TextField
+                  name="tags"
+                  margin="dense"
+                  id="tags"
+                  label="tags"
+                  type="text"
+                  fullWidth
+                  autoComplete="tags"
+                  onChange={(e) =>
+                    updateFieldValue(e.target.name, e.target.value)
+                  }
+                  value={tags}
+                />
+              </form>
+            </CardActions>
+          </Card>
+        </Grid>
+      )}
     </Grid>
   );
 };

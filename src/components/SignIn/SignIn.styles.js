@@ -6,34 +6,27 @@ import logos from '../../assets/logos.png';
 import freska from '../../assets/freska.png';
 export const useStyles = makeStyles((theme) => ({
   paper: {
-    // marginTop: theme.spacing(3),
+    borderRadius: 20,
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#fff',
-    height: '50vh',
+    height: '45vh',
     width: 400,
     flex: 1,
-    // padding: 20,
   },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-  },
+
   header: {
     height: 100,
     width: '100%',
     display: 'flex',
-
+    background: `linear-gradient(90deg, rgba(0,0,0,1) 50%, rgba(365,365,365,0.7) 99%)`,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    background: ' rgba(365,365,365,0.7)',
+    // background: ' rgba(365,365,365,0.7)',
   },
   content: {
     flex: 1,
@@ -67,18 +60,16 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexShrink: 0,
     fontSize: 20,
-    // maxHeight: '30vh',
-    // minHeight: '100vh',
     background: `linear-gradient(90deg, rgba(0,0,0,1) 50%, rgba(365,365,365,0.7) 99%)`,
     color: '#fff',
   },
   textField: {
     '& .makeStyles-textField-9': {
-      width: '36ch',
+      width: '100%',
     },
   },
   avatar: {
-    margin: theme.spacing(1),
+    marginTop: theme.spacing(8),
     backgroundColor: theme.palette.secondary.main,
   },
   hero: {
@@ -98,7 +89,12 @@ export const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
     width: '31ch',
+    color: '#fff',
     backgroundColor: theme.palette.secondary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.light,
+      color: '#000',
+    },
   },
   icon: {
     position: 'end',
@@ -109,9 +105,7 @@ export const useStyles = makeStyles((theme) => ({
   withoutLabel: {
     marginTop: theme.spacing(3),
   },
-  // textField: {
-  //   width: '25ch',
-  // },
+
   root: {
     width: '100%',
     '& > * + *': {

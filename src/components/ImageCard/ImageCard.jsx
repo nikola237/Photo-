@@ -3,6 +3,10 @@ import React from 'react';
 //components
 import RemoveButtons from '../RemoveButtons/RemoveButtons';
 import Buttons from '../Buttons/Buttons';
+import EditorButtons from '../EditorButtons/EditorButtons';
+
+//authProvider
+import { useAuthState } from '../../context/authContext';
 
 //styles
 import { Grid } from '@material-ui/core';
@@ -27,7 +31,7 @@ const CardImage = ({
   items,
 }) => {
   const classes = useStyles();
-
+  const { user } = useAuthState();
   const handleTextArea = (event) => {
     dispatch({ type: 'EDIT_MODE_TEXT', payload: event.target.value });
   };
@@ -36,7 +40,7 @@ const CardImage = ({
     <Grid item container xs={12} sm={5} md={4} lg={3}>
       <Card className={classes.root}>
         <Box className={classes.id}>
-          <Typography variant="h6">{`Id: ${id}`}</Typography>
+          <Typography variant="h6">{`${id}`}</Typography>
         </Box>
         <CardMedia
           className={classes.media}
@@ -51,27 +55,45 @@ const CardImage = ({
               className={classes.textArea}
             />
           ) : (
-            <Typography variant="body2" component="p" className={classes.id}>
-              {`${tags}`}
+            <Typography variant="body2" component="p">
+              {tags ? `${tags.toLowerCase().slice(0, 80)}...` : `${tags}`}
             </Typography>
           )}
         </CardContent>
 
-        <CardActions className={classes.buttons}>
-          {tab !== 1 ? (
-            <Buttons
-              dispatch={dispatch}
-              id={id}
-              pathShort={pathShort}
-              filename={filename}
-              tags={tags}
-              editMode={editMode}
-              items={items}
-            />
-          ) : (
-            <RemoveButtons dispatch={dispatch} id={id} />
-          )}
-        </CardActions>
+        {user.role === 2 ? (
+          <CardActions className={classes.buttons}>
+            {tab !== 1 ? (
+              <Buttons
+                dispatch={dispatch}
+                id={id}
+                pathShort={pathShort}
+                filename={filename}
+                tags={tags}
+                editMode={editMode}
+                items={items}
+              />
+            ) : (
+              <RemoveButtons dispatch={dispatch} id={id} />
+            )}
+          </CardActions>
+        ) : user.role === 1 ? (
+          <CardActions className={classes.buttons}>
+            {tab !== 1 ? (
+              <EditorButtons
+                dispatch={dispatch}
+                id={id}
+                pathShort={pathShort}
+                filename={filename}
+                tags={tags}
+                editMode={editMode}
+                items={items}
+              />
+            ) : (
+              <RemoveButtons dispatch={dispatch} id={id} />
+            )}
+          </CardActions>
+        ) : null}
       </Card>
     </Grid>
   );

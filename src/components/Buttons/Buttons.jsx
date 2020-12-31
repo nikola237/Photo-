@@ -17,6 +17,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import Tooltip from '@material-ui/core/Tooltip';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { Grid } from '@material-ui/core';
 import { useStyles } from './Buttons.styles';
 
 const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
@@ -32,7 +33,7 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
     dispatch({ type: 'REMOVE_ITEM', payload: id });
 
     const response = await api.delete('/items/remove', { data: { id } });
-    console.log(response, 'iz downloada');
+
     if (response.status === 200) {
       projectsDispatch({
         type: 'SNACKBAR',
@@ -50,18 +51,12 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
   const handleItemId = async (id) => {
     const [edit] = items.filter((item) => item.id === id);
 
-    console.log(edit, 'ovo je item');
     dispatch({
       type: 'EDIT_MODE',
       payload: { status: true, itemId: edit.id, tags: edit.tags },
     });
 
     setIdEdit(id);
-    // projectsDispatch({
-    //   type: 'EDIT_ITEM_ID',
-    //   payload: id,
-    // });
-    // history.push(`/edit/${id}`);
   };
 
   //download item
@@ -92,52 +87,74 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
           open: true,
         },
       });
-      dispatch({
-        type: 'EDIT_MODE',
-        payload: { status: false, itemId: null, tags: null },
-      });
-      dispatch({ type: 'IS_LOADING', payload: true });
     }
+    dispatch({
+      type: 'EDIT_MODE',
+      payload: { status: false, itemId: null, tags: null },
+    });
+    dispatch({ type: 'IS_LOADING', payload: true });
   };
   return (
-    <div className={classes.root}>
+    <Grid container justify="center" className={classes.root}>
       {editMode.status && editMode.itemId === idEdit ? (
         <>
-          <Tooltip title="Potvrdi">
-            <CheckCircleIcon onClick={handleIconCheck} />
-          </Tooltip>
-          <Tooltip title="Odustani">
-            <CancelIcon onClick={handleIconCancel} />
-          </Tooltip>
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={handleIconCheck}
+            size="small"
+          >
+            <Tooltip title="Potvrdi">
+              <CheckCircleIcon style={{ color: '#4caf50' }} />
+            </Tooltip>
+          </Button>
+
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={handleIconCancel}
+            size="small"
+          >
+            <Tooltip title="Odustani">
+              <CancelIcon style={{ color: '#d32f2f' }} />
+            </Tooltip>
+          </Button>
         </>
       ) : (
         <>
-          <Button onClick={() => handleItemId(id)} size="small" color="primary">
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={() => handleItemId(id)}
+            size="small"
+          >
             <Tooltip title="Izmeni">
-              <EditIcon />
+              <EditIcon style={{ color: '#3f51b5' }} />
             </Tooltip>
           </Button>
           <Button
+            color="primary"
+            variant="outlined"
             onClick={() => handleDownloadItem(id)}
             size="small"
-            color="primary"
           >
             <Tooltip title="Preuzmi">
-              <GetAppIcon />
+              <GetAppIcon style={{ color: '#2196f3' }} />
             </Tooltip>
           </Button>
           <Button
+            color="primary"
+            variant="outlined"
             onClick={() => handleRemoveItem(id)}
             size="small"
-            color="primary"
           >
             <Tooltip title="Obrisi">
-              <DeleteIcon />
+              <DeleteIcon style={{ color: '#d50000' }} />
             </Tooltip>
           </Button>
         </>
       )}
-    </div>
+    </Grid>
   );
 };
 

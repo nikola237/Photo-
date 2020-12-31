@@ -8,7 +8,6 @@ import { useAuthState } from '../../context/authContext';
 import {
   AppBar,
   Toolbar,
-  Typography,
   Button,
   Drawer,
   List,
@@ -26,6 +25,10 @@ import clsx from 'clsx';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import FolderIcon from '@material-ui/icons/Folder';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import SettingsIcon from '@material-ui/icons/Settings';
+import Tooltip from '@material-ui/core/Tooltip';
+import Box from '@material-ui/core/Box';
 import { useStyles } from './AdminNav.styles';
 
 const AdminNav = () => {
@@ -48,10 +51,18 @@ const AdminNav = () => {
     logout();
   };
 
+  const handleUserAcc = () => {
+    history.push('/acc');
+  };
+
   const itemsList = [
     {
       text: 'Dashboard',
-      icon: <DashboardIcon />,
+      icon: (
+        <Tooltip title="Dashboard" placement="right">
+          <DashboardIcon />
+        </Tooltip>
+      ),
 
       onClick: (index) => {
         history.push('/');
@@ -60,8 +71,12 @@ const AdminNav = () => {
       },
     },
     {
-      text: 'Users',
-      icon: <PeopleIcon />,
+      text: 'Korisnici',
+      icon: (
+        <Tooltip title="Korisnici" placement="right">
+          <PeopleIcon />
+        </Tooltip>
+      ),
 
       onClick: (index) => {
         history.push('/users');
@@ -70,8 +85,12 @@ const AdminNav = () => {
       },
     },
     {
-      text: 'Statistics',
-      icon: <EqualizerIcon />,
+      text: 'Statistika',
+      icon: (
+        <Tooltip title="Statistika" placement="right">
+          <EqualizerIcon />
+        </Tooltip>
+      ),
       onClick: (index) => {
         history.push('/statistics');
         setOpen(false);
@@ -79,8 +98,13 @@ const AdminNav = () => {
       },
     },
     {
-      text: 'Upload',
-      icon: <CloudUploadIcon />,
+      text: 'Dodaj datoteke',
+      icon: (
+        <Tooltip title="Dodaj datoteke" placement="right">
+          <CloudUploadIcon />
+        </Tooltip>
+      ),
+
       onClick: (index) => {
         history.push('/upload');
         setOpen(false);
@@ -89,8 +113,12 @@ const AdminNav = () => {
     },
 
     {
-      text: 'Projects',
-      icon: <FolderIcon />,
+      text: 'Projekti',
+      icon: (
+        <Tooltip title="Projekti" placement="right">
+          <FolderIcon />
+        </Tooltip>
+      ),
       onClick: (index) => {
         history.push('/projects');
         setOpen(false);
@@ -106,17 +134,31 @@ const AdminNav = () => {
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar>
-          <IconButton
+          <Box
             edge="start"
             className={classes.menu}
-            onClick={handleDrawerOpen}
-          >
-            <Menu />
-          </IconButton>
 
-          <Typography className={classes.user}>{user.firstname}</Typography>
-          <Button variant="contained" color="secondary" onClick={handleLogout}>
-            Sign Out
+            // startIcon={<Menu />}
+          >
+            <IconButton onClick={handleDrawerOpen}>
+              <Menu className={classes.menuButton} />
+            </IconButton>
+          </Box>
+
+          <Button
+            startIcon={<SettingsIcon />}
+            className={classes.user}
+            onClick={handleUserAcc}
+          >
+            {user.firstname}
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.logout}
+            onClick={handleLogout}
+            startIcon={<PowerSettingsNewIcon />}
+          >
+            Logout
           </Button>
         </Toolbar>
       </AppBar>
@@ -145,7 +187,9 @@ const AdminNav = () => {
                 onClick={() => onClick(index)}
                 selected={index === selectedIcon}
                 style={
-                  selectedIcon === index ? { backgroundColor: 'gray' } : null
+                  selectedIcon === index
+                    ? { backgroundColor: `rgba(0,0,0, 0.3)` }
+                    : null
                 }
               >
                 {icon && (

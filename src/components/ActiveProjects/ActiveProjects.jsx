@@ -10,6 +10,7 @@ import { Grid } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Tooltip from '@material-ui/core/Tooltip';
+import { useStyles } from './ActiveProjects.styles';
 
 function activeProjectsReducer(state, action) {
   switch (action.type) {
@@ -109,7 +110,7 @@ const ActiveProjects = () => {
     count,
     editMode,
   } = state;
-
+  const classes = useStyles();
   const getActiveProjects = useCallback(async () => {
     const response = await api.get(
       `/projects?size=${rowsPerPage}&page=${page}&isactive=${isactiveFilter}`
@@ -163,21 +164,35 @@ const ActiveProjects = () => {
 
   return (
     <Grid container justify="center">
-      <Tooltip title="Dodaj Projekat">
-        <AddCircleIcon fontSize="large" onClick={handleClickOpen} />
-      </Tooltip>
-      <Select
-        native
-        labelId="isactiveFilter"
-        name="isactiveFilter"
-        id="isactiveFilter"
-        value={isactiveFilter}
-        onChange={handleActivivity}
+      <Grid item container justify="center" className={classes.filter}>
+        <Select
+          native
+          labelId="isactiveFilter"
+          name="isactiveFilter"
+          id="isactiveFilter"
+          value={isactiveFilter}
+          onChange={handleActivivity}
+        >
+          <option value={''}>Bez filtera</option>
+          <option value={1}>Aktivni</option>
+          <option value={0}>Neaktivni</option>
+        </Select>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="row"
+        justify="flex-start"
+        className={classes.project}
       >
-        <option value={''}>Bez filtera</option>
-        <option value={1}>Aktivni</option>
-        <option value={0}>Neaktivni</option>
-      </Select>
+        <Tooltip title="Dodaj Projekat">
+          <AddCircleIcon
+            fontSize="large"
+            onClick={handleClickOpen}
+            className={classes.addProject}
+          />
+        </Tooltip>
+      </Grid>
       {projects && (
         <ProjectsTable
           projects={projects}

@@ -1,9 +1,10 @@
 import React from 'react';
-
+//authProvider
 import { useAuthState } from './context/authContext';
-
+//rrd
 import { BrowserRouter as Routes } from 'react-router-dom';
 
+//components
 import Authenticated from './components/Authenticated/Authenticated';
 import Unauthenticated from './components/Unauthenticated/Unauthenticated';
 

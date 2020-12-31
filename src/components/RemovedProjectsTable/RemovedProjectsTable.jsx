@@ -12,7 +12,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import Button from '@material-ui/core/Button';
 import RestoreIcon from '@material-ui/icons/Restore';
 import { useStyles } from './RemovedProjectsTable.styles';
 
@@ -25,13 +24,11 @@ const RemovedProjectsTable = ({
 }) => {
   const classes = useStyles();
 
-  console.log(count, 'ovo je count');
-
-  const handleRemoveProject = async (id) => {
-    const response = await api.delete(`/projects`, { data: { id } });
-    dispatch({ type: 'IS_LOADING', payload: true });
-    console.log(response, 'obrisan');
-  };
+  // const handleRemoveProject = async (id) => {
+  //   const response = await api.delete(`/projects`, { data: { id } });
+  //   dispatch({ type: 'IS_LOADING', payload: true });
+  //   console.log(response, 'obrisan');
+  // };
 
   const handleRestoreProject = async (id) => {
     const response = await api.post('/projects/restore', { id });
@@ -64,14 +61,24 @@ const RemovedProjectsTable = ({
   return (
     <TableContainer component={Paper} className={classes.table}>
       <Table className={classes.table} aria-label="simple table">
-        <TableHead>
+        <TableHead className={classes.head}>
           <TableRow align="center">
-            <TableCell align="center">Id</TableCell>
-            <TableCell align="center">Ime Projekta</TableCell>
-            <TableCell align="center">Aktivan</TableCell>
-            <TableCell align="center">Kreiran</TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              Id
+            </TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              Ime Projekta
+            </TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              Aktivan
+            </TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              Kreiran
+            </TableCell>
             {/* <TableCell align="center">Remove Project</TableCell> */}
-            <TableCell align="center">Izmeni</TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              Vrati
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -101,6 +108,7 @@ const RemovedProjectsTable = ({
                   </TableCell> */}
                   <TableCell align="center">
                     <RestoreIcon
+                      style={{ color: '#64b5f6', cursor: 'pointer' }}
                       onClick={() => handleRestoreProject(project.id)}
                     />
                   </TableCell>

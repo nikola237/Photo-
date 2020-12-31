@@ -5,6 +5,7 @@ const drawerWidth = 200;
 export const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: theme.palette.common.black,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -29,6 +30,12 @@ export const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
   user: {
     marginRight: theme.spacing(2),
+    color: '#fff',
+    backgroundColor: theme.palette.secondary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
+      color: '#fff',
+    },
   },
 
   menu: {
@@ -36,6 +43,10 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'start',
     direction: 'left',
   },
+  menuButton: {
+    color: '#fff',
+  },
+
   drawerPaper: {
     position: 'fixed',
     whiteSpace: 'nowrap',
@@ -52,5 +63,14 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(7),
+  },
+
+  logout: {
+    color: '#fff',
+    backgroundColor: theme.palette.secondary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
+      color: '#fff',
+    },
   },
 }));

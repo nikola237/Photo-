@@ -71,7 +71,7 @@ function TopUserChart({ data }) {
     if (data.length > 0) {
       var count = {};
       var countTop = {};
-      var countProjects = {};
+      // var countProjects = {};
       data.forEach((item) => {
         if (item.user != null) {
           if (count[item.user.username]) {
@@ -80,9 +80,6 @@ function TopUserChart({ data }) {
           }
           count[item.user.username] = 1;
         }
-        // }else{
-        //   alert('Greska: postoji null korisnik')
-        // }
       });
 
       data.forEach((item) => {

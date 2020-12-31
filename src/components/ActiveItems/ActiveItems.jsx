@@ -29,7 +29,6 @@ const ActiveItems = ({
             kwords: kwords,
           }
         );
-        // console.log(response, 'response');
         dispatch({ type: 'ITEMS', payload: response.data.rows });
         dispatch({ type: 'PAGINATION', payload: response.data.totalPages });
       } catch (error) {}

@@ -1,8 +1,12 @@
 import React from 'react';
 
+//authProvider
+import { useAuthState } from '../../context/authContext';
+
 //components
 import RemoveButtons from '../RemoveButtons/RemoveButtons';
 import Buttons from '../Buttons/Buttons';
+import EditorButtons from '../EditorButtons/EditorButtons';
 
 //styles
 import { Grid } from '@material-ui/core';
@@ -28,8 +32,8 @@ const MediaCard = ({
   items,
 }) => {
   const classes = useStyles();
+  const { user } = useAuthState();
   const handleTextArea = (event) => {
-    console.log(event.target.value);
     dispatch({ type: 'EDIT_MODE_TEXT', payload: event.target.value });
   };
 
@@ -39,7 +43,6 @@ const MediaCard = ({
         <Box className={classes.id}>
           <Typography variant="h6">{`Id: ${id}`}</Typography>
         </Box>
-
         <CardMedia
           component="audio"
           controlsList="nodownload"
@@ -65,21 +68,39 @@ const MediaCard = ({
             </Typography>
           )}
         </CardContent>
-
-        <CardActions className={classes.buttons}>
-          {tab !== 1 ? (
-            <Buttons
-              dispatch={dispatch}
-              id={id}
-              pathShort={pathShort}
-              filename={filename}
-              editMode={editMode}
-              items={items}
-            />
-          ) : (
-            <RemoveButtons dispatch={dispatch} id={id} />
-          )}
-        </CardActions>
+        {user.role === 2 ? (
+          <CardActions className={classes.buttons}>
+            {tab !== 1 ? (
+              <Buttons
+                dispatch={dispatch}
+                id={id}
+                pathShort={pathShort}
+                filename={filename}
+                tags={tags}
+                editMode={editMode}
+                items={items}
+              />
+            ) : (
+              <RemoveButtons dispatch={dispatch} id={id} />
+            )}
+          </CardActions>
+        ) : user.role === 1 ? (
+          <CardActions className={classes.buttons}>
+            {tab !== 1 ? (
+              <EditorButtons
+                dispatch={dispatch}
+                id={id}
+                pathShort={pathShort}
+                filename={filename}
+                tags={tags}
+                editMode={editMode}
+                items={items}
+              />
+            ) : (
+              <RemoveButtons dispatch={dispatch} id={id} />
+            )}
+          </CardActions>
+        ) : null}
       </Card>
     </Grid>
   );

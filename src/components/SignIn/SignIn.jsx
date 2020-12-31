@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -19,6 +18,7 @@ import { useStyles } from './SignIn.styles';
 import Paper from '@material-ui/core/Paper';
 import { Grid } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
+import Box from '@material-ui/core/Box';
 
 //components
 import SnackbarAuth from '../SnackbarAuth/SnackbarAuth';
@@ -51,13 +51,6 @@ const SignIn = () => {
   const handleVisibility = (event) => {
     setIcon((prev) => !prev);
   };
-  const paperStyle = {
-    // padding: 20,
-    // height: '50vh',
-    // width: 280,
-    // margin: '10%',
-    // backgroundColor: '#ffffffd1',
-  };
 
   return (
     <Grid container className={classes.hero} direction="column">
@@ -73,64 +66,64 @@ const SignIn = () => {
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h4" gutterBottom>
-              Sign in
-            </Typography>
+
             <form onSubmit={submitHandler} className={classes.form}>
-              {/* <div className={classes.root}> */}
               <FormControl
                 className={clsx(classes.margin, classes.textField)}
                 variant="outlined"
               >
-                <InputLabel htmlFor="outlined-adornment-email">
-                  Email
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-email"
-                  name="email"
-                  type="email"
-                  label="Email"
-                  onChange={changeHandler}
-                  value={email}
-                  autoComplete="current-email"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  className={classes.textField}
-                />
+                <Box width={300}>
+                  <InputLabel htmlFor="outlined-adornment-email">
+                    Email
+                  </InputLabel>
+                  <OutlinedInput
+                    autoFocus
+                    id="outlined-adornment-email"
+                    name="email"
+                    type="email"
+                    label="Email"
+                    onChange={changeHandler}
+                    value={email}
+                    autoComplete="current-email"
+                    variant="outlined"
+                    required
+                    fullWidth={true}
+                  />
+                </Box>
               </FormControl>
 
               <FormControl
                 className={clsx(classes.margin, classes.textField)}
                 variant="outlined"
               >
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  name="password"
-                  type={icon ? 'password' : 'text'}
-                  label="Password"
-                  onChange={changeHandler}
-                  value={password}
-                  autoComplete="current-password"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  className={classes.textField}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleVisibility}
-                        edge="end"
-                      >
-                        {icon ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
+                <Box width={300}>
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password"
+                    name="password"
+                    type={icon ? 'password' : 'text'}
+                    label="Password"
+                    onChange={changeHandler}
+                    value={password}
+                    autoComplete="current-password"
+                    variant="outlined"
+                    required
+                    fullWidth={true}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleVisibility}
+                          edge="end"
+                        >
+                          {icon ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </Box>
               </FormControl>
 
               <Button
@@ -138,17 +131,14 @@ const SignIn = () => {
                 fullWidth
                 variant="contained"
                 className={classes.submit}
-                // color="white"
               >
                 Sign In
               </Button>
-              {/* </div> */}
             </form>
             <SnackbarAuth />
           </div>
         </Paper>
       </Grid>
-      <div className={classes.footer}>© Nikola Djordjevic Vojslavac</div>
     </Grid>
   );
 };

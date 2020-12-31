@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useProjectsDispatch } from '../../context/projectsContext';
+
 //api
 import api from '../../api/api';
 
@@ -31,7 +33,7 @@ const ProjectsTable = ({
   isActiveProject,
 }) => {
   const classes = useStyles();
-
+  const projectsDispatch = useProjectsDispatch();
   const updateFieldValue = (field, value) => {
     dispatch({
       type: 'UPDATE_FIELD_VALUE',
@@ -44,6 +46,16 @@ const ProjectsTable = ({
 
   const handleRemoveProject = async (id) => {
     const response = await api.delete('/projects/remove', { data: { id } });
+    if (response.status === 200) {
+      projectsDispatch({
+        type: 'SNACKBAR',
+        payload: {
+          message: 'Uspesno ste obrisali projekat',
+          severity: 'success',
+          open: true,
+        },
+      });
+    }
     dispatch({ type: 'IS_LOADING', payload: true });
   };
 
@@ -94,11 +106,21 @@ const ProjectsTable = ({
     }
 
     if (editMode.newProject) {
-      console.log(projectname, isActiveProject, 'usao u nov projekat');
       const response = await api.post('/projects', {
         projectname: projectname,
         isactive: isActiveProject,
       });
+
+      if (response.status === 200) {
+        projectsDispatch({
+          type: 'SNACKBAR',
+          payload: {
+            message: 'Uspesno ste kreirali projekat',
+            severity: 'success',
+            open: true,
+          },
+        });
+      }
       dispatch({ type: 'IS_LOADING', payload: true });
       dispatch({ type: 'RESET' });
       dispatch({
@@ -112,12 +134,23 @@ const ProjectsTable = ({
       return;
     }
 
-    console.log(projectname, isActiveProject, editMode.rowKey, 'iz edita');
     const response = await api.put(`/project/${editMode.rowKey}`, {
       projectname: projectname,
       isactive: isActiveProject,
       projectId: editMode.rowKey,
     });
+    if (response.status === 200) {
+      if (response.status === 200) {
+        projectsDispatch({
+          type: 'SNACKBAR',
+          payload: {
+            message: 'Uspesno ste izmenili projekat',
+            severity: 'success',
+            open: true,
+          },
+        });
+      }
+    }
     dispatch({
       type: 'IN_EDIT_MODE',
       payload: {
@@ -127,7 +160,6 @@ const ProjectsTable = ({
       },
     });
     dispatch({ type: 'IS_LOADING', payload: true });
-    // console.log(response, 'iz edita');
   };
 
   const handleChangePage = (event, newPage) => {
@@ -155,14 +187,26 @@ const ProjectsTable = ({
   return (
     <TableContainer component={Paper} className={classes.table}>
       <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow align="center">
-            <TableCell align="center">Id</TableCell>
-            <TableCell align="center">Ime Projekta</TableCell>
-            <TableCell align="center">Aktivan</TableCell>
-            <TableCell align="center">Kreiran</TableCell>
-            <TableCell align="center">Izmeni</TableCell>
-            <TableCell align="center">Obrisi</TableCell>
+        <TableHead className={classes.head}>
+          <TableRow align="center" className={classes.headTitle}>
+            <TableCell align="center" className={classes.headTitle}>
+              Id
+            </TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              Ime Projekta
+            </TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              Aktivan
+            </TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              Kreiran
+            </TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              {editMode.status ? 'Sacuvaj' : 'Izmeni'}
+            </TableCell>
+            <TableCell align="center" className={classes.headTitle}>
+              {editMode.status ? 'Odustani' : 'Ukloni'}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -180,8 +224,14 @@ const ProjectsTable = ({
                   <TableCell align="center">
                     {editMode.status && editMode.rowKey === project.id ? (
                       <TextField
+                        autoFocus
                         value={projectname}
                         name="projectname"
+                        className={
+                          editMode.status && editMode.rowKey === project.id
+                            ? classes.selected
+                            : null
+                        }
                         onChange={(e) =>
                           updateFieldValue(e.target.name, e.target.value)
                         }
@@ -215,18 +265,26 @@ const ProjectsTable = ({
 
                   <TableCell align="center">
                     {editMode.status && editMode.rowKey === project.id ? (
-                      <CheckCircleIcon onClick={() => handleIconSave()} />
+                      <CheckCircleIcon
+                        style={{ color: '#4caf50', cursor: 'pointer' }}
+                        onClick={() => handleIconSave()}
+                      />
                     ) : (
-                      <EditIcon onClick={() => handleEditProject(project.id)} />
+                      <EditIcon
+                        style={{ color: '#64b5f6', cursor: 'pointer' }}
+                        onClick={() => handleEditProject(project.id)}
+                      />
                     )}
                   </TableCell>
                   <TableCell align="center">
                     {editMode.status && editMode.rowKey === project.id ? (
                       <CancelIcon
+                        style={{ color: '#d32f2f', cursor: 'pointer' }}
                         onClick={() => handleIconCancle(editMode.rowKey)}
                       />
                     ) : (
                       <DeleteIcon
+                        style={{ color: '#d32f2f', cursor: 'pointer' }}
                         onClick={() => handleRemoveProject(project.id)}
                       />
                     )}

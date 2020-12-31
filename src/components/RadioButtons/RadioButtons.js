@@ -8,7 +8,6 @@ const RadioButtons = ({ dispatch, page, type }) => {
   const handleButtonChange = (e) => {
     dispatch({ type: 'ITEMS', payload: null });
     const { value } = e.currentTarget;
-    console.log(value, 'iz buttona');
 
     dispatch({ type: 'RADIO_BUTTONS', payload: parseInt(value) });
     dispatch({ type: 'PAGE', payload: 1 });

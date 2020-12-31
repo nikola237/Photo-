@@ -2,18 +2,22 @@ import React, { useReducer } from 'react';
 //drop zone
 import { useDropzone } from 'react-dropzone';
 
+import { useProjectsDispatch } from '../../context/projectsContext';
+
 //api upload
 import uploadApi from '../../api/uploadApi';
 
-//import
+//components
 import SingleItemUpload from '../../components/SingleItemUpload/SingleItemUpload';
-import MultipleItemUpload from '../../components/MultipleItemUpload/MultipleItemUpload';
+import MultipleItemsUpload from '../../components/MultipleItemsUpload/MultipleItemsUpload';
+import Footer from '../../components/Footer/Footer';
+import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
 
 //styles
 import { Grid } from '@material-ui/core';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Container from '@material-ui/core/Container';
+import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { useStyles } from './DragAndDrop.styles';
 
 function uploadReducer(state, action) {
@@ -28,7 +32,7 @@ function uploadReducer(state, action) {
     case 'REMOVE_FILE':
       return {
         ...state,
-        files: state.files.filter((file) => file.id !== action.payload),
+        files: state.files.filter((file) => file.name !== action.payload),
       };
     default: {
       throw new Error(`Unhandled action type: ${action.type} `);
@@ -37,14 +41,14 @@ function uploadReducer(state, action) {
 }
 const DragAndDrop = () => {
   const [state, dispatch] = useReducer(uploadReducer, {
-    files: null,
+    files: [],
     title: '',
     tags: '',
   });
 
-  const { files, title, tags } = state;
+  const projectsDispatch = useProjectsDispatch();
 
-  console.log(files);
+  const { files, title, tags } = state;
 
   const classes = useStyles();
 
@@ -77,64 +81,93 @@ const DragAndDrop = () => {
       }
 
       const response = await uploadApi.post('/item/add', formData);
-      console.log(response, 'ovo je response');
+
+      if (response) {
+        projectsDispatch({
+          type: 'SNACKBAR',
+          payload: {
+            message: 'Uspesno ste dodali item',
+            severity: 'success',
+            open: true,
+          },
+        });
+      }
     } else {
       for (const file of files) {
-        console.log('usao u 2');
         formData.append('items', file);
       }
 
       const response = await uploadApi.post('/items/add', formData);
-      console.log(response, 'ovo je response');
+      if (response) {
+        if (response) {
+          projectsDispatch({
+            type: 'SNACKBAR',
+            payload: {
+              message: 'Uspesno ste dodali iteme',
+              severity: 'success',
+              open: true,
+            },
+          });
+        }
+      }
     }
-    dispatch({ type: 'FILES', payload: null });
+    dispatch({ type: 'FILES', payload: [] });
   };
   const fileCancelHandler = () => {
-    console.log('usao');
-    dispatch({ type: 'FILES', payload: null });
+    dispatch({ type: 'FILES', payload: [] });
   };
 
   return (
-    <Grid
-      container
-      spacing={3}
-      justify="center"
-      className={classes.itemContainer}
-    >
+    <Container maxWidth="xl" justify="center" className={classes.itemContainer}>
       <Grid
         container
-        direction="column"
         item
         justify="center"
+        spacing={4}
         {...getRootProps()}
         className={classes.dropZone}
       >
+        <CloudUploadOutlinedIcon fontSize="large" />
         <input {...getInputProps()} name="item" type="file" multiple />
-        <Typography>Drag and drop an file here or click</Typography>
-        <CloudUploadIcon />
       </Grid>
-      <Grid item container className={classes.fileContainer} direction="column">
-        {files && files.length === 1 ? (
-          <SingleItemUpload
-            files={files}
-            dispatch={dispatch}
-            tags={tags}
-            title={title}
-          />
-        ) : (
-          <MultipleItemUpload
-            files={files}
-            dispatch={dispatch}
-            tags={tags}
-            title={title}
-          />
-        )}
+
+      <Grid container spacing={2} justify="center" className={classes.wrapper}>
+        {files && files.length === 1
+          ? files.map((file) => (
+              <SingleItemUpload
+                file={file}
+                dispatch={dispatch}
+                tags={tags}
+                title={title}
+                key={file.name}
+              />
+            ))
+          : files.map((file) => (
+              <MultipleItemsUpload
+                file={file}
+                dispatch={dispatch}
+                tags={tags}
+                title={title}
+                key={file.name}
+              />
+            ))}
       </Grid>
-      <Grid>
-        <Button onClick={fileUploadHandler}>Upload</Button>
-        <Button onClick={fileCancelHandler}>Cancel</Button>
+
+      <Grid item container justify="center">
+        {files.length !== 0 ? (
+          <>
+            <Button className={classes.button} onClick={fileUploadHandler}>
+              Posalji
+            </Button>
+            <Button className={classes.button} onClick={fileCancelHandler}>
+              Otkazi
+            </Button>
+          </>
+        ) : null}
       </Grid>
-    </Grid>
+      <SnackbarAlert />
+      <Footer />
+    </Container>
   );
 };
 

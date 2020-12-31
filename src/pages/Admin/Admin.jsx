@@ -27,6 +27,7 @@ const INITIAL_STATE = {
   items: null,
   type: 0,
   kwords: '',
+  proba: '',
   page: 1,
   totalPages: undefined,
   isLoading: false,
@@ -56,6 +57,7 @@ const Admin = () => {
     error,
     autoSuggestion,
     tagsKwords,
+    proba,
     extensionFilter,
     editMode,
   } = state;
@@ -72,51 +74,40 @@ const Admin = () => {
   useEffect(() => {}, [tab]);
 
   return (
-    <Container maxWidth="xl" className={classes.itemContainer}>
-      <Grid item container className={classes.offset} direction="column">
-        <Grid item container justify="center">
-          <Tabs
-            value={tab}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={handleChangeTab}
-            className={classes.tabs}
-          >
-            <Tab label="Aktivni itemi" color="white" />
-            <Tab label="Obrisani itemi" />
-            <Tab label="Dodati itemi korisnika" />
-          </Tabs>
-        </Grid>
-        <Grid
-          item
-          container
-          className={classes.searchContainer}
-          justify="center"
-        >
-          <Search
-            kwords={kwords}
-            dispatch={dispatch}
-            autoSuggestion={autoSuggestion}
-            isLoading={isLoading}
-            tagsKwords={tagsKwords}
-          />
-          <ExtensionsFilter
-            dispatch={dispatch}
-            type={type}
-            extensionFilter={extensionFilter}
-          />
-        </Grid>
-
-        <Grid
-          item
-          container
-          className={classes.radioBtn}
-          justify="center"
-          direction="row"
-        >
-          <RadioButtons dispatch={dispatch} page={page} type={type} />
-        </Grid>
+    <Container maxWidth="xl" className={classes.itemContainer} justify="center">
+      <Grid item container justify="center">
+        <Tabs value={tab} onChange={handleChangeTab} className={classes.tabs}>
+          <Tab label="Aktivne datoteke" />
+          <Tab label="Obrisane datoteke" />
+          <Tab label="Dodate datoteke" />
+        </Tabs>
       </Grid>
+      <Grid item container className={classes.searchContainer} justify="center">
+        <Search
+          dispatch={dispatch}
+          autoSuggestion={autoSuggestion}
+          tagsKwords={tagsKwords}
+          proba={proba}
+        />
+      </Grid>
+      <Grid item container justify="center" className={classes.filter}>
+        <ExtensionsFilter
+          dispatch={dispatch}
+          type={type}
+          extensionFilter={extensionFilter}
+        />
+      </Grid>
+
+      <Grid
+        item
+        container
+        className={classes.radioBtn}
+        justify="center"
+        direction="row"
+      >
+        <RadioButtons dispatch={dispatch} page={page} type={type} />
+      </Grid>
+
       {tab === 0 && (
         <ActiveItems
           dispatch={dispatch}

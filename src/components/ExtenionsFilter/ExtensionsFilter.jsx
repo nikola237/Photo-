@@ -2,15 +2,18 @@ import React from 'react';
 
 //styles
 import Select from '@material-ui/core/Select';
+import { useStyles } from './ExtensionFIlter.styles';
 
 const ExtensionsFilter = ({ type, dispatch, extensionFilter }) => {
+  const classes = useStyles();
   const updateFilterValue = (value) => {
-    console.log(value, 'ovo je value');
     dispatch({ type: 'FILTER_EXT', payload: value });
   };
+
   return (
     <div>
       <Select
+        className={classes.filter}
         native
         labelId="filter"
         name="filter"

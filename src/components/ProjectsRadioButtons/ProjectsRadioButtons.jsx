@@ -10,7 +10,6 @@ import {
 import Radio from '@material-ui/core/Radio';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import Select from '@material-ui/core/Select';
 
 const ProjectsRadioButtons = () => {
   const dispatch = useProjectsDispatch();
