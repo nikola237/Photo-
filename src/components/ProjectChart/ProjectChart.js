@@ -71,28 +71,17 @@ function ProjectChart({ data, startDate, endDate }) {
       var countProjects = {};
       data.forEach((item) => {
         // if (item.isactive) {
-<<<<<<< HEAD
         countProjects[item.projectname] = item.statsCount;
-=======
-          countProjects[item.projectname] = item.statsCount
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
         // }
       });
 
       var colorsProjects = [];
       var borderColorsProject = [];
       for (let prop in countProjects) {
-<<<<<<< HEAD
         colorsProjects.push(random_rgba());
         borderColorsProject.push(
           colorsProjects[colorsProjects.length - 1].replace('0.3', '1')
         );
-=======
-          colorsProjects.push(random_rgba());
-          borderColorsProject.push(
-            colorsProjects[colorsProjects.length - 1].replace('0.3', '1')
-          );
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       }
 
       dataProject.labels.push(...Object.keys(countProjects));
@@ -106,18 +95,9 @@ function ProjectChart({ data, startDate, endDate }) {
   }, [data]);
 
   function random_rgba() {
-<<<<<<< HEAD
     return 'hsla(' + Math.random() * 360 + ', 100%, 75%,0.7)';
   }
 
-=======
- 
-    return (
-      "hsla(" + Math.random() * 360 + ", 100%, 75%,0.7)"
-    );
-  }
-  
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
   function downloadChart() {
     const linkSource = document.getElementById('bar').toDataURL('image/jpg');
     const downloadLink = document.createElement('a');
@@ -162,15 +142,7 @@ function ProjectChart({ data, startDate, endDate }) {
       <button className="downloadButton_csv" onClick={downloadCsv}>
         <GetAppIcon />
       </button>
-<<<<<<< HEAD
       <Bar data={dataProj} options={optionsProject} id="bar" />
-=======
-      <Bar
-        data={dataProj}
-        options={optionsProject}
-        id="bar"
-      />
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
     </>
   );
 }

@@ -248,12 +248,21 @@ const ProjectsTable = ({
                         name="isActiveProject"
                         id="select"
                         value={isActiveProject}
+                        className={
+                          editMode.status && editMode.rowKey === project.id
+                            ? classes.selected
+                            : null
+                        }
                         onChange={(e) =>
                           updateFieldValue(e.target.name, e.target.value)
                         }
                       >
-                        <option value={true}>Da</option>
-                        <option value={false}>Ne</option>
+                        <option style={{ color: 'black' }} value={true}>
+                          Da
+                        </option>
+                        <option style={{ color: 'black' }} value={false}>
+                          Ne
+                        </option>
                       </Select>
                     ) : (
                       String(project.isactive ? 'Da' : 'Ne')
@@ -298,6 +307,7 @@ const ProjectsTable = ({
 
       <TablePagination
         rowsPerPageOptions={[5, 10, 15]}
+        className={classes.pagination}
         component="div"
         count={count}
         rowsPerPage={rowsPerPage}

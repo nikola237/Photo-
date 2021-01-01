@@ -120,6 +120,7 @@ const RemovedProjectsTable = ({
       </Table>
 
       <TablePagination
+        className={classes.pagination}
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
         count={count}

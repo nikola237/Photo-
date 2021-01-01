@@ -8,6 +8,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     padding: theme.spacing(1),
+    boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
   },
 
   media: {

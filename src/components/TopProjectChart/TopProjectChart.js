@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
 import ImageIcon from '@material-ui/icons/Image';
 
-<<<<<<< HEAD
 function TopProjectChart({ data }) {
-=======
-function TopProjectChart({data}) {
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
   const [dataProj, setDataProj] = useState({});
   const optionsProject = {
     maintainAspectRatio: false,
@@ -74,12 +70,7 @@ function TopProjectChart({data}) {
       var countTopProjects = {};
 
       data.forEach((item) => {
-<<<<<<< HEAD
         countProjects[item.projectname] = item.statsCount;
-=======
-          countProjects[item.projectname] = item.statsCount
-
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       });
 
       for (let index = 0; index < 5; index++) {
@@ -96,17 +87,10 @@ function TopProjectChart({data}) {
       var borderColorsProject = [];
       for (let prop in countTopProjects) {
         // if (countTopProjects[prop] >= 2) {
-<<<<<<< HEAD
         colorsProjects.push(random_rgba());
         borderColorsProject.push(
           colorsProjects[colorsProjects.length - 1].replace('0.3', '1')
         );
-=======
-          colorsProjects.push(random_rgba());
-          borderColorsProject.push(
-            colorsProjects[colorsProjects.length - 1].replace('0.3', '1')
-          );
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
         // }
       }
 
@@ -124,11 +108,7 @@ function TopProjectChart({data}) {
     //   r = Math.random,
     //   s = 255;
     return (
-<<<<<<< HEAD
       'hsla(' + Math.random() * 360 + ', 100%, 75%,0.7)'
-=======
-      "hsla(" + Math.random() * 360 + ", 100%, 75%,0.7)"
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       // 'rgba(' + r() * s + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.7 + ')'
     );
   }
@@ -147,15 +127,7 @@ function TopProjectChart({data}) {
       <button className="downloadButton" onClick={downloadChart}>
         <ImageIcon />
       </button>
-<<<<<<< HEAD
       <HorizontalBar data={dataProj} options={optionsProject} id="bar" />
-=======
-      <HorizontalBar
-        data={dataProj}
-        options={optionsProject}
-        id="bar"
-      />
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
     </>
   );
 }

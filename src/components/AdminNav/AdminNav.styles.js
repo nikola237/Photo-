@@ -31,10 +31,10 @@ export const useStyles = makeStyles((theme) => ({
   user: {
     marginRight: theme.spacing(2),
     color: '#fff',
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.dark,
     '&:hover': {
-      backgroundColor: theme.palette.secondary.dark,
-      color: '#fff',
+      backgroundColor: theme.palette.secondary.main,
+      color: '#000',
     },
   },
 
@@ -67,10 +67,10 @@ export const useStyles = makeStyles((theme) => ({
 
   logout: {
     color: '#fff',
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.dark,
     '&:hover': {
-      backgroundColor: theme.palette.secondary.dark,
-      color: '#fff',
+      backgroundColor: theme.palette.secondary.main,
+      color: '#000',
     },
   },
 }));

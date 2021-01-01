@@ -98,11 +98,7 @@ const Users = () => {
     <Container maxWidth="xl" className={classes.itemContainer} justify="center">
       <Grid item container justify="center">
         <Tabs
-<<<<<<< HEAD
           className={classes.tabs}
-=======
-        className={classes.tabs}
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
           value={tab}
           // indicatorColor="primary"
           // textColor="primary"
@@ -110,18 +106,10 @@ const Users = () => {
           aria-label="disabled tabs example"
         >
           <Tab label="aktivni Korisnici" />
-<<<<<<< HEAD
           <Tab label="obrisani korisnici" />
         </Tabs>
       </Grid>
       <Grid item container className={classes.content}>
-=======
-
-          <Tab label="obrisani korisnici" />
-        </Tabs>
-      </Grid>
-      <div className={classes.tableWrapper}>
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
         {tab === 0 && (
           <AtiveUsers
             dispatch={dispatch}

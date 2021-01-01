@@ -75,7 +75,6 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
     dispatch({ type: 'IS_LOADING', payload: true });
   };
 
-<<<<<<< HEAD
   const filterDate = (date) => {
     var dateN = date.split('T')[0];
     const today = new Date(dateN);
@@ -89,21 +88,6 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
     const stringDate = [day, month, year].join('.');
     return stringDate;
   };
-=======
-  const filterDate = (date)=>{
-    var dateN = date.split('T')[0];
-    const today = new Date(dateN)
-
-    const year = today.getFullYear()
-    
-    const month = `${today.getMonth() + 1}`.padStart(2, "0")
-    
-    const day = `${today.getDate()}`.padStart(2, "0")
-    
-    const stringDate = [day, month, year].join(".") 
-    return stringDate;
-  }
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
 
   return (
     <TableContainer component={Paper} className={classes.table}>
@@ -111,7 +95,6 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.head}>
             <TableRow align="center">
-<<<<<<< HEAD
               <TableCell align="center" className={classes.headTitle}>
                 Id
               </TableCell>
@@ -139,17 +122,6 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
               <TableCell align="center" className={classes.headTitle}>
                 Vrati Korisnika
               </TableCell>
-=======
-              <TableCell>Id</TableCell>
-              <TableCell>Ime</TableCell>
-              <TableCell>Prezime</TableCell>
-              <TableCell>Korisničko ime</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Uloga</TableCell>
-              <TableCell>Aktivan  </TableCell>
-              <TableCell>Kreiran</TableCell>
-              <TableCell>Vrati Korisnika</TableCell>
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
             </TableRow>
           </TableHead>
           <TableBody>
@@ -163,7 +135,6 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
               } else {
                 return (
                   <TableRow align="center" scope="row" key={row.id}>
-<<<<<<< HEAD
                     <TableCell align="center">{row.id}</TableCell>
                     <TableCell align="center">{row.firstname}</TableCell>
                     <TableCell align="center">{row.lastname}</TableCell>
@@ -186,26 +157,6 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
                         style={{ color: '#64b5f6', cursor: 'pointer' }}
                         onClick={() => restoreUserById(row.id)}
                       />
-=======
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.firstname}</TableCell>
-                    <TableCell>{row.lastname}</TableCell>
-                    <TableCell>{row.username}</TableCell>
-                    <TableCell>{row.email}</TableCell>
-                    <TableCell>
-                    {row.role==0&&<h3>Korisnik</h3>}
-                    {row.role==1&&<h3>Urednik</h3>}
-                    {row.role==2&&<h3>Administrator</h3>}
-                  </TableCell>
-                  <TableCell>{row.isactive&&<h3>Da</h3>||<h3>Ne</h3>}</TableCell>
-                  <TableCell>{filterDate(row.createdAt)}</TableCell>
-
-
-                    <TableCell>
-                      <Button onClick={() => restoreUserById(row.id)}>
-                        <RestoreIcon  fontSize="large" style={{ color: 'white' }}/>
-                      </Button>
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
                     </TableCell>
                   </TableRow>
                 );
@@ -218,11 +169,7 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
       )}
 
       <TablePagination
-<<<<<<< HEAD
         className={classes.pagination}
-=======
-         className={classes.pagination}
->>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
         count={count}
