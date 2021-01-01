@@ -8,14 +8,25 @@ import './Statistics.styles.css';
 
 //styles
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import srLocale from 'date-fns/locale/sr-Latn';
+<<<<<<< HEAD
 import { useStyles } from './Statistics.styles';
 import Grid from '@material-ui/core/Grid';
+=======
+import {useStyles} from './Statistics.styles';
+import Grid from '@material-ui/core/Grid';
+
+
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
 
 //components
 import UserChart from '../../components/UserChart/UserChart';
@@ -24,7 +35,11 @@ import TopUserChart from '../../components/TopUserChart/TopUserChart';
 import TopProjectChart from '../../components/TopProjectChart/TopProjectChart';
 
 const Statistics = () => {
+<<<<<<< HEAD
   const classes = useStyles();
+=======
+const classes = useStyles();
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
   var datum = new Date();
   datum.setDate(datum.getDate() - 7);
   const [type, setType] = useState(0);
@@ -57,6 +72,7 @@ const Statistics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+<<<<<<< HEAD
         const projects = await api.get(
           `http://93.86.249.163:3030/stats/projects?startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
         );
@@ -74,7 +90,31 @@ const Statistics = () => {
         setDataProjects([]);
         setDataUsers([]);
         setDownloads(0);
+=======
+        // const result = await api.get(
+        //   `http://93.86.249.163:3030/stats?size=10000&startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
+        // )
+        const projects = await api.get(
+          `http://93.86.249.163:3030/stats/projects?startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
+        )
+        const users = await api.get(
+          `http://93.86.249.163:3030/stats/users?startdate=${selectedDateStart}&enddate=${selectedDateEnd}&type=${type}`
+        )
+        var countDownloads = 0;
+        users.data.statCount.forEach(item => {
+          countDownloads += item.statsCount
+        });
+        setDataProjects(projects.data.statCount)
+        setDataUsers(users.data.statCount)
+        setDownloads(countDownloads);
+        
+      } catch (error) {
+        setDataProjects([]);
+        setDataUsers([]);
+        setDownloads(0)
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       }
+
     };
     fetchData();
   }, [selectedDateStart, selectedDateEnd, type]);
@@ -84,6 +124,7 @@ const Statistics = () => {
   }
   return (
     <Grid container className={classes.container}>
+<<<<<<< HEAD
       <Grid
         container
         item
@@ -102,6 +143,11 @@ const Statistics = () => {
           className={classes.picker}
         >
           <MuiPickersUtilsProvider locale={srLocale} utils={DateFnsUtils}>
+=======
+      <Grid container item xs={12} justify="space-around"  wrap="wrap" className={classes.heading}>
+        <Grid container item justify="space-around" alignItems="center" sm={12} md={6} className={classes.picker}>
+          <MuiPickersUtilsProvider   locale={srLocale} utils={DateFnsUtils}>
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
             <KeyboardDatePicker
               okLabel="U redu"
               clearLabel="Poništi"
@@ -110,10 +156,10 @@ const Statistics = () => {
               label="Datum pocetka"
               format="dd/MM/yyyy"
               value={selectedDateStart}
-              onChange={handleDateChangeStart}
+              onChange={handleDateChangeStart}              
               KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
+                'aria-label': 'change date'
+              }}              
             />
 
             <KeyboardDatePicker
@@ -132,6 +178,7 @@ const Statistics = () => {
           </MuiPickersUtilsProvider>
         </Grid>
         <Grid container item sm={12} md={6} className={classes.buttons}>
+<<<<<<< HEAD
           <div
             className={` ${type === 0 ? classes.active : classes.typeButton}`}
             onClick={() => changeType(0)}
@@ -155,6 +202,34 @@ const Statistics = () => {
             <p className="totalCount-number">{downloads}</p>
           </div>
         </Grid>
+=======
+          
+            <div 
+            className={` ${type==0 ? classes.active : classes.typeButton}`}
+              onClick={() => changeType(0)}
+            >
+              <p>Slike</p>
+            </div>
+            <div className={classes.typeButton}
+             className={` ${type==1 ? classes.active : classes.typeButton}`}
+              onClick={() => changeType(1)}
+            >
+              <p>Video</p>
+            </div>
+            <div
+              className={classes.typeButton}
+              className={` ${type==2 ? classes.active : classes.typeButton}`}
+              onClick={() => changeType(2)}
+            >
+              <p>Audio</p>
+            </div>
+            <div className="totalCount">
+              <p className="totalCount-title">Ukupan broj preuzimanja</p>
+              <p className="totalCount-number">{downloads}</p>
+            </div>
+        </Grid>
+        
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       </Grid>
 
       {dataUsers.length > 0 && (
@@ -185,11 +260,16 @@ const Statistics = () => {
           </div>
         </div>
       )}
+<<<<<<< HEAD
       {dataUsers.length === 0 && dataProjects.length === 0 && (
         <h1 className="noResults">Nema rezultata za izabrane kriterijume</h1>
       )}
+=======
+            {dataUsers.length==0&&dataProjects.length == 0&& <h1 className='noResults'>Nema rezultata za izabrane kriterijume</h1>}
+
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
     </Grid>
   );
 };
 
-export default Statistics;
+export default  Statistics;

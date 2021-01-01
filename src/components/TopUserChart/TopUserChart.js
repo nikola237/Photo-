@@ -73,6 +73,7 @@ function TopUserChart({ data }) {
       var countTop = {};
       // var countProjects = {};
       data.forEach((item) => {
+<<<<<<< HEAD
         if (item.user != null) {
           if (count[item.user.username]) {
             count[item.user.username] += 1;
@@ -84,6 +85,23 @@ function TopUserChart({ data }) {
 
       data.forEach((item) => {
         count[item.username] = item.statsCount;
+=======
+      if(item.user != null){
+        if (count[item.user.username]) {
+          count[item.user.username] += 1;
+          return;
+        }
+        count[item.user.username] = 1;
+      }
+      // }else{
+      //   alert('Greska: postoji null korisnik')
+      // }
+      });
+
+      data.forEach((item) => {
+        count[item.username] = item.statsCount
+
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       });
       for (let index = 0; index < 5; index++) {
         if (Object.keys(count).length > 0) {
@@ -98,8 +116,13 @@ function TopUserChart({ data }) {
       var colors = [];
       var borderColors = [];
       for (let prop in countTop) {
+<<<<<<< HEAD
         colors.push(random_rgba());
         borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
+=======
+          colors.push(random_rgba());
+          borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       }
 
       dataUsers.datasets[0].backgroundColor = colors;
@@ -112,7 +135,14 @@ function TopUserChart({ data }) {
   }, [data]);
 
   function random_rgba() {
+<<<<<<< HEAD
     return 'hsla(' + Math.random() * 360 + ', 100%, 75%,0.7)';
+=======
+ 
+    return (
+      "hsla(" + Math.random() * 360 + ", 100%, 75%,0.7)"
+    );
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
   }
   function downloadChart() {
     const linkSource = document.getElementById('test').toDataURL('image/jpg');
@@ -129,7 +159,15 @@ function TopUserChart({ data }) {
       <button className="downloadButton" onClick={downloadChart}>
         <ImageIcon />
       </button>
+<<<<<<< HEAD
       <Bar id="test" data={dataUsr} options={optionsUsers} />
+=======
+      <Bar
+        id="test"
+        data={dataUsr}
+        options={optionsUsers}
+      />
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
     </>
   );
 }

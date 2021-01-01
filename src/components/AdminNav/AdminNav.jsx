@@ -145,6 +145,7 @@ const AdminNav = () => {
             </IconButton>
           </Box>
 
+<<<<<<< HEAD
           <Button
             startIcon={<SettingsIcon />}
             className={classes.user}
@@ -159,6 +160,11 @@ const AdminNav = () => {
             startIcon={<PowerSettingsNewIcon />}
           >
             Logout
+=======
+          <Typography className={classes.user}>{user.firstname}</Typography>
+          <Button variant="contained"  onClick={handleLogout}>
+            Sign Out
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
           </Button>
         </Toolbar>
       </AppBar>

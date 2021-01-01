@@ -3,6 +3,7 @@ import { HorizontalBar } from 'react-chartjs-2';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import ImageIcon from '@material-ui/icons/Image';
 
+
 function UserChart({ data, startDate, endDate }) {
   const [dataUsr, setDataUsr] = useState({});
   const [csvCount, setCsvCount] = useState({});
@@ -72,14 +73,23 @@ function UserChart({ data, startDate, endDate }) {
     if (data.length > 0) {
       var count = {};
       data.forEach((item) => {
+<<<<<<< HEAD
         count[item.username] = item.statsCount;
+=======
+        count[item.username] = item.statsCount
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       });
 
       var colors = [];
       var borderColors = [];
       for (let prop in count) {
+<<<<<<< HEAD
         colors.push(random_rgba());
         borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
+=======
+          colors.push(random_rgba());
+          borderColors.push(colors[colors.length - 1].replace('0.3', '1'));
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
       }
 
       dataUsers.datasets[0].backgroundColor = colors;
@@ -91,9 +101,16 @@ function UserChart({ data, startDate, endDate }) {
       setCsvCount(count);
     }
   }, [data]);
-
+  
   function random_rgba() {
+<<<<<<< HEAD
     return 'hsla(' + Math.random() * 360 + ', 100%, 75%, 0.7)';
+=======
+
+    return (
+      "hsla(" + Math.random() * 360 + ", 100%, 75%, 0.7)"
+    );
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
   }
   function downloadChart() {
     const linkSource = document.getElementById('test').toDataURL('image/jpg');
@@ -138,7 +155,15 @@ function UserChart({ data, startDate, endDate }) {
       <button className="downloadButton_csv" onClick={downloadCsv}>
         <GetAppIcon />
       </button>
+<<<<<<< HEAD
       <HorizontalBar id="test" data={dataUsr} options={optionsUsers} />
+=======
+      <HorizontalBar
+        id="test"
+        data={dataUsr}
+        options={optionsUsers}
+      />
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
     </>
   );
 }

@@ -20,12 +20,15 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { useStyles } from './UsersTable.styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+<<<<<<< HEAD
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Box from '@material-ui/core/Box';
 
+=======
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
 const UsersTable = ({
   dispatch,
   isLoading,
@@ -131,6 +134,7 @@ const UsersTable = ({
     setRowsPerPage(+event.target.value);
     setPage(1);
   };
+<<<<<<< HEAD
   const filterDate = (date) => {
     if (!date) {
       return null;
@@ -144,6 +148,21 @@ const UsersTable = ({
     const stringDate = [day, month, year].join('.');
     return stringDate;
   };
+=======
+  const filterDate = (date)=>{
+    var dateN = date.split('T')[0];
+    const today = new Date(dateN)
+
+    const year = today.getFullYear()
+    
+    const month = `${today.getMonth() + 1}`.padStart(2, "0")
+    
+    const day = `${today.getDate()}`.padStart(2, "0")
+    
+    const stringDate = [day, month, year].join(".") 
+    return stringDate;
+  }
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
 
   //ikone
   const handleIconCancle = (id) => {
@@ -236,6 +255,7 @@ const UsersTable = ({
     <TableContainer component={Paper} className={classes.table}>
       {users ? (
         <Table className={classes.table} aria-label="simple table">
+<<<<<<< HEAD
           <TableHead className={classes.head}>
             <TableRow>
               <TableCell className={classes.headTitle} align="center">
@@ -270,6 +290,20 @@ const UsersTable = ({
               <TableCell className={classes.headTitle} align="center">
                 {inEditMode.status ? 'Odustani' : 'Ukloni'}
               </TableCell>
+=======
+          <TableHead>
+            <TableRow align="center">
+              <TableCell>Id</TableCell>
+              <TableCell>Ime</TableCell>
+              <TableCell>Prezime</TableCell>
+              <TableCell>Korisničko ime</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Uloga</TableCell>
+              <TableCell>Aktivan  </TableCell>
+              <TableCell>Kreiran</TableCell>
+              <TableCell>Ukloni</TableCell>
+              <TableCell>Izmeni</TableCell>
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
             </TableRow>
           </TableHead>
           <TableBody>
@@ -284,6 +318,7 @@ const UsersTable = ({
               }
               return (
                 <TableRow align="center" scope="row" key={row.id}>
+<<<<<<< HEAD
                   <TableCell
                     align="center"
                     className={
@@ -494,6 +529,26 @@ const UsersTable = ({
                         onClick={() => deleteUserById(row.id)}
                       />
                     )}
+=======
+                  <TableCell>{row.id}</TableCell>
+                  <TableCell>{row.firstname}</TableCell>
+                  <TableCell>{row.lastname}</TableCell>
+                  <TableCell>{row.username}</TableCell>
+                  <TableCell>{row.email}</TableCell>
+                  <TableCell>
+                    {row.role==0&&<h3>Korisnik</h3>}
+                    {row.role==1&&<h3>Urednik</h3>}
+                    {row.role==2&&<h3>Administrator</h3>}
+                  </TableCell>
+                  <TableCell>{row.isactive&&<h3>Da</h3>||<h3>Ne</h3>}</TableCell>
+                  <TableCell>{filterDate(row.createdAt)}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => deleteUserById(row.id)}>
+                    <DeleteIcon fontSize="large" style={{ color: 'white' }} /></Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button onClick={() => editUserById(row.id)}><EditIcon fontSize="large" style={{ color: 'white' }} /></Button>
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
                   </TableCell>
                 </TableRow>
               );
@@ -505,13 +560,17 @@ const UsersTable = ({
       )}
 
       <TablePagination
+<<<<<<< HEAD
         className={classes.pagination}
+=======
+      className={classes.pagination}
+>>>>>>> 77df1eadbaa841cee647e3e538f82303d9ad738d
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
         labelRowsPerPage="Rezultata po stranici"
         count={count}
         rowsPerPage={rowsPerPage}
-        page={page - 1}
+        page={page - 1} 
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
