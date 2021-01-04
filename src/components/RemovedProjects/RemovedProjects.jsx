@@ -9,7 +9,6 @@ import RemovedProjectsTable from '../RemovedProjectsTable/RemovedProjectsTable';
 import { Grid } from '@material-ui/core';
 
 function RemovedProjectsReducer(state, action) {
-  console.log(action.payload, 'iz obrisanih');
   switch (action.type) {
     case 'REMOVED_PROJECTS':
       return {

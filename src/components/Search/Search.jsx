@@ -80,7 +80,7 @@ const Search = ({
                 .filter((x) => x);
               const filterArray = filter.join();
               dispatch({ type: 'SEARCH', payload: filterArray });
-              console.log(filter, 'FILTER,usao na on change !!!!');
+
               setValue(
                 value
                   .concat(options)

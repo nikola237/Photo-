@@ -92,7 +92,6 @@ const ProjectsDownload = () => {
   }, [getData]);
 
   const handleToggle = (value) => () => {
-    console.log(value, 'ovo je value');
     dispatch({ type: 'PROJECT_ID', payload: +value });
   };
 

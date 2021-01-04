@@ -75,25 +75,43 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
   };
 
   const handleIconCheck = async () => {
-    const response = await api.post(`/items/update/${idEdit}`, {
-      tags: editMode.tags,
-    });
-    if (response.status === 200) {
+    console.log(editMode.tags, 'ovo je edit mode');
+    if (editMode.tags === '') {
       projectsDispatch({
         type: 'SNACKBAR',
         payload: {
-          message: 'Uspesno ste izmenili item',
-          severity: 'success',
+          message: 'Polje sa tagovima ne sme biti prazno!',
+          severity: 'warning',
           open: true,
         },
       });
+      dispatch({
+        type: 'EDIT_MODE',
+        payload: { status: false, itemId: null, tags: null },
+      });
+      return;
+    } else {
+      const response = await api.post(`/items/update/${idEdit}`, {
+        tags: editMode.tags,
+      });
+      if (response.status === 200) {
+        projectsDispatch({
+          type: 'SNACKBAR',
+          payload: {
+            message: 'Uspesno ste izmenili item',
+            severity: 'success',
+            open: true,
+          },
+        });
+      }
+      dispatch({
+        type: 'EDIT_MODE',
+        payload: { status: false, itemId: null, tags: null },
+      });
+      dispatch({ type: 'IS_LOADING', payload: true });
     }
-    dispatch({
-      type: 'EDIT_MODE',
-      payload: { status: false, itemId: null, tags: null },
-    });
-    dispatch({ type: 'IS_LOADING', payload: true });
   };
+
   return (
     <Grid container justify="center" className={classes.root}>
       {editMode.status && editMode.itemId === idEdit ? (
