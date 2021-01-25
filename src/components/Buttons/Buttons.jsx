@@ -11,13 +11,18 @@ import api from '../../api/api';
 
 //styles
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import GetAppIcon from '@material-ui/icons/GetApp';
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import EditIcon from '@material-ui/icons/Edit';
+// import GetAppIcon from '@material-ui/icons/GetApp';
 import Tooltip from '@material-ui/core/Tooltip';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { Grid } from '@material-ui/core';
+
+import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+import { ReactComponent as GetAppIcon } from '../../assets/download.svg';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+
 import { useStyles } from './Buttons.styles';
 
 const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
@@ -75,7 +80,6 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
   };
 
   const handleIconCheck = async () => {
-    console.log(editMode.tags, 'ovo je edit mode');
     if (editMode.tags === '') {
       projectsDispatch({
         type: 'SNACKBAR',
@@ -142,33 +146,36 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
         <>
           <Button
             color="primary"
-            variant="outlined"
+            // variant="outlined"
             onClick={() => handleItemId(id)}
-            size="small"
+            // size="small"
           >
             <Tooltip title="Izmeni">
-              <EditIcon style={{ color: '#3f51b5' }} />
+              <EditIcon className={classes.buttonIcons} />
             </Tooltip>
+            <div className={classes.background}></div>
           </Button>
           <Button
             color="primary"
-            variant="outlined"
+            // variant="outlined"
             onClick={() => handleDownloadItem(id)}
-            size="small"
+            // size="small"
           >
             <Tooltip title="Preuzmi">
-              <GetAppIcon style={{ color: '#2196f3' }} />
+              <GetAppIcon className={classes.buttonIcons} />
             </Tooltip>
+            <div className={classes.background}></div>
           </Button>
           <Button
             color="primary"
-            variant="outlined"
+            // variant="outlined"
             onClick={() => handleRemoveItem(id)}
-            size="small"
+            // size="small"
           >
             <Tooltip title="Obrisi">
-              <DeleteIcon style={{ color: '#d50000' }} />
+              <DeleteIcon className={classes.buttonIcons} />
             </Tooltip>
+            <div className={classes.background}></div>
           </Button>
         </>
       )}

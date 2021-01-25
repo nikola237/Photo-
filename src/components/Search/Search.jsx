@@ -54,8 +54,8 @@ const Search = ({
   }, [getData]);
 
   return (
-    <Grid container justify="center">
-      <Box width={500}>
+    <Grid container justify="flex-end">
+      <Box width={500} style={{ position: 'relative' }}>
         <Autocomplete
           multiple
           freeSolo
@@ -109,6 +109,7 @@ const Search = ({
             />
           )}
         />
+        <div className={classes.searchLay}></div>
       </Box>
     </Grid>
   );

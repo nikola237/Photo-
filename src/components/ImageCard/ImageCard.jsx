@@ -37,7 +37,15 @@ const CardImage = ({
   };
 
   return (
-    <Grid item container xs={12} sm={5} md={4} lg={3}>
+    <Grid
+      item
+      container
+      xs={12}
+      sm={5}
+      md={4}
+      lg={3}
+      style={{ position: 'relative' }}
+    >
       <Card className={classes.root}>
         <Box className={classes.id}>
           <Typography variant="h6">{`${id}`}</Typography>
@@ -95,6 +103,7 @@ const CardImage = ({
           </CardActions>
         ) : null}
       </Card>
+      <div className={classes.background}></div>
     </Grid>
   );
 };

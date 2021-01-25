@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 //adminReducer
 import { adminReducer } from './adminReducer';
@@ -12,15 +12,15 @@ import MyItems from '../../components/MyItems/MyItems';
 import PaginationComp from '../../components/Pagination/Pagination';
 import SnackbarAuth from '../../components/SnackbarAuth/SnackbarAuth';
 import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
-import Footer from '../../components/Footer/Footer';
-import Divider from '@material-ui/core/Divider';
 import ExtensionsFilter from '../../components/ExtenionsFilter/ExtensionsFilter';
+import SideBar from '../../components/SideBar/SideBar';
 
 //styles
 import Container from '@material-ui/core/Container';
 import { Grid } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Switch from '@material-ui/core/Switch';
 import { useStyles } from './Admin.styles';
 
 const INITIAL_STATE = {
@@ -41,10 +41,25 @@ const INITIAL_STATE = {
     itemId: null,
     tags: null,
   },
+  switchState: {
+    checkedA: false,
+    checkedB: true,
+  },
 };
 
 const Admin = () => {
   const [state, dispatch] = useReducer(adminReducer, INITIAL_STATE);
+  const [stateSwitch, setStateSwitch] = React.useState({
+    checkedA: false,
+    checkedB: true,
+  });
+
+  const handleChange = (event) => {
+    setStateSwitch({
+      ...stateSwitch,
+      [event.target.name]: event.target.checked,
+    });
+  };
 
   const {
     items,
@@ -60,10 +75,11 @@ const Admin = () => {
     proba,
     extensionFilter,
     editMode,
+    switchState,
   } = state;
 
   const classes = useStyles();
-
+  console.log(stateSwitch, 'switch');
   const handleChangeTab = (event, newValue) => {
     dispatch({ type: 'ITEMS', payload: null });
     dispatch({ type: 'PAGE', payload: 1 });
@@ -71,97 +87,142 @@ const Admin = () => {
     dispatch({ type: 'FILTER_EXT', payload: '' });
   };
 
-  useEffect(() => {}, [tab]);
-
   return (
-    <Container maxWidth="xl" className={classes.itemContainer} justify="center">
-      <Grid item container justify="center">
-        <Tabs value={tab} onChange={handleChangeTab} className={classes.tabs}>
-          <Tab label="Aktivne datoteke" />
-          <Tab label="Obrisane datoteke" />
-          <Tab label="Dodate datoteke" />
-        </Tabs>
-      </Grid>
-      <Grid item container className={classes.searchContainer} justify="center">
-        <Search
-          dispatch={dispatch}
-          autoSuggestion={autoSuggestion}
-          tagsKwords={tagsKwords}
-          proba={proba}
-        />
-      </Grid>
-      <Grid item container justify="center" className={classes.filter}>
-        <ExtensionsFilter
-          dispatch={dispatch}
-          type={type}
-          extensionFilter={extensionFilter}
-        />
-      </Grid>
+    <Container
+      maxWidth="xl"
+      className={classes.itemContainer}
+      direction="column"
+    >
+      <Grid container item direction="row" className={classes.content}>
+        <Grid container item xs={3}>
+          <Grid item xs={1} />
+          <Grid item xs={2}>
+            <SideBar />
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          container
+          direction="row"
+          xs={9}
+          // style={{ paddingRight: '15px' }}
+        >
+          <Grid container item style={{ height: '54px' }}>
+            <Grid
+              container
+              item
+              justify="flex-end"
+              style={{ style: 'relative' }}
+            >
+              <Tabs
+                value={tab}
+                onChange={handleChangeTab}
+                className={classes.tabs}
+              >
+                <Tab label="Aktivne datoteke" className={classes.tabs} />
+                <Tab label="Obrisane datoteke" className={classes.tabs} />
+                <Tab label="Dodate datoteke" className={classes.tabs} />
+              </Tabs>
+              <div className={classes.tabBackground}></div>
+            </Grid>
+          </Grid>
+          <Grid container item justify="flex-end">
+            <Switch
+              checked={stateSwitch.checkedA}
+              onChange={handleChange}
+              name="checkedA"
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
+            />
+            <Grid
+              container
+              item
+              // className={classes.searchContainer}
+              justify="flex-end"
+            >
+              <Search
+                dispatch={dispatch}
+                autoSuggestion={autoSuggestion}
+                tagsKwords={tagsKwords}
+                proba={proba}
+              />
+            </Grid>
+          </Grid>
+          {/* <Grid
+          item
+          container
+          className={classes.radioBtn}
+          justify="center"
+          direction="row"
+        > */}
+          <Grid item container justify="flex-end">
+            <Grid container item xs={4}>
+              <RadioButtons dispatch={dispatch} page={page} type={type} />
+            </Grid>
+            {/* </Grid> */}
+            <Grid />
 
-      <Grid
-        item
-        container
-        className={classes.radioBtn}
-        justify="center"
-        direction="row"
-      >
-        <RadioButtons dispatch={dispatch} page={page} type={type} />
+            <Grid container item xs={1} />
+            <Grid container item xs={3}>
+              <ExtensionsFilter
+                dispatch={dispatch}
+                type={type}
+                extensionFilter={extensionFilter}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
-
-      {tab === 0 && (
-        <ActiveItems
-          dispatch={dispatch}
-          items={items}
-          type={type}
-          kwords={kwords}
-          page={page}
-          isLoading={isLoading}
-          tab={tab}
-          extensionFilter={extensionFilter}
-          editMode={editMode}
-        />
-      )}
-      {tab === 1 && (
-        <DeletedItems
-          dispatch={dispatch}
-          items={items}
-          type={type}
-          kwords={kwords}
-          page={page}
-          isLoading={isLoading}
-          tab={tab}
-          extensionFilter={extensionFilter}
-          editMode={editMode}
-        />
-      )}
-      {tab === 2 && (
-        <MyItems
-          dispatch={dispatch}
-          items={items}
-          type={type}
-          kwords={kwords}
-          page={page}
-          tab={tab}
-          error={error}
-          extensionFilter={extensionFilter}
-          editMode={editMode}
-          isLoading={isLoading}
-        />
-      )}
-      <Grid container item justify="center" className={classes.pagination}>
-        <PaginationComp
-          dispatch={dispatch}
-          page={page}
-          totalPages={totalPages}
-        />
+      <Grid>
+        {tab === 0 && (
+          <ActiveItems
+            dispatch={dispatch}
+            items={items}
+            type={type}
+            kwords={kwords}
+            page={page}
+            isLoading={isLoading}
+            tab={tab}
+            extensionFilter={extensionFilter}
+            editMode={editMode}
+          />
+        )}
+        {tab === 1 && (
+          <DeletedItems
+            dispatch={dispatch}
+            items={items}
+            type={type}
+            kwords={kwords}
+            page={page}
+            isLoading={isLoading}
+            tab={tab}
+            extensionFilter={extensionFilter}
+            editMode={editMode}
+          />
+        )}
+        {tab === 2 && (
+          <MyItems
+            dispatch={dispatch}
+            items={items}
+            type={type}
+            kwords={kwords}
+            page={page}
+            tab={tab}
+            error={error}
+            extensionFilter={extensionFilter}
+            editMode={editMode}
+            isLoading={isLoading}
+          />
+        )}
+        <Grid container item justify="center" className={classes.pagination}>
+          <PaginationComp
+            dispatch={dispatch}
+            page={page}
+            totalPages={totalPages}
+          />
+        </Grid>
+        <SnackbarAlert />
+        <SnackbarAuth />
       </Grid>
-      <Divider flexItem />
-      <Grid item container className={classes.footer}>
-        <Footer />
-      </Grid>
-
-      <SnackbarAlert />
-      <SnackbarAuth />
     </Container>
   );
 };

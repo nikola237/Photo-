@@ -1,24 +1,23 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 200;
-
 export const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: theme.palette.common.black,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    backgroundColor: theme.palette.common.white,
+    borderBottom: '3px solid black',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  // appBarShift: {
+  //   marginLeft: drawerWidth,
+  //   width: `calc(100% - ${drawerWidth}px)`,
+  //   transition: theme.transitions.create(['width', 'margin'], {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  // },
 
   toolbarIcon: {
     display: 'flex',
@@ -42,6 +41,7 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     justifyContent: 'start',
     direction: 'left',
+    cursor: 'pointer',
   },
   menuButton: {
     color: '#fff',
@@ -50,19 +50,12 @@ export const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     position: 'fixed',
     whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    width: '56px',
   },
   drawerPaperClose: {
     overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
+
+    width: '56px',
   },
 
   logout: {

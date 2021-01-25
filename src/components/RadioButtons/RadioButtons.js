@@ -32,6 +32,7 @@ const RadioButtons = ({ dispatch, page, type }) => {
           type="radio"
           onChange={handleButtonChange}
           name="image"
+          style={{ color: '#69c5aa' }}
         />
         <FormLabel>Audio</FormLabel>
         <Radio
@@ -40,6 +41,7 @@ const RadioButtons = ({ dispatch, page, type }) => {
           type="radio"
           onChange={handleButtonChange}
           name="audio"
+          style={{ color: '#69c5aa' }}
         />
         <FormLabel>Video</FormLabel>
         <Radio
@@ -48,6 +50,7 @@ const RadioButtons = ({ dispatch, page, type }) => {
           type="radio"
           onChange={handleButtonChange}
           name="video"
+          style={{ color: '#69c5aa' }}
         />
       </div>
     </FormControl>

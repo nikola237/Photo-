@@ -23,7 +23,7 @@ const ActiveItems = ({
     const getActiveItems = async () => {
       try {
         const response = await api.post(
-          `/items/search?size=10&page=${page}&ext=.${extensionFilter}`,
+          `/items/search?size=24&page=${page}&ext=.${extensionFilter}`,
           {
             type: type,
             kwords: kwords,

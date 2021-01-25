@@ -8,7 +8,12 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     padding: theme.spacing(1),
-    boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
+    // boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
+    // boxShadow: '22px 21px 4px 2px rgba(23,23,23,0.58)',
+
+    border: '4px solid black',
+    position: 'relative',
+    zIndex: 2,
   },
 
   media: {
@@ -37,5 +42,15 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
     minHeight: 100,
+  },
+
+  background: {
+    position: 'absolute',
+    top: '9%',
+    left: '22%',
+    width: '75%',
+    border: '4px solid black',
+    height: '88%',
+    zIndex: 1,
   },
 }));

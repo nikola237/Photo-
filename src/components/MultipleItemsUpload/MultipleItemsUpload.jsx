@@ -38,7 +38,11 @@ const MultipleItemUpload = ({ file, dispatch }) => {
             />
           </Box>
           <CardContent className={classes.content}>
-            <Typography>{file.name.toLowerCase()}</Typography>
+            <Typography>
+              {file.ImageDescription
+                ? file.ImageDescription.slice(0, 50).toLowerCase()
+                : 'Zabranjeno slanje bez tagova'}
+            </Typography>
           </CardContent>
           <Divider />
         </Card>
@@ -54,7 +58,12 @@ const MultipleItemUpload = ({ file, dispatch }) => {
             <Avatar alt="Remy Sharp" src={file.preview} />
           </Box>
           <CardContent className={classes.content}>
-            <Typography>{file.name.toLowerCase()}</Typography>
+            <Typography>
+              {file.ImageDescription
+                ? `${file.ImageDescription.slice(0, 50).toLowerCase()}...`
+                : 'Zabranjeno slanje bez tagova'}
+            </Typography>
+            {/* <Typography>{file.name.toLowerCase()}</Typography> */}
           </CardContent>
           <Divider />
         </Card>

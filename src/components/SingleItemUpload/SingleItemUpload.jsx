@@ -53,7 +53,11 @@ const SingleItemUpload = ({
             />
           </Box>
           <CardContent className={classes.content}>
-            <Typography>{file.name.toLowerCase()}</Typography>
+            <Typography>
+              {file.ImageDescription
+                ? file.ImageDescription.slice(0, 50).toLowerCase()
+                : 'Zabranjeno slanje bez tagova'}
+            </Typography>
           </CardContent>
           <CardActions>
             <form className={classes.txtForm} onSubmit={fileUploadHandler}>
@@ -100,11 +104,16 @@ const SingleItemUpload = ({
               <Avatar
                 className={classes.avatarImgMulti}
                 alt="Remy Sharp"
-                src={play}
+                src={file.preview}
               />
             </Box>
             <CardContent className={classes.content}>
-              <Typography>{file.name.toLowerCase()}</Typography>
+              {/* <Typography>{file.name.toLowerCase()}</Typography> */}
+              <Typography>
+                {file.ImageDescription
+                  ? file.ImageDescription.slice(0, 50).toLowerCase()
+                  : 'Zabranjeno slanje bez tagova'}
+              </Typography>
             </CardContent>
             <CardActions>
               <form className={classes.txtForm} onSubmit={fileUploadHandler}>

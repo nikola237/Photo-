@@ -9,7 +9,7 @@ import { Grid } from '@material-ui/core';
 
 const Image = ({ items, dispatch, tab, editMode }) => {
   return (
-    <Grid container spacing={2} justify="center">
+    <Grid container spacing={7} justify="center">
       {items ? (
         items.map((item) => {
           if (items[0]?.message) {
