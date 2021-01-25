@@ -4,13 +4,30 @@ export const useStyles = makeStyles((theme) => ({
   itemContainer: {
     paddingLeft: 85,
     paddingRight: 50,
-    backgroundColor: '#EEEEEE',
     minHeight: '100vh',
     flexDirection: 'column',
   },
   tabs: {
-    color: theme.palette.primary.main,
-    indicatorColor: theme.palette.secondary.dark,
+    width: '45%',
+    '& .MuiTabs-flexContainer': {
+      justifyContent: 'space-around',
+
+      '& .MuiButtonBase-root': {
+        flex: '0 0 35%',
+      },
+    },
+    '& .MuiTab-wrapper': {
+      zIndex: '1',
+      fontSize: '14px',
+      fontWeight: '700',
+    },
+
+    '& .PrivateTabIndicator-root-17': {
+      height: '26px',
+      backgroundColor: 'orange',
+
+      // border:"13px solid #f68e1f"
+    },
   },
   content: {
     flex: 1,

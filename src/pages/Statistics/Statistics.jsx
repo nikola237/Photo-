@@ -98,9 +98,10 @@ const Statistics = () => {
           justify="space-around"
           alignItems="center"
           sm={12}
-          md={6}
+          md={5}
           className={classes.picker}
         >
+          <div className="datePickerBackground"></div>
           <MuiPickersUtilsProvider locale={srLocale} utils={DateFnsUtils}>
             <KeyboardDatePicker
               okLabel="U redu"
@@ -131,28 +132,30 @@ const Statistics = () => {
             />
           </MuiPickersUtilsProvider>
         </Grid>
-        <Grid container item sm={12} md={6} className={classes.buttons}>
-          <div
-            className={` ${type === 0 ? classes.active : classes.typeButton}`}
-            onClick={() => changeType(0)}
-          >
+        <Grid
+          container
+          justify="space-around"
+          item
+          sm={12}
+          md={7}
+          className={classes.buttons}
+        >
+          <div className={classes.typeButton} onClick={() => changeType(0)}>
+            <div className="buttonBackground"></div>
             <p>Slike</p>
           </div>
-          <div
-            className={` ${type === 1 ? classes.active : classes.typeButton}`}
-            onClick={() => changeType(1)}
-          >
+          <div className={classes.typeButton} onClick={() => changeType(1)}>
+            <div className="buttonBackground"></div>
             <p>Video</p>
           </div>
-          <div
-            className={` ${type === 2 ? classes.active : classes.typeButton}`}
-            onClick={() => changeType(2)}
-          >
+          <div className={classes.typeButton} onClick={() => changeType(2)}>
+            <div className="buttonBackground"></div>
             <p>Audio</p>
           </div>
           <div className="totalCount">
             <p className="totalCount-title">Ukupan broj preuzimanja</p>
             <p className="totalCount-number">{downloads}</p>
+            <div className="totalCountBottom"></div>
           </div>
         </Grid>
       </Grid>
@@ -160,6 +163,8 @@ const Statistics = () => {
       {dataUsers.length > 0 && (
         <div className="chart-wrapper">
           <div className="chart">
+            <div className="chart1stLevel"></div>
+            <div className="chart2stLevel"></div>
             <UserChart
               data={dataUsers}
               startDate={selectedDateStart}
@@ -167,6 +172,8 @@ const Statistics = () => {
             ></UserChart>
           </div>
           <div className="chart">
+            <div className="chart1stLevel"></div>
+            <div className="chart2stLevel"></div>
             <TopUserChart data={dataUsers}></TopUserChart>
           </div>
         </div>
@@ -174,6 +181,8 @@ const Statistics = () => {
       {dataProjects.length > 0 && (
         <div className="chart-wrapper">
           <div className="chart">
+            <div className="chart1stLevel"></div>
+            <div className="chart2stLevel"></div>
             <ProjectChart
               data={dataProjects}
               startDate={selectedDateStart}
@@ -181,6 +190,8 @@ const Statistics = () => {
             ></ProjectChart>
           </div>
           <div className="chart">
+            <div className="chart1stLevel"></div>
+            <div className="chart2stLevel"></div>
             <TopProjectChart data={dataProjects}></TopProjectChart>
           </div>
         </div>

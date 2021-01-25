@@ -96,7 +96,7 @@ const Users = () => {
 
   return (
     <Container maxWidth="xl" className={classes.itemContainer} justify="center">
-      <Grid item container justify="center">
+      <Grid item container justify="flex-end">
         <Tabs
           className={classes.tabs}
           value={tab}

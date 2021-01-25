@@ -54,13 +54,17 @@ const SignIn = () => {
 
   return (
     <Grid container className={classes.hero} direction="column">
-      <Grid container item className={classes.header}>
+      {/* <Grid container item className={classes.header}>
         <div className={classes.logoFreska}></div>
         <div className={classes.logoKlett}></div>
         <div className={classes.logoLogos}></div>
-      </Grid>
+      </Grid> */}
       <Grid align="center" className={classes.content}>
-        <Paper elevation={10} className={classes.paper}>
+        <Paper className={classes.paper}>
+          <div className={classes.loginBackground1}></div>
+          <div className={classes.loginBackground2}></div>
+          <div className={classes.loginBackground3}></div>
+
           <CssBaseline />
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>

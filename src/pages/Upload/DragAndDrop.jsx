@@ -127,7 +127,10 @@ const DragAndDrop = () => {
         {...getRootProps()}
         className={classes.dropZone}
       >
-        <CloudUploadOutlinedIcon fontSize="large" />
+        <div className={classes.containerBackground1}></div>
+        <div className={classes.containerBackground2}></div>
+        <div className={classes.containerBackground3}></div>
+        <div className={classes.ikonca}></div>
         <input {...getInputProps()} name="item" type="file" multiple />
       </Grid>
 
