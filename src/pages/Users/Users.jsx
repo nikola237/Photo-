@@ -4,7 +4,8 @@ import React, { useReducer } from 'react';
 import DeletedUsers from '../../components/DeletedUsers/DeletedUsers';
 import AtiveUsers from '../../components/ActiveUsers/ActiveUsers';
 import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
-import Footer from '../../components/Footer/Footer';
+import SideBar from '../../components/SideBar/SideBar';
+
 //styles
 import { Grid } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
@@ -96,43 +97,45 @@ const Users = () => {
 
   return (
     <Container maxWidth="xl" className={classes.itemContainer} justify="center">
-      <Grid item container justify="flex-end">
-        <Tabs
-          className={classes.tabs}
-          value={tab}
-          // indicatorColor="primary"
-          // textColor="primary"
-          onChange={handleChangeTab}
-          aria-label="disabled tabs example"
-        >
-          <Tab label="aktivni Korisnici" />
-          <Tab label="obrisani korisnici" />
-        </Tabs>
-      </Grid>
-      <Grid item container className={classes.content}>
-        {tab === 0 && (
-          <AtiveUsers
-            dispatch={dispatch}
-            users={users}
-            firstname={firstname}
-            lastname={lastname}
-            username={username}
-            email={email}
-            password={password}
-            role={role}
-            isLoading={isLoading}
-          />
-        )}
-        {tab === 1 && (
-          <DeletedUsers
-            dispatch={dispatch}
-            users={users}
-            isLoading={isLoading}
-          />
-        )}
-      </Grid>
-      <Grid item container className={classes.footer}>
-        <Footer />
+      <div className={classes.sidebarWrapper}>
+        <SideBar />
+      </div>
+      <Grid className={classes.wrapper}>
+        <Grid item container justify="flex-end">
+          <Tabs
+            indicatorColor="secondary"
+            className={classes.tabs}
+            value={tab}
+            onChange={handleChangeTab}
+            aria-label="disabled tabs example"
+          >
+            <Tab label="aktivni Korisnici" />
+            <Tab label="obrisani korisnici" />
+          </Tabs>
+        </Grid>
+        <Grid item container className={classes.content}>
+          {tab === 0 && (
+            <AtiveUsers
+              dispatch={dispatch}
+              users={users}
+              firstname={firstname}
+              lastname={lastname}
+              username={username}
+              email={email}
+              password={password}
+              role={role}
+              isLoading={isLoading}
+            />
+          )}
+          {tab === 1 && (
+            <DeletedUsers
+              dispatch={dispatch}
+              users={users}
+              isLoading={isLoading}
+            />
+          )}
+        </Grid>
+        <Grid item container className={classes.footer}></Grid>
       </Grid>
       <SnackbarAlert />
     </Container>

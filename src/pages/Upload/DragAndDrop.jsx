@@ -1,8 +1,10 @@
-import React, { useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 //drop zone
 import { useDropzone } from 'react-dropzone';
-
 import { useProjectsDispatch } from '../../context/projectsContext';
+
+//exifr
+import exifr from 'exifr';
 
 //api upload
 import uploadApi from '../../api/uploadApi';
@@ -10,13 +12,13 @@ import uploadApi from '../../api/uploadApi';
 //components
 import SingleItemUpload from '../../components/SingleItemUpload/SingleItemUpload';
 import MultipleItemsUpload from '../../components/MultipleItemsUpload/MultipleItemsUpload';
-import Footer from '../../components/Footer/Footer';
+import SideBar from '../../components/SideBar/SideBar';
 import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
 
 //styles
 import { Grid } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
+
 import Button from '@material-ui/core/Button';
 import { useStyles } from './DragAndDrop.styles';
 
@@ -26,6 +28,11 @@ function uploadReducer(state, action) {
       return {
         ...state,
         files: action.payload,
+      };
+    case 'CHECKED':
+      return {
+        ...state,
+        checked: action.payload,
       };
     case 'UPDATE_FIELD_VALUE':
       return { ...state, [action.payload.field]: action.payload.value };
@@ -42,6 +49,7 @@ function uploadReducer(state, action) {
 const DragAndDrop = () => {
   const [state, dispatch] = useReducer(uploadReducer, {
     files: [],
+
     title: '',
     tags: '',
   });
@@ -52,8 +60,10 @@ const DragAndDrop = () => {
 
   const classes = useStyles();
 
+  console.log(files, 'FILES');
+
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*, audio/*,video/*',
+    accept: 'image/*, audio/*,video/*,image/x-icon',
     onDrop: (acceptedFiles) => {
       dispatch({
         type: 'FILES',
@@ -65,6 +75,31 @@ const DragAndDrop = () => {
       });
     },
   });
+
+  const extractDepthMap = useCallback(
+    async (filePath) => {
+      const output = await Promise.all(
+        filePath.map((file) => exifr.parse(file))
+      );
+
+      const imgDesc = output.map((value) =>
+        value === undefined ? { ImageDecription: false } : value
+      );
+
+      const jebem = files.map((file, index) =>
+        Object.assign(file, imgDesc[index])
+      );
+      dispatch({ type: 'CHECKED', payload: true });
+      return jebem;
+    },
+    [files]
+  );
+
+  useEffect(() => {
+    if (files.length > 0) {
+      extractDepthMap(files);
+    }
+  }, [extractDepthMap, files]);
 
   const fileUploadHandler = async (event) => {
     if (files === null) {
@@ -118,7 +153,11 @@ const DragAndDrop = () => {
   };
 
   return (
-    <Container maxWidth="xl" justify="center" className={classes.itemContainer}>
+    <Container maxWidth="xl" className={classes.itemContainer}>
+      <div className={classes.sidebarWrapper}>
+        <SideBar />
+      </div>
+
       <Grid
         container
         item
@@ -169,7 +208,6 @@ const DragAndDrop = () => {
         ) : null}
       </Grid>
       <SnackbarAlert />
-      <Footer />
     </Container>
   );
 };

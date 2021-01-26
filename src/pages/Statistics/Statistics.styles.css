@@ -22,11 +22,11 @@ margin-top:10px;
   margin:0;
 }
 .chart-wrapper{
-  flex:0 0 98%;
+  flex:0 0 95%;
   display: flex;
   justify-content:space-between;
   flex-wrap: wrap;
-  margin: 2% 0 0 0;
+  margin: 2% 0 0 1.5%;
   position: relative;
 }
 
@@ -147,7 +147,7 @@ canvas {
   left:30px;
   height: 100%;
   width:100%;
-  background-color: rgb(124, 211, 211);
+  background-color: #6ac5a9;
   transform: translateZ(-15px)
 
 }

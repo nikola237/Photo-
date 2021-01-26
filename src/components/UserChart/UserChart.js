@@ -12,10 +12,10 @@ function UserChart({ data, startDate, endDate }) {
       yAxes: [
         {
           gridLines: {
-            color: '#ffff',
+            color: 'black',
           },
           ticks: {
-            fontColor: '#ffff',
+            fontColor: 'black',
             fontSize: 20,
           },
         },
@@ -23,10 +23,10 @@ function UserChart({ data, startDate, endDate }) {
       xAxes: [
         {
           gridLines: {
-            color: '#ffff',
+            color: 'black',
           },
           ticks: {
-            fontColor: '#ffff',
+            fontColor: 'black',
             stepSize: 1,
             beginAtZero: true,
           },
@@ -35,7 +35,7 @@ function UserChart({ data, startDate, endDate }) {
     },
     title: {
       display: true,
-      fontColor: 'white',
+      fontColor: 'black',
       text: 'Korisnici',
       fontSize: 20,
     },
@@ -43,7 +43,7 @@ function UserChart({ data, startDate, endDate }) {
     legend: {
       display: false,
       labels: {
-        fontColor: '#ffff',
+        fontColor: 'black',
         fontSize: 20,
       },
     },

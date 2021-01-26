@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SideBar from '../../components/SideBar/SideBar';
 
 //api
 import api from '../../api/api';
@@ -84,11 +85,15 @@ const Statistics = () => {
   }
   return (
     <Grid container className={classes.container}>
+      <div className={classes.sidebarWrapper}>
+        <SideBar />
+      </div>
+
       <Grid
         container
         item
-        xs={12}
-        justify="space-around"
+        xs={11}
+        justify="space-between"
         wrap="wrap"
         className={classes.heading}
       >

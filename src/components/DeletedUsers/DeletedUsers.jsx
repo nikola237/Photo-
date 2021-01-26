@@ -90,7 +90,9 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
   };
 
   return (
-    <TableContainer component={Paper} className={classes.table}>
+    <TableContainer component={Paper} className={classes.tableWrapper}>
+      <div className={classes.tableBackground1}></div>
+      <div className={classes.tableBackground2}></div>
       {users ? (
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.head}>

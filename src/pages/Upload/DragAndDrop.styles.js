@@ -1,17 +1,21 @@
 import { makeStyles } from '@material-ui/core/styles';
-import slika8 from '../../assets/slika8.jpg';
 import pozadina from '../../assets/pozadina-07.png';
 import ikonca from '../../assets/ikonca.png';
 export const useStyles = makeStyles((theme) => ({
   itemContainer: {
-    paddingLeft: 85,
-    paddingRight: 50,
     minHeight: 'calc(100vh - 64px)',
     backgroundColor: '#EEEEEE',
     paddingTop: theme.spacing(8),
     backgroundImage: `url(${pozadina})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  sidebarWrapper: {
+    flex: '0 0 5%',
+    marginRight: '25px',
   },
   containerBackground1: {
     position: 'absolute',
@@ -45,9 +49,11 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   dropZone: {
+    flex: '0 0 86%',
+    marginRight: '3%',
     height: '75vh',
-    width: '85vw',
-    margin: '0 auto',
+    // width: '85vw',
+    // margin: '0 auto',
     backgroundColor: 'white',
     border: '3px solid black',
     marginBottom: theme.spacing(4),

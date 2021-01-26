@@ -10,10 +10,10 @@ function TopUserChart({ data }) {
       xAxes: [
         {
           gridLines: {
-            color: '#ffff',
+            color: 'black',
           },
           ticks: {
-            fontColor: '#ffff',
+            fontColor: 'black',
             fontSize: 20,
           },
         },
@@ -21,10 +21,10 @@ function TopUserChart({ data }) {
       yAxes: [
         {
           gridLines: {
-            color: '#ffff',
+            color: 'black',
           },
           ticks: {
-            fontColor: '#ffff',
+            fontColor: 'black',
             stepSize: 1,
             beginAtZero: true,
           },
@@ -33,7 +33,7 @@ function TopUserChart({ data }) {
     },
     title: {
       display: true,
-      fontColor: 'white',
+      fontColor: 'black',
       text: 'Top 5 Korisnika',
       fontSize: 20,
     },
@@ -41,7 +41,7 @@ function TopUserChart({ data }) {
     legend: {
       display: false,
       labels: {
-        fontColor: '#ffff',
+        fontColor: 'black',
         fontSize: 20,
       },
     },

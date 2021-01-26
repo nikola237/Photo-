@@ -97,15 +97,11 @@ export function adminReducer(state, action) {
           tags: action.payload,
         },
       };
-    case 'SWITCH':
+    case 'ITEM_BY_ID':
       return {
         ...state,
-        switchState: {
-          checkedA: action.payload,
-          checkedB: action.payload,
-        },
+        itemById: action.payload,
       };
-
     case 'ERROR':
       return { ...state, error: 'Nista nije pronadjeno' };
     default: {

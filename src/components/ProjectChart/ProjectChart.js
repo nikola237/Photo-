@@ -16,13 +16,13 @@ function ProjectChart({ data, startDate, endDate }) {
     legend: {
       display: false,
       labels: {
-        fontColor: '#ffff',
+        fontColor: 'black',
         fontSize: 25,
       },
     },
     title: {
       display: true,
-      fontColor: 'white',
+      fontColor: 'black',
       text: 'Projekti',
       fontSize: 20,
     },
@@ -30,10 +30,10 @@ function ProjectChart({ data, startDate, endDate }) {
       xAxes: [
         {
           gridLines: {
-            color: '#ffff',
+            color: 'black',
           },
           ticks: {
-            fontColor: '#ffff',
+            fontColor: 'black',
             fontSize: 20,
           },
         },
@@ -41,10 +41,10 @@ function ProjectChart({ data, startDate, endDate }) {
       yAxes: [
         {
           gridLines: {
-            color: '#ffff',
+            color: 'black',
           },
           ticks: {
-            fontColor: '#ffff',
+            fontColor: 'black',
             stepSize: 1,
             beginAtZero: true,
           },

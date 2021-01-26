@@ -279,10 +279,14 @@ const ProjectsTable = ({
                         onClick={() => handleIconSave()}
                       />
                     ) : (
-                      <EditIcon
-                        style={{ color: '#64b5f6', cursor: 'pointer' }}
+                      // <EditIcon
+                      //   style={{ color: '#64b5f6', cursor: 'pointer' }}
+                      //   onClick={() => handleEditProject(project.id)}
+                      // />
+                      <div
+                        className={classes.editIcon}
                         onClick={() => handleEditProject(project.id)}
-                      />
+                      ></div>
                     )}
                   </TableCell>
                   <TableCell align="center">
@@ -292,10 +296,14 @@ const ProjectsTable = ({
                         onClick={() => handleIconCancle(editMode.rowKey)}
                       />
                     ) : (
-                      <DeleteIcon
-                        style={{ color: '#d32f2f', cursor: 'pointer' }}
+                      // <DeleteIcon
+                      //   style={{ color: '#d32f2f', cursor: 'pointer' }}
+                      //   onClick={() => handleRemoveProject(project.id)}
+                      // />
+                      <div
+                        className={classes.createIcon}
                         onClick={() => handleRemoveProject(project.id)}
-                      />
+                      ></div>
                     )}
                   </TableCell>
                 </TableRow>

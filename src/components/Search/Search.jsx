@@ -13,9 +13,9 @@ import { useStyles } from './Search.styles';
 
 const Search = ({
   dispatch,
-
+  stateSwitch,
+  itemById,
   autoSuggestion,
-
   tagsKwords,
 }) => {
   const [value, setValue] = useState([]);
@@ -24,24 +24,29 @@ const Search = ({
   const classes = useStyles();
 
   const getData = useCallback(() => {
-    async function getTags() {
-      try {
-        const response = await api.post(`/tags/search?size=10`, {
-          kword: tagsKwords,
-        });
+    if (stateSwitch.checkedA) {
+      dispatch({ type: 'ADD_SUGGESTION', payload: [] });
+      return;
+    } else {
+      async function getTags() {
+        try {
+          const response = await api.post(`/tags/search?size=10`, {
+            kword: tagsKwords,
+          });
 
-        if (response.data.rows[0]?.message) {
-          return ['Nema Tagova'];
-        } else {
-          const filterTags = response.data.rows.map((el) => el.tagname);
-          dispatch({ type: 'ADD_SUGGESTION', payload: filterTags });
+          if (response.data.rows[0]?.message) {
+            return ['Nema Tagova'];
+          } else {
+            const filterTags = response.data.rows.map((el) => el.tagname);
+            dispatch({ type: 'ADD_SUGGESTION', payload: filterTags });
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
       }
+      getTags();
     }
-    getTags();
-  }, [dispatch, tagsKwords]);
+  }, [dispatch, stateSwitch.checkedA, tagsKwords]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -63,7 +68,7 @@ const Search = ({
           options={autoSuggestion}
           getOptionLabel={(autoSuggestion) => autoSuggestion}
           value={value}
-          inputValue={inputValue}
+          inputValue={stateSwitch.checkedA ? itemById : inputValue}
           onChange={(event, newValue) => {
             const filterArray = newValue.join();
 
@@ -72,6 +77,11 @@ const Search = ({
           }}
           onInputChange={(event, newInputValue) => {
             const options = newInputValue.split(',');
+            if (stateSwitch.checkedA) {
+              console.log(event.target.value);
+              dispatch({ type: 'ITEM_BY_ID', payload: newInputValue });
+              return;
+            }
 
             if (options.length > 1) {
               const filter = value

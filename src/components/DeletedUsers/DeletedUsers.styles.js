@@ -1,48 +1,53 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
+  tableWrapper: {
+    padding: '10px',
+    border: '3px solid black',
+    backgroundColor: 'white',
+    position: 'relative',
+    transformStyle: 'preserve-3d',
+    overflow: 'unset',
+  },
   table: {
     minWidth: 650,
-    borderRadius: '10px',
-    boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
-    padding: '20px',
-    backgroundColor: '#343a40',
-    color: 'white',
-    '& tbody': {
-      '& .MuiTableRow-root': {
-        backgroundColor: '#06060629',
-        '&:nth-of-type(odd)': {
-          backgroundColor: '#ffffff29',
-        },
-      },
+    backgroundColor: 'white',
+    color: 'black',
+    boxShadow: 'none',
+
+    '& .MuiTable-root': {
+      border: 'none',
     },
 
-    '& .MuiTableCell-body': {
-      color: 'white',
-    },
-    '& .MuiTableRow-head': {
-      backgroundColor: '#343a40',
-      color: 'white',
+    '& .MuiTableCell-root': {
+      border: 'none',
+      borderBottom: '3px solid black',
     },
   },
-  pagination: {
-    color: '#fff',
-    '& .MuiSelect-icon': {
-      color: 'white',
-    },
-    '& .MuiIconButton-root.Mui-disabled': {
-      color: '#7b7b7b',
-    },
-    '& .MuiTablePagination-root': {
-      color: '#fff',
-    },
-  },
-  head: {
-    backgroundColor: theme.palette.common.black,
-  },
-
   headTitle: {
-    color: theme.palette.common.white,
     fontSize: 17,
+  },
+  selected: {
+    '& .MuiInputBase-input': {
+      textAlign: 'center',
+    },
+  },
+  tableBackground1: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    top: '15px',
+    left: '15px',
+    border: '3px solid black',
+    transform: 'translateZ(-10px)',
+  },
+  tableBackground2: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    top: '35px',
+    left: '35px',
+    backgroundColor: '#6ac5a9',
+    transform: 'translateZ(-25px)',
   },
 }));

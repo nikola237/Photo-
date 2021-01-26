@@ -1,7 +1,10 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useReducer, useState } from 'react';
 
 //adminReducer
 import { adminReducer } from './adminReducer';
+
+//provider
+import { useProjectsDispatch } from '../../context/projectsContext';
 
 //components
 import Search from '../../components/Search/Search';
@@ -41,26 +44,16 @@ const INITIAL_STATE = {
     itemId: null,
     tags: null,
   },
-  switchState: {
-    checkedA: false,
-    checkedB: true,
-  },
+  itemById: '',
 };
 
 const Admin = () => {
   const [state, dispatch] = useReducer(adminReducer, INITIAL_STATE);
-  const [stateSwitch, setStateSwitch] = React.useState({
+  const [stateSwitch, setStateSwitch] = useState({
     checkedA: false,
     checkedB: true,
   });
-
-  const handleChange = (event) => {
-    setStateSwitch({
-      ...stateSwitch,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
+  const projectsDispatch = useProjectsDispatch();
   const {
     items,
     type,
@@ -75,16 +68,41 @@ const Admin = () => {
     proba,
     extensionFilter,
     editMode,
-    switchState,
+    itemById,
   } = state;
 
   const classes = useStyles();
-  console.log(stateSwitch, 'switch');
+
   const handleChangeTab = (event, newValue) => {
     dispatch({ type: 'ITEMS', payload: null });
     dispatch({ type: 'PAGE', payload: 1 });
     dispatch({ type: 'TAB', payload: newValue });
     dispatch({ type: 'FILTER_EXT', payload: '' });
+  };
+  const handleChange = (event) => {
+    setStateSwitch({
+      ...stateSwitch,
+      [event.target.name]: event.target.checked,
+    });
+    if (stateSwitch.checkedA) {
+      projectsDispatch({
+        type: 'SNACKBAR',
+        payload: {
+          message: 'Pretraga po tagovima',
+          severity: 'info',
+          open: true,
+        },
+      });
+    } else {
+      projectsDispatch({
+        type: 'SNACKBAR',
+        payload: {
+          message: 'Pretraga po Id',
+          severity: 'info',
+          open: true,
+        },
+      });
+    }
   };
 
   return (
@@ -100,13 +118,7 @@ const Admin = () => {
             <SideBar />
           </Grid>
         </Grid>
-        <Grid
-          item
-          container
-          direction="row"
-          xs={9}
-          // style={{ paddingRight: '15px' }}
-        >
+        <Grid item container direction="row" xs={9}>
           <Grid container item style={{ height: '54px' }}>
             <Grid
               container
@@ -127,24 +139,30 @@ const Admin = () => {
             </Grid>
           </Grid>
           <Grid container item justify="flex-end">
-            <Switch
-              checked={stateSwitch.checkedA}
-              onChange={handleChange}
-              name="checkedA"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
             <Grid
               container
               item
               // className={classes.searchContainer}
               justify="flex-end"
             >
-              <Search
-                dispatch={dispatch}
-                autoSuggestion={autoSuggestion}
-                tagsKwords={tagsKwords}
-                proba={proba}
-              />
+              <Grid item xs={2}>
+                <Switch
+                  checked={stateSwitch.checkedA}
+                  onChange={handleChange}
+                  name="checkedA"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Search
+                  dispatch={dispatch}
+                  autoSuggestion={autoSuggestion}
+                  tagsKwords={tagsKwords}
+                  proba={proba}
+                  stateSwitch={stateSwitch}
+                  itemById={itemById}
+                />
+              </Grid>
             </Grid>
           </Grid>
           {/* <Grid
@@ -184,6 +202,8 @@ const Admin = () => {
             tab={tab}
             extensionFilter={extensionFilter}
             editMode={editMode}
+            stateSwitch={stateSwitch}
+            itemById={itemById}
           />
         )}
         {tab === 1 && (

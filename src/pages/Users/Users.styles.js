@@ -5,7 +5,15 @@ export const useStyles = makeStyles((theme) => ({
     paddingLeft: 85,
     paddingRight: 50,
     minHeight: '100vh',
-    flexDirection: 'column',
+    display: 'flex',
+    marginTop: '3%',
+  },
+  sidebarWrapper: {
+    flex: '0 0 5%',
+    marginRight: '25px',
+  },
+  wrapper: {
+    flex: '0 0 90%',
   },
   tabs: {
     width: '45%',
@@ -21,17 +29,14 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '14px',
       fontWeight: '700',
     },
-
-    '& .PrivateTabIndicator-root-17': {
+    '& .MuiTabs-scroller span:last-child': {
       height: '26px',
-      backgroundColor: 'orange',
-
-      // border:"13px solid #f68e1f"
+      // backgroundColor:"orange"
     },
   },
   content: {
     flex: 1,
-    padding: theme.spacing(7),
+    padding: '2%',
   },
   footer: {
     flexShrink: 0,

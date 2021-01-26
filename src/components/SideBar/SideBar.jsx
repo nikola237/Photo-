@@ -28,7 +28,7 @@ const SideBar = () => {
             src={dashboard}
             alt="dashboard"
             style={{
-              width: '50px',
+              width: '38px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -51,7 +51,7 @@ const SideBar = () => {
             src={users}
             alt="users"
             style={{
-              width: '50px',
+              width: '38px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -74,7 +74,7 @@ const SideBar = () => {
             src={stats}
             alt="stats"
             style={{
-              width: '50px',
+              width: '38px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -96,7 +96,7 @@ const SideBar = () => {
             src={upload}
             alt="upload"
             style={{
-              width: '50px',
+              width: '38px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -120,7 +120,7 @@ const SideBar = () => {
             src={projects}
             alt="projects"
             style={{
-              width: '50px',
+              width: '38px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -137,6 +137,8 @@ const SideBar = () => {
   return (
     <Grid container justify="center" style={{ position: 'relative' }}>
       <List className={classes.bar}>
+        <div className={classes.background}></div>
+        <div className={classes.backgroundTwo}></div>
         {itemsList.map((item, index) => {
           const { text, icon, onClick } = item;
           return (
@@ -163,8 +165,6 @@ const SideBar = () => {
           );
         })}
       </List>
-      <div className={classes.background}></div>
-      <div className={classes.backgroundTwo}></div>
     </Grid>
   );
 };

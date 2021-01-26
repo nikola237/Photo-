@@ -1,67 +1,42 @@
 import { makeStyles } from '@material-ui/core/styles';
-
+import ikoncaKreiraj from '../../assets/ikoncaKreiraj.png';
+import ikoncaObrisi from '../../assets/ikoncaObrisi.png';
 export const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
-    borderRadius: '10px',
-    boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
-    padding: '20px',
-    backgroundColor: '#343a40',
-    color: 'white',
-    '& tbody': {
-      '& .MuiTableRow-root': {
-        backgroundColor: '#06060629',
-        '&:nth-of-type(odd)': {
-          backgroundColor: '#ffffff29',
-        },
-      },
+    backgroundColor: 'white',
+    color: 'black',
+    boxShadow: 'none',
+    '& .MuiTable-root': {
+      border: 'none',
     },
-    '& .MuiTableCell-body': {
-      color: 'white',
-    },
-    '& .MuiTableRow-head': {
-      backgroundColor: '#343a40',
-      color: 'white',
-    },
-  },
-  pagination: {
-    color: '#fff',
-    '& .MuiSelect-icon': {
-      color: 'white',
-    },
-    '& .MuiIconButton-root.Mui-disabled': {
-      color: '#7b7b7b',
-    },
-    '& .MuiTablePagination-root': {
-      color: '#fff',
-    },
-  },
-  head: {
-    backgroundColor: theme.palette.common.black,
-  },
 
+    '& .MuiTableCell-root': {
+      border: 'none',
+      borderBottom: '3px solid black',
+      textAlign: 'revert',
+    },
+  },
   headTitle: {
-    color: theme.palette.common.white,
     fontSize: 17,
   },
-
   selected: {
-    '& .MuiInput-root': {
-      color: '#fff',
-    },
-    '& .MuiSelect-root': {
-      color: '#fff',
-    },
     '& .MuiInputBase-input': {
-      textAlign: 'center',
+      textAlign: 'inherit',
     },
-    '& .MuiInput-underline:before': {
-      borderColor: theme.palette.secondary.main,
-      color: theme.palette.secondary.dark,
-    },
-
-    '& .MuiInput-underline:after': {
-      borderColor: theme.palette.secondary.dark,
-    },
+  },
+  editIcon: {
+    backgroundImage: `url(${ikoncaKreiraj})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    height: '50px',
+    width: '50px',
+  },
+  createIcon: {
+    backgroundImage: `url(${ikoncaObrisi})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    height: '50px',
+    width: '50px',
   },
 }));

@@ -1,33 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
+import ikonca from '../../assets/kreirajNoviProjekat.png';
 
 export const useStyles = makeStyles((theme) => ({
-  table: {
-    minWidth: 650,
-    borderRadius: '10px',
-    boxShadow: '5px 5px 15px 5px rgba(0,0,0,0.66)',
-    padding: '20px',
-    backgroundColor: '#343a40',
-    color: 'white',
-    '& tbody': {
-      '& .MuiTableRow-root': {
-        backgroundColor: '#06060629',
-        '&:nth-of-type(odd)': {
-          backgroundColor: '#ffffff29',
-        },
-      },
-    },
-    '& .MuiTableCell-head': {
-      color: 'white',
-      fontSize: '20px',
-    },
-    '& .MuiTableCell-body': {
-      color: 'white',
-    },
-    '& .MuiTableRow-head': {
-      backgroundColor: '#343a40',
-      color: 'white',
-    },
-  },
   itemContainer: {
     paddingLeft: 85,
     paddingRight: 50,
@@ -36,16 +10,16 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   addProject: {
-    color: theme.palette.secondary.dark,
     cursor: 'pointer',
     padding: theme.spacing(2),
-    border: `1px solid ${theme.palette.secondary.dark}`,
-    borderRadius: '17px',
-    backgroundColor: '#fff',
+    backgroundImage: `url(${ikonca})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    height: '70px',
+    width: '70px',
   },
   filter: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(4),
+    paddingBottom: '2%',
     '& .MuiInputBase-input': {
       textAlign: 'center',
     },
@@ -58,8 +32,17 @@ export const useStyles = makeStyles((theme) => ({
       borderColor: theme.palette.secondary.dark,
     },
   },
+  select: {
+    alignSelf: 'end',
+    width: '20%',
+  },
   project: {
-    paddingBottom: theme.spacing(3),
+    flex: '1 0 auto',
+    padding: '10px',
+    border: '3px solid black',
+    backgroundColor: 'white',
+    position: 'relative',
+    transformStyle: 'preserve-3d',
   },
 
   content: {
@@ -68,5 +51,23 @@ export const useStyles = makeStyles((theme) => ({
   footer: {
     flexShrink: 0,
     justifyContent: 'center',
+  },
+  tableBackground1: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    top: '15px',
+    left: '15px',
+    border: '3px solid black',
+    transform: 'translateZ(-10px)',
+  },
+  tableBackground2: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    top: '35px',
+    left: '35px',
+    backgroundColor: '#6ac5a9',
+    transform: 'translateZ(-25px)',
   },
 }));

@@ -14,13 +14,13 @@ function TopProjectChart({ data }) {
     legend: {
       display: false,
       labels: {
-        fontColor: '#ffff',
+        fontColor: 'black',
         fontSize: 25,
       },
     },
     title: {
       display: true,
-      fontColor: 'white',
+      fontColor: 'black',
       text: 'Top 5 Projekata',
       fontSize: 20,
     },
@@ -28,10 +28,10 @@ function TopProjectChart({ data }) {
       yAxes: [
         {
           gridLines: {
-            color: '#ffff',
+            color: 'black',
           },
           ticks: {
-            fontColor: '#ffff',
+            fontColor: 'black',
             fontSize: 20,
           },
         },
@@ -39,10 +39,10 @@ function TopProjectChart({ data }) {
       xAxes: [
         {
           gridLines: {
-            color: '#ffff',
+            color: 'black',
           },
           ticks: {
-            fontColor: '#ffff',
+            fontColor: 'black',
             stepSize: 1,
             beginAtZero: true,
           },

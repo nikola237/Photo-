@@ -475,10 +475,14 @@ const UsersTable = ({
                         onClick={() => handleIconSave()}
                       />
                     ) : (
-                      <EditIcon
-                        style={{ color: '#64b5f6', cursor: 'pointer' }}
+                      // <EditIcon
+                      //   style={{ color: '#64b5f6', cursor: 'pointer' }}
+                      //   onClick={() => editUserById(row.id, index)}
+                      // />
+                      <div
+                        className={classes.editIcon}
                         onClick={() => editUserById(row.id, index)}
-                      />
+                      ></div>
                     )}
                   </TableCell>
                   <TableCell
@@ -495,10 +499,14 @@ const UsersTable = ({
                         onClick={() => handleIconCancle(inEditMode.rowKey)}
                       />
                     ) : (
-                      <DeleteIcon
-                        style={{ color: '#d32f2f', cursor: 'pointer' }}
+                      // <DeleteIcon
+                      //   style={{ color: '#d32f2f', cursor: 'pointer' }}
+                      //   onClick={() => deleteUserById(row.id)}
+                      // />
+                      <div
+                        className={classes.createIcon}
                         onClick={() => deleteUserById(row.id)}
-                      />
+                      ></div>
                     )}
                   </TableCell>
                 </TableRow>

@@ -50,14 +50,13 @@ const ActiveUsers = ({
     <Grid container direction="column" alignItems="flex-start" spacing={3}>
       <Grid item container direction="row">
         <Tooltip title="Dodaj Korisnika">
-          <PersonAddIcon
-            fontSize="large"
-            onClick={handleClickOpen}
-            className={classes.addUser}
-          />
+          <div className={classes.addUser} onClick={handleClickOpen}></div>
         </Tooltip>
       </Grid>
       <Grid container item className={classes.content}>
+        <div className={classes.tableBackground1}></div>
+        <div className={classes.tableBackground2}></div>
+
         <UsersTable
           dispatch={dispatch}
           isLoading={isLoading}

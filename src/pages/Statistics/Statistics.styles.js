@@ -1,17 +1,23 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
+  sidebarWrapper: {
+    flex: '0 0 5%',
+    marginRight: '25px',
+  },
   container: {
-    padding: '1%',
-    width: 'calc(100% - 56px)',
+    padding: '1% 2%',
+    flex: '0 0 92%',
     backgroundColor: 'white',
     height: 'initial',
     minHeight: '100vh',
-    marginLeft: '56px',
+
     borderRadius: '6px',
   },
+
   heading: {
     display: 'flex',
+    flex: '0 0 93%',
     justifyContent: 'space-between',
     color: '#fff',
   },

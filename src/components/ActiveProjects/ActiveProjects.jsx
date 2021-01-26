@@ -8,7 +8,6 @@ import ProjectsTable from '../ProjectsTable/ProjectsTable';
 //style
 import { Grid } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Tooltip from '@material-ui/core/Tooltip';
 import { useStyles } from './ActiveProjects.styles';
 
@@ -164,8 +163,17 @@ const ActiveProjects = () => {
 
   return (
     <Grid container justify="center">
-      <Grid item container justify="center" className={classes.filter}>
+      <Grid item container justify="space-between" className={classes.filter}>
+        <Tooltip title="Dodaj Projekat">
+          {/* <AddCircleIcon
+            fontSize="large"
+            onClick={handleClickOpen}
+            className={classes.addProject}
+          /> */}
+          <div className={classes.addProject} onClick={handleClickOpen}></div>
+        </Tooltip>
         <Select
+          className={classes.select}
           native
           labelId="isactiveFilter"
           name="isactiveFilter"
@@ -185,26 +193,22 @@ const ActiveProjects = () => {
         justify="flex-start"
         className={classes.project}
       >
-        <Tooltip title="Dodaj Projekat">
-          <AddCircleIcon
-            fontSize="large"
-            onClick={handleClickOpen}
-            className={classes.addProject}
+        <div className={classes.tableBackground1}></div>
+        <div className={classes.tableBackground2}></div>
+
+        {projects && (
+          <ProjectsTable
+            projects={projects}
+            dispatch={dispatch}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            count={count}
+            editMode={editMode}
+            projectname={projectname}
+            isActiveProject={isActiveProject}
           />
-        </Tooltip>
+        )}
       </Grid>
-      {projects && (
-        <ProjectsTable
-          projects={projects}
-          dispatch={dispatch}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          count={count}
-          editMode={editMode}
-          projectname={projectname}
-          isActiveProject={isActiveProject}
-        />
-      )}
     </Grid>
   );
 };
