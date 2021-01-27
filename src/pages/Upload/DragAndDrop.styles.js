@@ -4,18 +4,27 @@ import ikonca from '../../assets/ikonca.png';
 export const useStyles = makeStyles((theme) => ({
   itemContainer: {
     minHeight: 'calc(100vh - 64px)',
-    backgroundColor: '#EEEEEE',
-    paddingTop: theme.spacing(8),
-    backgroundImage: `url(${pozadina})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    backgroundColor: '#fff',
+    // paddingTop: theme.spacing(8),
+    // backgroundImage: `url(${pozadina})`,
+    // backgroundPosition: 'center',
+    // backgroundSize: 'cover',
     display: 'flex',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
+  dropZoneWrapper: {
+    // paddingTop: theme.spacing(8),
+    backgroundImage: `url(${pozadina})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    minHeight: '100%',
+    paddingTop: 117,
+  },
   sidebarWrapper: {
     flex: '0 0 5%',
     marginRight: '25px',
+    paddingTop: 117,
   },
   containerBackground1: {
     position: 'absolute',
@@ -47,9 +56,10 @@ export const useStyles = makeStyles((theme) => ({
 
   wrapper: {
     display: 'flex',
+    paddingTop: theme.spacing(6),
   },
   dropZone: {
-    flex: '0 0 86%',
+    flex: '0 0 94%',
     marginRight: '3%',
     height: '75vh',
     // width: '85vw',
@@ -87,5 +97,8 @@ export const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.light,
       color: '#fff',
     },
+  },
+  buttonsWraper: {
+    padding: theme.spacing(6),
   },
 }));

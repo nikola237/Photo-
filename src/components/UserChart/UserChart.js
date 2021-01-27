@@ -36,7 +36,7 @@ function UserChart({ data, startDate, endDate }) {
     title: {
       display: true,
       fontColor: 'black',
-      text: 'Korisnici',
+      text: 'КОРИСНИЦИ',
       fontSize: 20,
     },
 
@@ -101,7 +101,7 @@ function UserChart({ data, startDate, endDate }) {
     document.body.appendChild(downloadLink);
     downloadLink.href = linkSource;
     downloadLink.target = '_self';
-    downloadLink.download = 'Korisnici' + '.png';
+    downloadLink.download = 'Корисници' + '.png';
     downloadLink.click();
   }
 
@@ -127,7 +127,7 @@ function UserChart({ data, startDate, endDate }) {
       'href',
       'data:text/csv;charset=utf-8,\uFEFF' + encodedUri
     );
-    link.setAttribute('download', 'Korisnici.csv');
+    link.setAttribute('download', 'Корисници.csv');
     link.click();
   }
   return (

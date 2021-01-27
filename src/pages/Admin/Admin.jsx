@@ -24,6 +24,7 @@ import { Grid } from '@material-ui/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Switch from '@material-ui/core/Switch';
+import Tooltip from '@material-ui/core/Tooltip';
 import { useStyles } from './Admin.styles';
 
 const INITIAL_STATE = {
@@ -88,7 +89,7 @@ const Admin = () => {
       projectsDispatch({
         type: 'SNACKBAR',
         payload: {
-          message: 'Pretraga po tagovima',
+          message: 'Претрага по таг-у',
           severity: 'info',
           open: true,
         },
@@ -97,7 +98,7 @@ const Admin = () => {
       projectsDispatch({
         type: 'SNACKBAR',
         payload: {
-          message: 'Pretraga po Id',
+          message: 'Претрага по ид-у',
           severity: 'info',
           open: true,
         },
@@ -113,12 +114,17 @@ const Admin = () => {
     >
       <Grid container item direction="row" className={classes.content}>
         <Grid container item xs={3}>
-          <Grid item xs={1} />
-          <Grid item xs={2}>
+          <Grid className={classes.sidebarWrapper}>
             <SideBar />
           </Grid>
         </Grid>
-        <Grid item container direction="row" xs={9}>
+        <Grid
+          item
+          container
+          direction="row"
+          xs={9}
+          style={{ paddingRight: '3%' }}
+        >
           <Grid container item style={{ height: '54px' }}>
             <Grid
               container
@@ -131,29 +137,31 @@ const Admin = () => {
                 onChange={handleChangeTab}
                 className={classes.tabs}
               >
-                <Tab label="Aktivne datoteke" className={classes.tabs} />
-                <Tab label="Obrisane datoteke" className={classes.tabs} />
-                <Tab label="Dodate datoteke" className={classes.tabs} />
+                <Tab label="Активне датотеке" className={classes.tabs} />
+                <Tab label="Обрисане датотеке" className={classes.tabs} />
+                <Tab label="Додате датотеке" className={classes.tabs} />
               </Tabs>
               <div className={classes.tabBackground}></div>
             </Grid>
           </Grid>
-          <Grid container item justify="flex-end">
+          <Grid container item>
             <Grid
               container
               item
               // className={classes.searchContainer}
               justify="flex-end"
             >
-              <Grid item xs={2}>
-                <Switch
-                  checked={stateSwitch.checkedA}
-                  onChange={handleChange}
-                  name="checkedA"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
-                />
+              <Grid item xs={2} container justify="flex-end">
+                <Tooltip title="Промени мод претраге">
+                  <Switch
+                    checked={stateSwitch.checkedA}
+                    onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </Tooltip>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <Search
                   dispatch={dispatch}
                   autoSuggestion={autoSuggestion}
@@ -165,22 +173,12 @@ const Admin = () => {
               </Grid>
             </Grid>
           </Grid>
-          {/* <Grid
-          item
-          container
-          className={classes.radioBtn}
-          justify="center"
-          direction="row"
-        > */}
+
           <Grid item container justify="flex-end">
-            <Grid container item xs={4}>
+            <Grid container item xs={3}>
               <RadioButtons dispatch={dispatch} page={page} type={type} />
             </Grid>
-            {/* </Grid> */}
-            <Grid />
-
-            <Grid container item xs={1} />
-            <Grid container item xs={3}>
+            <Grid item xs={2}>
               <ExtensionsFilter
                 dispatch={dispatch}
                 type={type}
@@ -190,7 +188,7 @@ const Admin = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid>
+      <Grid className={classes.itemWrapper}>
         {tab === 0 && (
           <ActiveItems
             dispatch={dispatch}

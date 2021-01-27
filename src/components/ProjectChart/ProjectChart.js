@@ -23,7 +23,7 @@ function ProjectChart({ data, startDate, endDate }) {
     title: {
       display: true,
       fontColor: 'black',
-      text: 'Projekti',
+      text: 'ПРОЈЕКТИ',
       fontSize: 20,
     },
     scales: {
@@ -104,7 +104,7 @@ function ProjectChart({ data, startDate, endDate }) {
     document.body.appendChild(downloadLink);
     downloadLink.href = linkSource;
     downloadLink.target = '_self';
-    downloadLink.download = 'Projekti' + '.png';
+    downloadLink.download = 'Пројекти' + '.png';
     downloadLink.click();
   }
 
@@ -130,7 +130,7 @@ function ProjectChart({ data, startDate, endDate }) {
       'href',
       'data:text/csv;charset=utf-8,\uFEFF' + encodedUri
     );
-    link.setAttribute('download', 'Projekti.csv');
+    link.setAttribute('download', 'Пројекти.csv');
     link.click();
   }
 

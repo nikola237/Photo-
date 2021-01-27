@@ -6,12 +6,11 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: '25px',
   },
   container: {
-    padding: '1% 2%',
+    padding: '1%',
     flex: '0 0 92%',
     backgroundColor: 'white',
     height: 'initial',
     minHeight: '100vh',
-
     borderRadius: '6px',
   },
 

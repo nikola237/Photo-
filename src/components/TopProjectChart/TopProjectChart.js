@@ -21,7 +21,7 @@ function TopProjectChart({ data }) {
     title: {
       display: true,
       fontColor: 'black',
-      text: 'Top 5 Projekata',
+      text: 'ТОП 5 ПРОЈЕКАТА',
       fontSize: 20,
     },
     scales: {

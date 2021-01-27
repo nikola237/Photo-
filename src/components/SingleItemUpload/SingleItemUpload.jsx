@@ -46,10 +46,15 @@ const SingleItemUpload = ({
             />
           </Box>
           <Box className={classes.avatar}>
-            <Avatar
+            {/* <Avatar
               className={classes.avatarImgMulti}
               alt="Remy Sharp"
               src={play}
+            /> */}
+            <img
+              src={play}
+              alt="media"
+              style={{ width: '40px', height: '40px' }}
             />
           </Box>
           <CardContent className={classes.content}>
@@ -101,10 +106,15 @@ const SingleItemUpload = ({
               />
             </Box>
             <Box className={classes.avatar}>
-              <Avatar
+              {/* <Avatar
                 className={classes.avatarImgMulti}
                 alt="Remy Sharp"
                 src={file.preview}
+              /> */}
+              <img
+                src={file.preview}
+                alt="media"
+                style={{ width: '80px', height: '80px', borderRadius: '12px' }}
               />
             </Box>
             <CardContent className={classes.content}>

@@ -25,7 +25,7 @@ const ProjectsRadioButtons = () => {
   return (
     <FormControl>
       <div>
-        <FormLabel>Aktivni</FormLabel>
+        <FormLabel>Активни</FormLabel>
         <Radio
           value={1}
           checked={type === 1}
@@ -33,7 +33,7 @@ const ProjectsRadioButtons = () => {
           onChange={handleButtonChange}
           name="active"
         />
-        <FormLabel>Neaktivni</FormLabel>
+        <FormLabel>Неактивни</FormLabel>
         <Radio
           value={0}
           checked={type === 0}

@@ -2,11 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   itemContainer: {
-    paddingLeft: 85,
-    paddingRight: 50,
     minHeight: '100vh',
     display: 'flex',
-    marginTop: '3%',
+    padding: '1%',
   },
   sidebarWrapper: {
     flex: '0 0 5%',
@@ -30,8 +28,7 @@ export const useStyles = makeStyles((theme) => ({
       fontWeight: '700',
     },
     '& .MuiTabs-scroller span:last-child': {
-      height: '26px',
-      // backgroundColor:"orange"
+      height: '5px',
     },
   },
   content: {

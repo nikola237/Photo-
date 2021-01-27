@@ -40,18 +40,22 @@ const MediaCard = ({
   return (
     <Grid item container xs={12} sm={5} md={4} lg={3}>
       <Card className={classes.root}>
+        <div className={classes.background}></div>
+        <div className={classes.audioWrapper}>
+          <div className={classes.background1}></div>
+          <CardMedia
+            component="audio"
+            controlsList="nodownload"
+            controls
+            className={classes.media}
+            image={`http://93.86.249.163:3030/items/display/${pathShort}`}
+            type="/audio.mp3"
+            title={`${originalname}`}
+          />
+        </div>
         <Box className={classes.id}>
-          <Typography variant="h6">{`Id: ${id}`}</Typography>
+          <Typography variant="h6">{`ID: ${id}`}</Typography>
         </Box>
-        <CardMedia
-          component="audio"
-          controlsList="nodownload"
-          controls
-          className={classes.media}
-          image={`http://93.86.249.163:3030/items/display/${pathShort}`}
-          type="/audio.mp3"
-          title={`${originalname}`}
-        />
         <CardContent className={classes.content}>
           {editMode.status && editMode.itemId === id ? (
             (console.log(editMode.status, editMode.itemId),
@@ -63,7 +67,7 @@ const MediaCard = ({
               />
             ))
           ) : (
-            <Typography variant="body2" component="p" className={classes.id}>
+            <Typography variant="body2" component="p">
               {`${tags}`}
             </Typography>
           )}

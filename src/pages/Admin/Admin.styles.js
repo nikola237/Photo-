@@ -2,10 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   itemContainer: {
-    paddingLeft: 60,
-    paddingRight: 60,
+    padding: '1%',
     minHeight: '100vh',
     backgroundColor: '#fff',
+  },
+  sidebarWrapper: {
+    flex: '0 0 5%',
+    marginRight: '25px',
   },
   offset: theme.mixins.toolbar,
 
@@ -18,56 +21,45 @@ export const useStyles = makeStyles((theme) => ({
     paddingBottom: 22,
   },
   tabs: {
-    color: theme.palette.primary.dark,
-    indicatorColor: '#f78e1f',
-    position: 'relative',
-    backgroundColor: 'transparent',
-    zIndex: 1,
-    fontWeight: 600,
-    fontSize: 16,
-  },
+    width: '45%',
+    '& .MuiTabs-flexContainer': {
+      justifyContent: 'space-around',
 
-  tabBackground: {
-    position: 'absolute',
-    top: '11%',
-    right: '7%',
-    height: '2%',
-    width: '42%',
-    backgroundColor: '#f78e1f  ',
+      '& .MuiButtonBase-root': {
+        flex: '0 0 35%',
+      },
+    },
+    '& .MuiTab-wrapper': {
+      zIndex: '1',
+      fontSize: '14px',
+      fontWeight: '700',
+    },
+    '& .MuiTabs-scroller span:last-child': {
+      height: '5px',
+    },
   },
 
   pagination: {
-    padding: 5,
+    padding: '5%',
     marginTop: 20,
     marginBottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    '& .MuiPaginationItem-textPrimary': {
+      fontSize: '20px',
+      fontWeight: '700',
+      border: '1px solid black',
+    },
+
+    '& .MuiPaginationItem-textPrimary.Mui-selected': {
+      color: 'black',
+      backgroundColor: '#6ac5a9',
+    },
   },
   content: {
-    padding: theme.spacing(4),
-    height: 381,
+    height: 310,
   },
-  // footer: {
-  //   bottom: 0,
-  //   justifyContent: 'center',
-  //   height: 62,
-  //   backgroundColor: '#EEEEEE',
-  // },
-  // form: {
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   margin: 'auto',
-  //   width: 'fit-content',
-  // },
-  // formControl: {
-  //   marginTop: theme.spacing(2),
-  //   minWidth: 120,
-  // },
-  // formControlLabel: {
-  //   marginTop: theme.spacing(1),
-  // },
-  // filter: {
-  //   marginTop: theme.spacing(4),
-  //   marginBottom: theme.spacing(4),
-  // },
+  itemWrapper: {
+    padding: '1%',
+  },
 }));

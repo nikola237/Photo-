@@ -126,7 +126,7 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
             onClick={handleIconCheck}
             size="small"
           >
-            <Tooltip title="Potvrdi">
+            <Tooltip title="Потврди">
               <CheckCircleIcon style={{ color: '#4caf50' }} />
             </Tooltip>
           </Button>
@@ -137,7 +137,7 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
             onClick={handleIconCancel}
             size="small"
           >
-            <Tooltip title="Odustani">
+            <Tooltip title="Одустани">
               <CancelIcon style={{ color: '#d32f2f' }} />
             </Tooltip>
           </Button>
@@ -150,7 +150,7 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
             onClick={() => handleItemId(id)}
             // size="small"
           >
-            <Tooltip title="Izmeni">
+            <Tooltip title="Измени">
               <EditIcon className={classes.buttonIcons} />
             </Tooltip>
             <div className={classes.background}></div>
@@ -161,7 +161,7 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
             onClick={() => handleDownloadItem(id)}
             // size="small"
           >
-            <Tooltip title="Preuzmi">
+            <Tooltip title="Преузми">
               <GetAppIcon className={classes.buttonIcons} />
             </Tooltip>
             <div className={classes.background}></div>
@@ -172,7 +172,7 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
             onClick={() => handleRemoveItem(id)}
             // size="small"
           >
-            <Tooltip title="Obrisi">
+            <Tooltip title="Обриши">
               <DeleteIcon className={classes.buttonIcons} />
             </Tooltip>
             <div className={classes.background}></div>

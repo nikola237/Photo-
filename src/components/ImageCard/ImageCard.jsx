@@ -37,24 +37,19 @@ const CardImage = ({
   };
 
   return (
-    <Grid
-      item
-      container
-      xs={12}
-      sm={5}
-      md={4}
-      lg={3}
-      style={{ position: 'relative' }}
-    >
+    <Grid item container xs={12} sm={5} md={4} lg={3}>
       <Card className={classes.root}>
-        <Box className={classes.id}>
-          <Typography variant="h6">{`${id}`}</Typography>
-        </Box>
+        <div className={classes.background}></div>
         <CardMedia
           className={classes.media}
           image={`http://93.86.249.163:3030/items/display/${pathShort}`}
           title={`${originalname}`}
-        />
+        >
+          <div className={classes.background1}></div>
+        </CardMedia>
+        <Box className={classes.id}>
+          <Typography variant="h6">{`ID: ${id}`}</Typography>
+        </Box>
         <CardContent className={classes.content}>
           {editMode.status && editMode.itemId === id ? (
             <TextareaAutosize
@@ -103,7 +98,6 @@ const CardImage = ({
           </CardActions>
         ) : null}
       </Card>
-      <div className={classes.background}></div>
     </Grid>
   );
 };

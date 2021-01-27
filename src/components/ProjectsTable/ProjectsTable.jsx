@@ -50,7 +50,7 @@ const ProjectsTable = ({
       projectsDispatch({
         type: 'SNACKBAR',
         payload: {
-          message: 'Uspesno ste obrisali projekat',
+          message: 'Успешно сте обрисали пројекат',
           severity: 'success',
           open: true,
         },
@@ -115,7 +115,7 @@ const ProjectsTable = ({
         projectsDispatch({
           type: 'SNACKBAR',
           payload: {
-            message: 'Uspesno ste kreirali projekat',
+            message: 'Успешно сте креирали пројекат',
             severity: 'success',
             open: true,
           },
@@ -144,7 +144,7 @@ const ProjectsTable = ({
         projectsDispatch({
           type: 'SNACKBAR',
           payload: {
-            message: 'Uspesno ste izmenili projekat',
+            message: 'Успешно сте изменили пројекат',
             severity: 'success',
             open: true,
           },
@@ -190,22 +190,22 @@ const ProjectsTable = ({
         <TableHead className={classes.head}>
           <TableRow align="center" className={classes.headTitle}>
             <TableCell align="center" className={classes.headTitle}>
-              Id
+              ИБ
             </TableCell>
             <TableCell align="center" className={classes.headTitle}>
-              Ime Projekta
+              Име Пројекта
             </TableCell>
             <TableCell align="center" className={classes.headTitle}>
-              Aktivan
+              Активан
             </TableCell>
             <TableCell align="center" className={classes.headTitle}>
-              Kreiran
+              Креиран
             </TableCell>
             <TableCell align="center" className={classes.headTitle}>
-              {editMode.status ? 'Sacuvaj' : 'Izmeni'}
+              {editMode.status ? 'Сачувај' : 'Измени'}
             </TableCell>
             <TableCell align="center" className={classes.headTitle}>
-              {editMode.status ? 'Odustani' : 'Ukloni'}
+              {editMode.status ? 'Одустани' : 'Уклони'}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -258,14 +258,14 @@ const ProjectsTable = ({
                         }
                       >
                         <option style={{ color: 'black' }} value={true}>
-                          Da
+                          Да
                         </option>
                         <option style={{ color: 'black' }} value={false}>
-                          Ne
+                          Не
                         </option>
                       </Select>
                     ) : (
-                      String(project.isactive ? 'Da' : 'Ne')
+                      String(project.isactive ? 'Да' : 'Не')
                     )}
                   </TableCell>
                   <TableCell align="center">
@@ -319,6 +319,7 @@ const ProjectsTable = ({
         component="div"
         count={count}
         rowsPerPage={rowsPerPage}
+        labelRowsPerPage="Резултата по страници"
         page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}

@@ -114,7 +114,7 @@ const Search = ({
               {...params}
               autoFocus
               variant="outlined"
-              label="Pretrazi arhivu"
+              label="Претражи архиву"
               className={classes.search}
             />
           )}

@@ -18,7 +18,6 @@ import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
 //styles
 import { Grid } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-
 import Button from '@material-ui/core/Button';
 import { useStyles } from './DragAndDrop.styles';
 
@@ -63,7 +62,8 @@ const DragAndDrop = () => {
   console.log(files, 'FILES');
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*, audio/*,video/*,image/x-icon',
+    accept:
+      'image/png, image/jpg,image/jpeg, image/tiff, image/tif,image/bmp, audio/*,video/*',
     onDrop: (acceptedFiles) => {
       dispatch({
         type: 'FILES',
@@ -98,6 +98,9 @@ const DragAndDrop = () => {
   useEffect(() => {
     if (files.length > 0) {
       extractDepthMap(files);
+    }
+    if (files.length < 50) {
+      //poruka
     }
   }, [extractDepthMap, files]);
 
@@ -154,23 +157,38 @@ const DragAndDrop = () => {
 
   return (
     <Container maxWidth="xl" className={classes.itemContainer}>
-      <div className={classes.sidebarWrapper}>
-        <SideBar />
-      </div>
-
       <Grid
         container
         item
-        justify="center"
-        spacing={4}
-        {...getRootProps()}
-        className={classes.dropZone}
+        xs={1}
+        style={{ background: '#fff', minHeight: '100%' }}
       >
-        <div className={classes.containerBackground1}></div>
-        <div className={classes.containerBackground2}></div>
-        <div className={classes.containerBackground3}></div>
-        <div className={classes.ikonca}></div>
-        <input {...getInputProps()} name="item" type="file" multiple />
+        <div className={classes.sidebarWrapper}>
+          <SideBar />
+        </div>
+      </Grid>
+      <Grid
+        container
+        item
+        xs={11}
+        style={{}}
+        justify="flex-end"
+        className={classes.dropZoneWrapper}
+      >
+        <Grid
+          container
+          item
+          justify="center"
+          spacing={4}
+          {...getRootProps()}
+          className={classes.dropZone}
+        >
+          <div className={classes.containerBackground1}></div>
+          <div className={classes.containerBackground2}></div>
+          <div className={classes.containerBackground3}></div>
+          <div className={classes.ikonca}></div>
+          <input {...getInputProps()} name="item" type="file" multiple />
+        </Grid>
       </Grid>
 
       <Grid container spacing={2} justify="center" className={classes.wrapper}>
@@ -195,7 +213,7 @@ const DragAndDrop = () => {
             ))}
       </Grid>
 
-      <Grid item container justify="center">
+      <Grid item container justify="center" className={classes.buttonsWraper}>
         {files.length !== 0 ? (
           <>
             <Button className={classes.button} onClick={fileUploadHandler}>

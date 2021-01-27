@@ -65,7 +65,7 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
       projectsDispatch({
         type: 'SNACKBAR',
         payload: {
-          message: 'Uspesno ste obrisali korisnika',
+          message: 'Успешно сте обрисали корисника',
           severity: 'success',
           open: true,
         },
@@ -98,31 +98,31 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
           <TableHead className={classes.head}>
             <TableRow align="center">
               <TableCell align="center" className={classes.headTitle}>
-                Id
+                ИБ
               </TableCell>
               <TableCell align="center" className={classes.headTitle}>
-                Ime
+                Име
               </TableCell>
               <TableCell align="center" className={classes.headTitle}>
-                Prezime
+                Презиме
               </TableCell>
               <TableCell align="center" className={classes.headTitle}>
-                Korisničko ime
+                Корисничко име
               </TableCell>
               <TableCell align="center" className={classes.headTitle}>
-                Email
+                Е-мејл адреса
               </TableCell>
               <TableCell align="center" className={classes.headTitle}>
-                Rola
+                Улога
               </TableCell>
               <TableCell align="center" className={classes.headTitle}>
-                Aktivan{' '}
+                Активан{' '}
               </TableCell>
               <TableCell align="center" className={classes.headTitle}>
-                Kreiran
+                Креиран
               </TableCell>
               <TableCell align="center" className={classes.headTitle}>
-                Vrati Korisnika
+                Врати корисника
               </TableCell>
             </TableRow>
           </TableHead>
@@ -143,12 +143,12 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
                     <TableCell align="center">{row.username}</TableCell>
                     <TableCell align="center">{row.email}</TableCell>
                     <TableCell align="center">
-                      {row.role === 0 && <p>Korisnik</p>}
-                      {row.role === 1 && <p>Urednik</p>}
-                      {row.role === 2 && <p>Administrator</p>}
+                      {row.role === 0 && <p>Корисник</p>}
+                      {row.role === 1 && <p>Едитор</p>}
+                      {row.role === 2 && <p>Администратор</p>}
                     </TableCell>
                     <TableCell align="center">
-                      {(row.isactive && <p>Da</p>) || <p>Ne</p>}
+                      {(row.isactive && <p>Да</p>) || <p>Не</p>}
                     </TableCell>
                     <TableCell align="center">
                       {filterDate(row.createdAt)}
@@ -176,6 +176,7 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
         component="div"
         count={count}
         rowsPerPage={rowsPerPage}
+        labelRowsPerPage="Резултата по страници"
         page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}

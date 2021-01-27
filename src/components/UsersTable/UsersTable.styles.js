@@ -14,6 +14,7 @@ export const useStyles = makeStyles((theme) => ({
     '& .MuiTableCell-root': {
       border: 'none',
       borderBottom: '3px solid black',
+      textAlign: 'revert',
     },
   },
   headTitle: {

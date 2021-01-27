@@ -16,14 +16,13 @@ import { useStyles } from './SideBar.styles';
 
 const SideBar = () => {
   const [selectedIcon, setSelectedIncon] = useState(0);
+  console.log(selectedIcon, 'ovo je odabrana');
   const classes = useStyles();
   const history = useHistory();
   const itemsList = [
     {
-      // text: 'Dashboard',
       icon: (
         <Tooltip title="Dashboard" placement="right">
-          {/* <DashboardIcon /> */}
           <img
             src={dashboard}
             alt="dashboard"
@@ -38,15 +37,13 @@ const SideBar = () => {
 
       onClick: (index) => {
         history.push('/');
-
+        console.log('usao u ', index);
         setSelectedIncon(index);
       },
     },
     {
-      // text: 'Korisnici',
       icon: (
         <Tooltip title="Korisnici" placement="right">
-          {/* <PeopleIcon /> */}
           <img
             src={users}
             alt="users"
@@ -61,15 +58,13 @@ const SideBar = () => {
 
       onClick: (index) => {
         history.push('/users');
-
+        console.log('usao u ', index);
         setSelectedIncon(index);
       },
     },
     {
-      // text: 'Statistika',
       icon: (
         <Tooltip title="Statistika" placement="right">
-          {/* <EqualizerIcon /> */}
           <img
             src={stats}
             alt="stats"
@@ -83,15 +78,13 @@ const SideBar = () => {
       ),
       onClick: (index) => {
         history.push('/statistics');
-
+        console.log('usao u ', index);
         setSelectedIncon(index);
       },
     },
     {
-      // text: 'Dodaj datoteke',
       icon: (
         <Tooltip title="Dodaj datoteke" placement="right">
-          {/* <CloudUploadIcon /> */}
           <img
             src={upload}
             alt="upload"
@@ -106,16 +99,14 @@ const SideBar = () => {
 
       onClick: (index) => {
         history.push('/upload');
-
+        console.log('usao u ', index);
         setSelectedIncon(index);
       },
     },
 
     {
-      // text: 'Projekti',
       icon: (
         <Tooltip title="Projekti" placement="right">
-          {/* <FolderIcon /> */}
           <img
             src={projects}
             alt="projects"
@@ -129,7 +120,7 @@ const SideBar = () => {
       ),
       onClick: (index) => {
         history.push('/projects');
-
+        console.log('usao u ', index);
         setSelectedIncon(index);
       },
     },

@@ -1,9 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
-// import slika3 from '../../assets/pozadina-07.jpg';
+
 import books from '../../assets/pozadina-07.png';
-import klett from '../../assets/klett.png';
-import logos from '../../assets/logos.png';
-import freska from '../../assets/freska.png';
+
 export const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
@@ -46,51 +44,12 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: '#05bb8385',
   },
 
-  header: {
-    height: 100,
-    width: '100%',
-    display: 'flex',
-    background: `linear-gradient(90deg, rgba(0,0,0,1) 50%, rgba(365,365,365,0.7) 99%)`,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    // background: ' rgba(365,365,365,0.7)',
-  },
   content: {
-    flex: 1,
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginTop: theme.spacing(10),
   },
-  logoFreska: {
-    width: 119,
-    height: 48,
-    backgroundImage: `url(${freska})`,
-    margin: theme.spacing(3),
-  },
-  logoLogos: {
-    width: 120,
-    height: 48,
-    backgroundImage: `url(${logos})`,
-    margin: theme.spacing(3),
-  },
-  logoKlett: {
-    width: 94,
-    height: 48,
-    backgroundImage: `url(${klett})`,
-    margin: theme.spacing(3),
-  },
-  footer: {
-    height: 150,
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-    fontSize: 20,
-    background: `linear-gradient(90deg, rgba(0,0,0,1) 50%, rgba(365,365,365,0.7) 99%)`,
-    color: '#fff',
-  },
+
   textField: {
     '& .makeStyles-textField-9': {
       width: '100%',
@@ -101,10 +60,13 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   hero: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundImage: `url(${books})`,
     backgroundColor: 'white',
     backgroundSize: 'cover',
-    // background: `linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(87,88,86,1) 95%), url(${books}) `
     backgroundRepeat: 'no-repeat',
     maxWidth: '100%',
     maxHeight: '100%',

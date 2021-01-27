@@ -49,7 +49,7 @@ const ActiveUsers = ({
   return (
     <Grid container direction="column" alignItems="flex-start" spacing={3}>
       <Grid item container direction="row">
-        <Tooltip title="Dodaj Korisnika">
+        <Tooltip title="Додај корисника">
           <div className={classes.addUser} onClick={handleClickOpen}></div>
         </Tooltip>
       </Grid>

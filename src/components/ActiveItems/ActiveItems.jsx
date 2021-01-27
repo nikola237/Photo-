@@ -69,6 +69,7 @@ const ActiveItems = ({
     itemById,
     kwords,
     page,
+    projectsDispatch,
     stateSwitch.checkedA,
     type,
   ]);

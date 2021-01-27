@@ -4,7 +4,7 @@ import { useAuthState } from '../../context/authContext';
 
 //styles
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
+
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -22,7 +22,7 @@ import Box from '@material-ui/core/Box';
 
 //components
 import SnackbarAuth from '../SnackbarAuth/SnackbarAuth';
-
+import SignInNav from '../SignInNav/SignInNav';
 const SignIn = () => {
   const classes = useStyles();
 
@@ -54,18 +54,13 @@ const SignIn = () => {
 
   return (
     <Grid container className={classes.hero} direction="column">
-      {/* <Grid container item className={classes.header}>
-        <div className={classes.logoFreska}></div>
-        <div className={classes.logoKlett}></div>
-        <div className={classes.logoLogos}></div>
-      </Grid> */}
+      <SignInNav />
       <Grid align="center" className={classes.content}>
         <Paper className={classes.paper}>
           <div className={classes.loginBackground1}></div>
           <div className={classes.loginBackground2}></div>
           <div className={classes.loginBackground3}></div>
 
-          <CssBaseline />
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />

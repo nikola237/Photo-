@@ -109,8 +109,8 @@ const Users = () => {
             onChange={handleChangeTab}
             aria-label="disabled tabs example"
           >
-            <Tab label="aktivni Korisnici" />
-            <Tab label="obrisani korisnici" />
+            <Tab label="Активни корисници" />
+            <Tab label="Обрисани корисници" />
           </Tabs>
         </Grid>
         <Grid item container className={classes.content}>

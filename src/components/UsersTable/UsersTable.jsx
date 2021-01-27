@@ -74,7 +74,7 @@ const UsersTable = ({
         projectsDispatch({
           type: 'SNACKBAR',
           payload: {
-            message: 'Uspesno ste obrisali korisnika',
+            message: 'Успешно сте обрисали корисника',
             severity: 'success',
             open: true,
           },
@@ -170,7 +170,7 @@ const UsersTable = ({
         projectsDispatch({
           type: 'SNACKBAR',
           payload: {
-            message: 'Bez praznih polja',
+            message: 'Без празних поља',
             severity: 'success',
             open: true,
           },
@@ -192,7 +192,7 @@ const UsersTable = ({
         projectsDispatch({
           type: 'SNACKBAR',
           payload: {
-            message: 'Uspesno ste kreirali korisnika',
+            message: 'Успешно сте креирали корисника',
             severity: 'success',
             open: true,
           },
@@ -218,7 +218,7 @@ const UsersTable = ({
           projectsDispatch({
             type: 'SNACKBAR',
             payload: {
-              message: 'Uspesno ste izmenili korisnika',
+              message: 'Успешно сте изменили корисника',
               severity: 'success',
               open: true,
             },
@@ -239,36 +239,36 @@ const UsersTable = ({
           <TableHead className={classes.head}>
             <TableRow>
               <TableCell className={classes.headTitle} align="center">
-                Id
+                ИБ
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
-                Ime
+                Име
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
-                Prezime
+                Презиме
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
-                Korisnik
+                Корисник
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
-                Email
+                Е-мејл адреса
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
-                Rola
+                Улога
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
                 {inEditMode.status && inEditMode.newUser
-                  ? 'Lozinka'
-                  : 'Aktivan'}
+                  ? 'Лозинка'
+                  : 'Активан'}
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
-                {'Kreiran'}
+                {'Креиран'}
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
-                {inEditMode.status ? 'Sacuvaj' : 'Izmeni'}
+                {inEditMode.status ? 'Сачувај' : 'Измени'}
               </TableCell>
               <TableCell className={classes.headTitle} align="center">
-                {inEditMode.status ? 'Odustani' : 'Ukloni'}
+                {inEditMode.status ? 'Одустани' : 'Уклони'}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -408,21 +408,21 @@ const UsersTable = ({
                           }
                         >
                           <option style={{ color: 'black' }} value={0}>
-                            user
+                            корисник
                           </option>
                           <option style={{ color: 'black' }} value={1}>
-                            editor
+                            едитор
                           </option>
                           <option style={{ color: 'black' }} value={2}>
-                            admin
+                            администратор
                           </option>
                         </Select>
                       </Box>
                     ) : (
                       <>
-                        {row.role === 0 && <p>user</p>}
-                        {row.role === 1 && <p>editor</p>}
-                        {row.role === 2 && <p>admin</p>}
+                        {row.role === 0 && <p>Корисник</p>}
+                        {row.role === 1 && <p>Едитор</p>}
+                        {row.role === 2 && <p>Администратор</p>}
                       </>
                     )}
                   </TableCell>
@@ -448,7 +448,7 @@ const UsersTable = ({
                         />
                       </Box>
                     ) : (
-                      (row.isactive && <p>Da</p>) || <p>Ne</p>
+                      (row.isactive && <p>Да</p>) || <p>Не</p>
                     )}
                   </TableCell>
                   <TableCell
@@ -522,7 +522,7 @@ const UsersTable = ({
         className={classes.pagination}
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
-        labelRowsPerPage="Rezultata po stranici"
+        labelRowsPerPage="Резултата по страници"
         count={count}
         rowsPerPage={rowsPerPage}
         page={page - 1}

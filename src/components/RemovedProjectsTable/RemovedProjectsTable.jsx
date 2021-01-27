@@ -59,25 +59,27 @@ const RemovedProjectsTable = ({
   };
 
   return (
-    <TableContainer component={Paper} className={classes.table}>
+    <TableContainer component={Paper} className={classes.tableWrapper}>
+      <div className={classes.tableBackground1}></div>
+      <div className={classes.tableBackground2}></div>
       <Table className={classes.table} aria-label="simple table">
         <TableHead className={classes.head}>
           <TableRow align="center">
             <TableCell align="center" className={classes.headTitle}>
-              Id
+              ИБ
             </TableCell>
             <TableCell align="center" className={classes.headTitle}>
-              Ime Projekta
+              Име Пројекта
             </TableCell>
             <TableCell align="center" className={classes.headTitle}>
-              Aktivan
+              Активан
             </TableCell>
             <TableCell align="center" className={classes.headTitle}>
-              Kreiran
+              Креиран
             </TableCell>
             {/* <TableCell align="center">Remove Project</TableCell> */}
             <TableCell align="center" className={classes.headTitle}>
-              Vrati
+              Врати
             </TableCell>
           </TableRow>
         </TableHead>
@@ -125,6 +127,7 @@ const RemovedProjectsTable = ({
         component="div"
         count={count}
         rowsPerPage={rowsPerPage}
+        labelRowsPerPage="Резултата по страници"
         page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}

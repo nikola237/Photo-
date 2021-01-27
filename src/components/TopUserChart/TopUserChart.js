@@ -34,7 +34,7 @@ function TopUserChart({ data }) {
     title: {
       display: true,
       fontColor: 'black',
-      text: 'Top 5 Korisnika',
+      text: 'ТОП 5 КОРИСНИКА',
       fontSize: 20,
     },
 

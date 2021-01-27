@@ -25,7 +25,7 @@ const RadioButtons = ({ dispatch, page, type }) => {
   return (
     <FormControl>
       <div>
-        <FormLabel>Image</FormLabel>
+        <FormLabel>Слике</FormLabel>
         <Radio
           value={0}
           checked={type === 0}
@@ -34,7 +34,7 @@ const RadioButtons = ({ dispatch, page, type }) => {
           name="image"
           style={{ color: '#69c5aa' }}
         />
-        <FormLabel>Audio</FormLabel>
+        <FormLabel>Аудио</FormLabel>
         <Radio
           value={2}
           checked={type === 2}
@@ -43,7 +43,7 @@ const RadioButtons = ({ dispatch, page, type }) => {
           name="audio"
           style={{ color: '#69c5aa' }}
         />
-        <FormLabel>Video</FormLabel>
+        <FormLabel>Видео</FormLabel>
         <Radio
           value={1}
           checked={type === 1}

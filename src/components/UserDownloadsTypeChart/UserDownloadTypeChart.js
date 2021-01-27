@@ -7,7 +7,7 @@ function UserDownloadTypesChart(props) {
     responsive: true,
     title: {
       display: true,
-      text: 'Tip fajla',
+      text: 'Тип фајла',
       fontColor: 'white',
       fontSize: 20,
     },
@@ -25,7 +25,7 @@ function UserDownloadTypesChart(props) {
     },
   };
   let userData = {
-    labels: ['Slike', 'Video', 'Audio'],
+    labels: ['Слике', 'Видео', 'Аудио'],
     datasets: [
       {
         // label: 'Tip fajla',
@@ -86,7 +86,7 @@ function UserDownloadTypesChart(props) {
   }
   return (
     <>
-      <button onClick={downloadChart}>Download</button>
+      <button onClick={downloadChart}>Преузми</button>
       <Doughnut
         data={userDataPie}
         responsive={true}

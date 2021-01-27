@@ -164,7 +164,7 @@ const ActiveProjects = () => {
   return (
     <Grid container justify="center">
       <Grid item container justify="space-between" className={classes.filter}>
-        <Tooltip title="Dodaj Projekat">
+        <Tooltip title="Додај пројекат">
           {/* <AddCircleIcon
             fontSize="large"
             onClick={handleClickOpen}
@@ -181,9 +181,9 @@ const ActiveProjects = () => {
           value={isactiveFilter}
           onChange={handleActivivity}
         >
-          <option value={''}>Bez filtera</option>
-          <option value={1}>Aktivni</option>
-          <option value={0}>Neaktivni</option>
+          <option value={''}>Без филтера</option>
+          <option value={1}>Активни</option>
+          <option value={0}>Неактивни</option>
         </Select>
       </Grid>
       <Grid

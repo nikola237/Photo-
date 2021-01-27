@@ -10,14 +10,6 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  // appBarShift: {
-  //   marginLeft: drawerWidth,
-  //   width: `calc(100% - ${drawerWidth}px)`,
-  //   transition: theme.transitions.create(['width', 'margin'], {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  // },
 
   toolbarIcon: {
     display: 'flex',
@@ -29,11 +21,13 @@ export const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
   user: {
     marginRight: theme.spacing(2),
-    color: '#fff',
-    backgroundColor: theme.palette.secondary.dark,
+    color: 'black',
+    border: '2px solid black',
+    fontWeight: 700,
+    // backgroundColor: theme.palette.secondary.dark,
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
-      color: '#000',
+      color: '#fff',
     },
   },
 
@@ -59,8 +53,10 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   logout: {
-    color: '#fff',
-    backgroundColor: theme.palette.secondary.dark,
+    color: 'black',
+    border: '2px solid black',
+    fontWeight: 700,
+    // backgroundColor: theme.palette.secondary.dark,
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
       color: '#000',

@@ -109,11 +109,11 @@ const Statistics = () => {
           <div className="datePickerBackground"></div>
           <MuiPickersUtilsProvider locale={srLocale} utils={DateFnsUtils}>
             <KeyboardDatePicker
-              okLabel="U redu"
-              clearLabel="Poništi"
-              cancelLabel="Odustani"
+              okLabel="У реду"
+              clearLabel="Поништи"
+              cancelLabel="Одустани"
               id="date-picker-dialog"
-              label="Datum pocetka"
+              label="Датум почетка"
               format="dd/MM/yyyy"
               value={selectedDateStart}
               onChange={handleDateChangeStart}
@@ -123,11 +123,11 @@ const Statistics = () => {
             />
 
             <KeyboardDatePicker
-              okLabel="U redu"
-              clearLabel="Poništi"
-              cancelLabel="Odustani"
+              okLabel="У реду"
+              clearLabel="Поништи"
+              cancelLabel="Одустани"
               // id="date-picker-dialog"
-              label="Datum zavrsetka"
+              label="Датум завршетка"
               format="dd/MM/yyyy"
               value={selectedDateEnd}
               onChange={handleDateChangeEnd}
@@ -147,18 +147,18 @@ const Statistics = () => {
         >
           <div className={classes.typeButton} onClick={() => changeType(0)}>
             <div className="buttonBackground"></div>
-            <p>Slike</p>
+            <p>Слике</p>
           </div>
           <div className={classes.typeButton} onClick={() => changeType(1)}>
             <div className="buttonBackground"></div>
-            <p>Video</p>
+            <p>Видео</p>
           </div>
           <div className={classes.typeButton} onClick={() => changeType(2)}>
             <div className="buttonBackground"></div>
-            <p>Audio</p>
+            <p>Аудио</p>
           </div>
           <div className="totalCount">
-            <p className="totalCount-title">Ukupan broj preuzimanja</p>
+            <p className="totalCount-title">Укупан број преузимања</p>
             <p className="totalCount-number">{downloads}</p>
             <div className="totalCountBottom"></div>
           </div>
@@ -202,7 +202,7 @@ const Statistics = () => {
         </div>
       )}
       {dataUsers.length === 0 && dataProjects.length === 0 && (
-        <h1 className="noResults">Nema rezultata za izabrane kriterijume</h1>
+        <h1 className="noResults">Нема резултата за изабране критеријуме</h1>
       )}
     </Grid>
   );
