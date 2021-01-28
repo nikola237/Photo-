@@ -16,7 +16,7 @@ import { useStyles } from './SideBar.styles';
 
 const SideBar = () => {
   const [selectedIcon, setSelectedIncon] = useState(0);
-  console.log(selectedIcon, 'ovo je odabrana');
+
   const classes = useStyles();
   const history = useHistory();
   const itemsList = [
@@ -27,7 +27,7 @@ const SideBar = () => {
             src={dashboard}
             alt="dashboard"
             style={{
-              width: '38px',
+              width: '47px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -48,7 +48,7 @@ const SideBar = () => {
             src={users}
             alt="users"
             style={{
-              width: '38px',
+              width: '47px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -69,7 +69,7 @@ const SideBar = () => {
             src={stats}
             alt="stats"
             style={{
-              width: '38px',
+              width: '47px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -89,7 +89,7 @@ const SideBar = () => {
             src={upload}
             alt="upload"
             style={{
-              width: '38px',
+              width: '47px',
               height: '38px',
               backgroundPosition: 'center',
             }}
@@ -111,7 +111,7 @@ const SideBar = () => {
             src={projects}
             alt="projects"
             style={{
-              width: '38px',
+              width: '47px',
               height: '38px',
               backgroundPosition: 'center',
             }}

@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     paddingLeft: 85,
     paddingRight: 50,
     minHeight: '100vh',
-    backgroundColor: '#EEEEEE',
+    backgroundColor: '#fff',
     borderRadius: 17,
   },
   paper: {
@@ -37,8 +37,8 @@ export const useStyles = makeStyles((theme) => ({
     color: '#fff',
     backgroundColor: theme.palette.secondary.main,
     '&:hover': {
-      backgroundColor: theme.palette.secondary.dark,
-      color: '#fff',
+      backgroundColor: '#fff',
+      color: 'black',
     },
   },
   margin: theme.spacing(3, 0, 2),

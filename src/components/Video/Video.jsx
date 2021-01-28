@@ -9,7 +9,7 @@ import { Grid } from '@material-ui/core';
 
 const Video = ({ items, dispatch, tab, editMode }) => {
   return (
-    <Grid item container spacing={2} justify="center">
+    <Grid item container spacing={7} justify="center">
       {items &&
         items.map((item) => {
           if (items[0]?.message) {

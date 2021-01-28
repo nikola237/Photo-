@@ -51,3 +51,22 @@ const ExtensionsFilter = ({ type, dispatch, extensionFilter }) => {
 };
 
 export default ExtensionsFilter;
+
+// const filterType = files.map((file, index) => {
+//   if (file.type === 'audio/mpeg') {
+//     return file[0];
+//   } else if (file.type === 'video/mp4') {
+//     return file[0];
+//   } else if (file.type === 'audio/wav') {
+//     return file[0];
+//   } else if (/\.(jpe?g|png|tiff|tif|bmp)$/i.test(file.type)) {
+//     console.log('usao');
+//     console.log(file.type);
+//     return file;
+//   } else {
+//     console.log('nista');
+//   }
+// });
+// console.log(filterType);
+// // extractDepthMap(files);
+// }

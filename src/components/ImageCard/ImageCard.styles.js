@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     padding: '2% 1%',
-    border: '4px solid black',
+    border: '2px solid black',
     position: 'relative',
     transformStyle: 'preserve-3d',
     overflow: 'inherit',
@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme) => ({
     margin: '20% 20% 0 20%',
     backgroundSize: 'inherit',
     position: 'relative',
-    border: '3px solid black',
+    border: '2px solid black',
     transform: 'translateZ(10px)',
     transformStyle: 'preserve-3d',
     backgroundColor: 'white',
@@ -30,7 +30,7 @@ export const useStyles = makeStyles((theme) => ({
   id: {
     textAlign: 'center',
     margin: '2% 0 0 0',
-    color: '#6ac5a9',
+    color: '#f68e1f',
   },
 
   content: {
@@ -62,7 +62,7 @@ export const useStyles = makeStyles((theme) => ({
     top: '5%',
     left: '7%',
     width: '100%',
-    border: '4px solid black',
+    border: '2px solid black',
     height: '100%',
     backgroundColor: 'transparent',
     transform: 'translateZ(-100px)',

@@ -2,11 +2,11 @@ import React from 'react';
 
 //asset
 import play from '../../assets/play.png';
+import audioIcon from '../../assets/file-audio-solid.svg';
 
 ///styles
 import TextField from '@material-ui/core/TextField';
 import { CardActions, Grid } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
@@ -37,128 +37,58 @@ const SingleItemUpload = ({
 
   return (
     <Grid item container xs={12} sm={6} md={4}>
-      {file.type !== 'image/jpeg' ? (
-        <Card className={classes.root}>
-          <Box className={classes.box}>
-            <CloseIcon
-              onClick={() => handleRemoveItem(file.name)}
-              className={classes.button}
-            />
-          </Box>
-          <Box className={classes.avatar}>
-            {/* <Avatar
-              className={classes.avatarImgMulti}
-              alt="Remy Sharp"
-              src={play}
-            /> */}
+      <Card className={classes.root}>
+        <Box className={classes.box}>
+          <CloseIcon
+            onClick={() => handleRemoveItem(file.name)}
+            className={classes.button}
+          />
+        </Box>
+        <Box className={classes.avatar}>
+          {file.type === 'image/jpeg' || 'image/png' ? (
             <img
-              src={play}
+              src={file.preview}
               alt="media"
-              style={{ width: '40px', height: '40px' }}
+              style={{ width: '80px', height: '80px', borderRadius: '12px' }}
             />
-          </Box>
-          <CardContent className={classes.content}>
-            <Typography>
-              {file.ImageDescription
-                ? file.ImageDescription.slice(0, 50).toLowerCase()
-                : 'Zabranjeno slanje bez tagova'}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <form className={classes.txtForm} onSubmit={fileUploadHandler}>
-              <TextField
-                autoFocus
-                name="title"
-                margin="dense"
-                id="title"
-                label="title"
-                type="text"
-                fullWidth
-                autoComplete="title"
-                onChange={(e) =>
-                  updateFieldValue(e.target.name, e.target.value)
-                }
-                value={title}
-              />
-              <TextField
-                name="tags"
-                margin="dense"
-                id="tags"
-                label="tags"
-                type="text"
-                fullWidth
-                autoComplete="tags"
-                onChange={(e) =>
-                  updateFieldValue(e.target.name, e.target.value)
-                }
-                value={tags}
-              />
-            </form>
-          </CardActions>
-        </Card>
-      ) : (
-        <Grid item container xs={12} sm={6} md={4} lg={3}>
-          <Card className={classes.root}>
-            <Box className={classes.box}>
-              <CloseIcon
-                onClick={() => handleRemoveItem(file.name)}
-                className={classes.button}
-              />
-            </Box>
-            <Box className={classes.avatar}>
-              {/* <Avatar
-                className={classes.avatarImgMulti}
-                alt="Remy Sharp"
-                src={file.preview}
-              /> */}
-              <img
-                src={file.preview}
-                alt="media"
-                style={{ width: '80px', height: '80px', borderRadius: '12px' }}
-              />
-            </Box>
-            <CardContent className={classes.content}>
-              {/* <Typography>{file.name.toLowerCase()}</Typography> */}
-              <Typography>
-                {file.ImageDescription
-                  ? file.ImageDescription.slice(0, 50).toLowerCase()
-                  : 'Zabranjeno slanje bez tagova'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <form className={classes.txtForm} onSubmit={fileUploadHandler}>
-                <TextField
-                  autoFocus
-                  name="title"
-                  margin="dense"
-                  id="title"
-                  label="title"
-                  type="text"
-                  fullWidth
-                  autoComplete="title"
-                  onChange={(e) =>
-                    updateFieldValue(e.target.name, e.target.value)
-                  }
-                  value={title}
-                />
-                <TextField
-                  name="tags"
-                  margin="dense"
-                  id="tags"
-                  label="tags"
-                  type="text"
-                  fullWidth
-                  autoComplete="tags"
-                  onChange={(e) =>
-                    updateFieldValue(e.target.name, e.target.value)
-                  }
-                  value={tags}
-                />
-              </form>
-            </CardActions>
-          </Card>
-        </Grid>
-      )}
+          ) : null}
+          {/* {file.type === } */}
+        </Box>
+        <CardContent className={classes.content}>
+          <Typography>
+            {file.ImageDescription
+              ? file.ImageDescription.slice(0, 50).toLowerCase()
+              : 'Морате додати тагове'}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <form className={classes.txtForm} onSubmit={fileUploadHandler}>
+            <TextField
+              autoFocus
+              name="title"
+              margin="dense"
+              id="title"
+              label="title"
+              type="text"
+              fullWidth
+              autoComplete="title"
+              onChange={(e) => updateFieldValue(e.target.name, e.target.value)}
+              value={title}
+            />
+            <TextField
+              name="tags"
+              margin="dense"
+              id="tags"
+              label="tags"
+              type="text"
+              fullWidth
+              autoComplete="tags"
+              onChange={(e) => updateFieldValue(e.target.name, e.target.value)}
+              value={tags}
+            />
+          </form>
+        </CardActions>
+      </Card>
     </Grid>
   );
 };

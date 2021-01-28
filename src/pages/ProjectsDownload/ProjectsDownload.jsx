@@ -97,15 +97,18 @@ const ProjectsDownload = () => {
 
   return (
     <Container maxWidth="xl" className={classes.itemContainer} justify="center">
-      <Grid container item justify="center" className={classes.searchContainer}>
+      <Grid container item className={classes.searchContainer}>
         <SearchProjects />
       </Grid>
-      <Grid container item justify="center">
+      <Grid container item className={classes.radioButtons}>
         <ProjectsRadioButtons />
       </Grid>
       <Grid item container direction="column" justify="center">
         {projects ? (
           <List className={classes.root}>
+            <div className={classes.background}></div>
+            <div className={classes.background1}></div>
+
             {projects &&
               projects.map((project, index) => {
                 const labelId = `checkbox-list-label-${project.projectname}`;
@@ -132,13 +135,12 @@ const ProjectsDownload = () => {
                       primary={`${project.projectname},  ID: ${project.id}`}
                     />
                     <ListItemSecondaryAction>
-                      <IconButton
+                      <div
                         edge="end"
                         aria-label="comments"
                         onClick={handleDownload}
-                      >
-                        <CheckCircleIcon style={{ color: '#64b5f6' }} />
-                      </IconButton>
+                        className={classes.check}
+                      ></div>
                     </ListItemSecondaryAction>
                   </ListItem>
                 );
@@ -148,9 +150,7 @@ const ProjectsDownload = () => {
           <Spinner />
         )}
       </Grid>
-      <Grid>
-        <Footer />
-      </Grid>
+      <Grid></Grid>
     </Container>
   );
 };

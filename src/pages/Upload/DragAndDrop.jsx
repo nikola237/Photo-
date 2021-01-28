@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useReducer } from 'react';
 //drop zone
 import { useDropzone } from 'react-dropzone';
+
+//provider
 import { useProjectsDispatch } from '../../context/projectsContext';
 
 //exifr
@@ -16,6 +18,7 @@ import SideBar from '../../components/SideBar/SideBar';
 import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
 
 //styles
+import Divider from '@material-ui/core/Divider';
 import { Grid } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
@@ -48,7 +51,6 @@ function uploadReducer(state, action) {
 const DragAndDrop = () => {
   const [state, dispatch] = useReducer(uploadReducer, {
     files: [],
-
     title: '',
     tags: '',
   });
@@ -59,11 +61,8 @@ const DragAndDrop = () => {
 
   const classes = useStyles();
 
-  console.log(files, 'FILES');
-
   const { getRootProps, getInputProps } = useDropzone({
-    accept:
-      'image/png, image/jpg,image/jpeg, image/tiff, image/tif,image/bmp, audio/*,video/*',
+    accept: '.png, .jpg,.jpeg, .tiff, .tif,.bmp, .mp3, .wav,.mp4',
     onDrop: (acceptedFiles) => {
       dispatch({
         type: 'FILES',
@@ -99,10 +98,18 @@ const DragAndDrop = () => {
     if (files.length > 0) {
       extractDepthMap(files);
     }
-    if (files.length < 50) {
-      //poruka
+    if (files.length > 50) {
+      console.log('usao u drugi');
+      projectsDispatch({
+        type: 'SNACKBAR',
+        payload: {
+          message: 'Максималан број фајлова је 50',
+          severity: 'success',
+          open: true,
+        },
+      });
     }
-  }, [extractDepthMap, files]);
+  }, [extractDepthMap, files, projectsDispatch]);
 
   const fileUploadHandler = async (event) => {
     if (files === null) {
@@ -157,20 +164,13 @@ const DragAndDrop = () => {
 
   return (
     <Container maxWidth="xl" className={classes.itemContainer}>
+      <div className={classes.sidebarWrapper}>
+        <SideBar />
+      </div>
+
       <Grid
         container
         item
-        xs={1}
-        style={{ background: '#fff', minHeight: '100%' }}
-      >
-        <div className={classes.sidebarWrapper}>
-          <SideBar />
-        </div>
-      </Grid>
-      <Grid
-        container
-        item
-        xs={11}
         style={{}}
         justify="flex-end"
         className={classes.dropZoneWrapper}
@@ -181,10 +181,24 @@ const DragAndDrop = () => {
           justify="center"
           spacing={4}
           {...getRootProps()}
-          className={classes.dropZone}
+          className={
+            files.length > 0 ? classes.dropZoneFilled : classes.dropZone
+          }
         >
-          <div className={classes.containerBackground1}></div>
-          <div className={classes.containerBackground2}></div>
+          <div
+            className={
+              files.length > 0
+                ? classes.containerBackground1Filled
+                : classes.containerBackground1
+            }
+          ></div>
+          <div
+            className={
+              files.length > 0
+                ? classes.containerBackground2Filled
+                : classes.containerBackground2
+            }
+          ></div>
           <div className={classes.containerBackground3}></div>
           <div className={classes.ikonca}></div>
           <input {...getInputProps()} name="item" type="file" multiple />
@@ -192,6 +206,10 @@ const DragAndDrop = () => {
       </Grid>
 
       <Grid container spacing={2} justify="center" className={classes.wrapper}>
+        <Divider
+          className={files.length > 0 ? classes.divider : null}
+          variant="middle"
+        />
         {files && files.length === 1
           ? files.map((file) => (
               <SingleItemUpload

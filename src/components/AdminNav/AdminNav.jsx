@@ -41,7 +41,7 @@ const AdminNav = () => {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Box edge="start" className={classes.menu} onClick={handleClickLogo}>
-            <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" style={{ width: '200px' }} />
           </Box>
 
           <Button

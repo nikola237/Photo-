@@ -12,7 +12,7 @@ const SignInNav = () => {
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Box edge="start" className={classes.menu}>
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" style={{ width: '200px' }} />
         </Box>
       </Toolbar>
     </AppBar>

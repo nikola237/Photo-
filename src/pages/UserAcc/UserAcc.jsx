@@ -4,13 +4,11 @@ import { useHistory } from 'react-router-dom';
 //api
 import api from '../../api/api';
 
-//components
-import Footer from '../../components/Footer/Footer';
-
 //provider
 import { useProjectsDispatch } from '../../context/projectsContext';
 
 //styles
+import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -143,112 +141,113 @@ const UserAcc = () => {
       <Grid container item justify="center">
         <CssBaseline />
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            {/* <LockOutlinedIcon /> */}
-          </Avatar>
+          <Paper elevation={3} style={{ padding: '15px' }}>
+            <Avatar className={classes.avatar}>
+              {/* <LockOutlinedIcon /> */}
+            </Avatar>
 
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
+            <form className={classes.form} onSubmit={handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    onChange={(e) =>
+                      updateFieldValue(e.target.name, e.target.value)
+                    }
+                    variant="outlined"
+                    autoFocus
+                    fullWidth
+                    id="firsname"
+                    label="First Name"
+                    name="firstname"
+                    autoComplete="firstname"
+                    value={firstname}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    onChange={(e) =>
+                      updateFieldValue(e.target.name, e.target.value)
+                    }
+                    variant="outlined"
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="lastName"
+                    value={lastname}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      updateFieldValue(e.target.name, e.target.value)
+                    }
+                    variant="outlined"
+                    fullWidth
+                    id="username"
+                    name="username"
+                    label="Username"
+                    autoComplete="username"
+                    value={username}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      updateFieldValue(e.target.name, e.target.value)
+                    }
+                    variant="outlined"
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={(e) =>
+                      updateFieldValue(e.target.name, e.target.value)
+                    }
+                    variant="outlined"
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={password || ''}
+                  />
+                </Grid>
+                <Grid item xs={12} />
+              </Grid>
+            </form>
+            <Grid item container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  onChange={(e) =>
-                    updateFieldValue(e.target.name, e.target.value)
-                  }
-                  variant="outlined"
-                  autoFocus
+                <Button
+                  type="submit"
                   fullWidth
-                  id="firsname"
-                  label="First Name"
-                  name="firstname"
-                  autoComplete="firstname"
-                  value={firstname}
-                />
+                  variant="contained"
+                  className={classes.buttons}
+                >
+                  Sacuvaj
+                </Button>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  onChange={(e) =>
-                    updateFieldValue(e.target.name, e.target.value)
-                  }
-                  variant="outlined"
+                <Button
+                  type="submit"
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lastName"
-                  value={lastname}
-                />
+                  variant="contained"
+                  className={classes.buttons}
+                  onClick={handleCancel}
+                >
+                  Odustani
+                </Button>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) =>
-                    updateFieldValue(e.target.name, e.target.value)
-                  }
-                  variant="outlined"
-                  fullWidth
-                  id="username"
-                  name="username"
-                  label="Username"
-                  autoComplete="username"
-                  value={username}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) =>
-                    updateFieldValue(e.target.name, e.target.value)
-                  }
-                  variant="outlined"
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  onChange={(e) =>
-                    updateFieldValue(e.target.name, e.target.value)
-                  }
-                  variant="outlined"
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={password || ''}
-                />
-              </Grid>
-              <Grid item xs={12} />
             </Grid>
-          </form>
-          <Grid item container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                className={classes.buttons}
-              >
-                Sacuvaj
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                className={classes.buttons}
-                onClick={handleCancel}
-              >
-                Odustani
-              </Button>
-            </Grid>
-          </Grid>
+          </Paper>
         </div>
-        <Footer />
       </Grid>
     </Container>
   );

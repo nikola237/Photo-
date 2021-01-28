@@ -48,7 +48,6 @@ export const useStyles = makeStyles((theme) => ({
     '& .MuiPaginationItem-textPrimary': {
       fontSize: '20px',
       fontWeight: '700',
-      border: '1px solid black',
     },
 
     '& .MuiPaginationItem-textPrimary.Mui-selected': {

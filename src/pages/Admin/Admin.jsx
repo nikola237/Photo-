@@ -113,10 +113,8 @@ const Admin = () => {
       direction="column"
     >
       <Grid container item direction="row" className={classes.content}>
-        <Grid container item xs={3}>
-          <Grid className={classes.sidebarWrapper}>
-            <SideBar />
-          </Grid>
+        <Grid className={classes.sidebarWrapper}>
+          <SideBar />
         </Grid>
         <Grid
           item
@@ -151,7 +149,7 @@ const Admin = () => {
               // className={classes.searchContainer}
               justify="flex-end"
             >
-              <Grid item xs={2} container justify="flex-end">
+              <Grid item xs={4} container justify="flex-end">
                 <Tooltip title="Промени мод претраге">
                   <Switch
                     checked={stateSwitch.checkedA}

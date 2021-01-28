@@ -97,31 +97,29 @@ canvas {
 .buttonBackground{
   position:absolute;
   z-index: 1;
-  top:15px;
-  left:15px;
+  bottom:-15%;
+  left:7%;
   height: 100%;
   width:100%;
-  background-color: orange;
+  background-color: #f68e1f;
   transform: translateZ(-10px)
 
 
 }
 .datePickerBackground{
-  background-color: orange;
+  background-color: #f68e1f;
   height: 100%;
   width: 100%;
   position: absolute;
-  top:15px;
-  left:15px;
+  top:15%;
+  left:2%;
   transform: translateZ(-10px)
 
 }
 
 .totalCountBottom{
   position: absolute;
-  background-color: black;
-  border-top:5px solid orange;
-  border-bottom:8px solid orange;
+  border-bottom:10px solid #f68e1f;
   
   width: 100%;
   height: 2px;

@@ -14,7 +14,7 @@ function App() {
   return (
     <div>
       {user ? (
-        <Routes basename={'/nedeljko'}>
+        <Routes>
           <Authenticated />
         </Routes>
       ) : (

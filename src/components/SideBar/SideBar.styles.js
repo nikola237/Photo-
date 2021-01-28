@@ -5,14 +5,14 @@ export const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     height: 265,
     width: 50,
-    border: '3px solid black',
+    border: '2px solid black',
     zIndex: 3,
     position: 'relative',
     backgroundColor: 'white',
     transformStyle: 'preserve-3d',
 
     '& .MuiButtonBase-root': {
-      paddingLeft: 8,
+      paddingLeft: 5,
       paddingRight: 0,
     },
   },
@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme) => ({
     left: '20%',
     height: '98%',
     width: '100%',
-    border: '3px solid black',
+    border: '2px solid black',
     zIndex: 2,
   },
   backgroundTwo: {

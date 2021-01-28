@@ -7,11 +7,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   container: {
     padding: '1%',
+    paddingBottom: '4%',
     flex: '0 0 92%',
     backgroundColor: 'white',
     height: 'initial',
     minHeight: '100vh',
     borderRadius: '6px',
+    fontFamily: 'Roboto, Helvetica,Arial, sans-serif',
   },
 
   heading: {
@@ -37,10 +39,10 @@ export const useStyles = makeStyles((theme) => ({
 
   typeButton: {
     border: '2px solid black',
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     position: 'relative',
     color: 'black',
-    fontSize: '30px',
+    fontSize: '25px',
     maxWidth: '150px',
     fontWeight: 700,
     padding: '0 20px',

@@ -3,11 +3,10 @@ import { makeStyles, fade } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
+    border: '3px solid #6ac5a9',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.primary.light, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.primary.light, 0.25),
-    },
+    backgroundColor: 'white',
+    padding: '.4% 0',
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -17,9 +16,11 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   searchIcon: {
-    padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
+    top: '50%',
+    left: '2%',
+    transform: 'translate(0%,-50%)',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
@@ -29,16 +30,17 @@ export const useStyles = makeStyles((theme) => ({
     color: 'inherit',
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
+    // transition: theme.transitions.create('width'),
+    fontSize: '20px',
+    padding: '2% 3%',
     width: '100%',
 
-    [theme.breakpoints.up('sm')]: {
-      width: '25ch',
-      '&:focus': {
-        width: '40ch',
-      },
-    },
+    // [theme.breakpoints.up('sm')]: {
+    //   width: '45ch',
+    //   '&:focus': {
+    //     width: '40ch',
+    //   },
+    // },
   },
 }));
