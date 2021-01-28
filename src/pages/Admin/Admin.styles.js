@@ -39,22 +39,6 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 
-  pagination: {
-    padding: '5%',
-    marginTop: 20,
-    marginBottom: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    '& .MuiPaginationItem-textPrimary': {
-      fontSize: '20px',
-      fontWeight: '700',
-    },
-
-    '& .MuiPaginationItem-textPrimary.Mui-selected': {
-      color: 'black',
-      backgroundColor: '#6ac5a9',
-    },
-  },
   content: {
     height: 310,
   },

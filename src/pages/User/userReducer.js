@@ -64,6 +64,11 @@ export function userReducer(state, action) {
         ...state,
         extensionFilter: action.payload,
       };
+    case 'ITEM_BY_ID':
+      return {
+        ...state,
+        itemById: action.payload,
+      };
 
     default: {
       throw new Error(`Unhandled action type: ${action.type} `);

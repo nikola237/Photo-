@@ -229,7 +229,7 @@ const Admin = () => {
             isLoading={isLoading}
           />
         )}
-        <Grid container item justify="center" className={classes.pagination}>
+        <Grid container item justify="center">
           <PaginationComp
             dispatch={dispatch}
             page={page}

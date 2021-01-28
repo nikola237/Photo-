@@ -64,6 +64,19 @@ export function editorReducer(state, action) {
         ...state,
         extensionFilter: action.payload,
       };
+    case 'EDIT_MODE_TEXT':
+      return {
+        ...state,
+        editMode: {
+          ...state.editMode,
+          tags: action.payload,
+        },
+      };
+    case 'ITEM_BY_ID':
+      return {
+        ...state,
+        itemById: action.payload,
+      };
 
     default: {
       throw new Error(`Unhandled action type: ${action.type} `);

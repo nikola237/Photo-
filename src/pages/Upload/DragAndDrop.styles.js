@@ -132,4 +132,8 @@ export const useStyles = makeStyles((theme) => ({
     border: '3px solid black',
     transform: 'translateZ(-10px)',
   },
+  divider: {
+    width: '100%',
+    background: theme.palette.secondary.main,
+  },
 }));
