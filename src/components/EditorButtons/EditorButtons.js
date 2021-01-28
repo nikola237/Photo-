@@ -5,9 +5,11 @@ import { useHistory } from 'react-router-dom';
 //provider
 import { useProjectsDispatch } from '../../context/projectsContext';
 
+import { ReactComponent as GetAppIcon } from '../../assets/download.svg';
+
 //styles
 import Button from '@material-ui/core/Button';
-import GetAppIcon from '@material-ui/icons/GetApp';
+
 import Tooltip from '@material-ui/core/Tooltip';
 import { Grid } from '@material-ui/core';
 import { useStyles } from './EditorButtons.styles';
@@ -29,13 +31,14 @@ const EditorButtons = ({ id, pathShort, filename }) => {
     <Grid container justify="center" className={classes.root}>
       <Button
         color="primary"
-        variant="outlined"
+        // variant="outlined"
         onClick={() => handleDownloadItem(id)}
-        size="small"
+        // size="small"
       >
-        <Tooltip title="Preuzmi">
-          <GetAppIcon style={{ color: '#2196f3' }} />
+        <Tooltip title="Преузми">
+          <GetAppIcon className={classes.buttonIcons} />
         </Tooltip>
+        <div className={classes.background}></div>
       </Button>
     </Grid>
   );

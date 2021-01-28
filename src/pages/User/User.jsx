@@ -104,9 +104,6 @@ const User = (props) => {
       direction="column"
     >
       <Grid container item direction="row" className={classes.content}>
-        <Grid className={classes.sidebarWrapper}>
-          <SideBar />
-        </Grid>
         <Grid
           item
           container
