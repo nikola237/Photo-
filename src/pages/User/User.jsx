@@ -12,6 +12,7 @@ import RadioButtons from '../../components/RadioButtons/RadioButtons';
 import ActiveItems from '../../components/ActiveItems/ActiveItems';
 import PaginationComp from '../../components/Pagination/Pagination';
 import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
+import SideBar from '../../components/SideBar/SideBar';
 import ExtensionsFilter from '../../components/ExtenionsFilter/ExtensionsFilter';
 
 //styles
@@ -108,7 +109,7 @@ const User = (props) => {
           container
           direction="row"
           xs={9}
-          style={{ paddingRight: '3%' }}
+          style={{ paddingRight: '9%' }}
         >
           <Grid container item>
             <Grid

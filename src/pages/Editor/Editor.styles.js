@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   itemContainer: {
-    padding: '1%',
+    padding: '3%',
     minHeight: '100vh',
     backgroundColor: '#fff',
   },
@@ -22,7 +22,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   content: {
-    height: 310,
+    height: 200,
   },
   itemWrapper: {
     padding: '1%',
