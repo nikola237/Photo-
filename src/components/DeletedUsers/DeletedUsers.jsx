@@ -9,6 +9,9 @@ import api from '../../api/api';
 //components
 import Spinner from '../../components/Spinner/Spinner';
 
+//assets
+import { ReactComponent as RestoreIcon } from '../../assets/restore-icon.svg';
+
 //styles
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,8 +21,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
+import Button from '@material-ui/core/Button';
 import { useStyles } from './DeletedUsers.styles';
-import RestoreIcon from '@material-ui/icons/Restore';
+// import RestoreIcon from '@material-ui/icons/Restore';
 
 const DeletedUsers = ({ dispatch, users, isLoading }) => {
   const [page, setPage] = useState(1);
@@ -65,7 +69,7 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
       projectsDispatch({
         type: 'SNACKBAR',
         payload: {
-          message: 'Успешно сте обрисали корисника',
+          message: 'Успешно сте вратили корисника',
           severity: 'success',
           open: true,
         },
@@ -155,10 +159,12 @@ const DeletedUsers = ({ dispatch, users, isLoading }) => {
                     </TableCell>
 
                     <TableCell align="center">
-                      <RestoreIcon
-                        style={{ color: '#64b5f6', cursor: 'pointer' }}
-                        onClick={() => restoreUserById(row.id)}
-                      />
+                      <Button>
+                        <RestoreIcon
+                          className={classes.buttonIcons}
+                          onClick={() => restoreUserById(row.id)}
+                        />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );

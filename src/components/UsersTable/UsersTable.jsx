@@ -8,6 +8,12 @@ import { useProjectsDispatch } from '../../context/projectsContext';
 //components
 import Spinner from '../Spinner/Spinner';
 
+//assets
+import { ReactComponent as CheckCircleIcon } from '../../assets/confirm-icon.svg';
+import { ReactComponent as CancelIcon } from '../../assets/cancel-icon.svg';
+import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+
 //styles
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,12 +24,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import { useStyles } from './UsersTable.styles';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
+import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
 const UsersTable = ({
@@ -471,18 +474,21 @@ const UsersTable = ({
                   >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
                       <CheckCircleIcon
-                        style={{ color: '#4caf50', cursor: 'pointer' }}
+                        className={classes.editIcon}
                         onClick={() => handleIconSave()}
                       />
                     ) : (
-                      // <EditIcon
-                      //   style={{ color: '#64b5f6', cursor: 'pointer' }}
-                      //   onClick={() => editUserById(row.id, index)}
-                      // />
-                      <div
+                      <Button>
+                        <EditIcon
+                          className={classes.buttonIcons}
+                          onClick={() => editUserById(row.id, index)}
+                        />
+                        <div className={classes.background}></div>
+                      </Button>
+                      /* <div
                         className={classes.editIcon}
                         onClick={() => editUserById(row.id, index)}
-                      ></div>
+                      ></div> */
                     )}
                   </TableCell>
                   <TableCell
@@ -495,18 +501,21 @@ const UsersTable = ({
                   >
                     {inEditMode.status && inEditMode.rowKey === row.id ? (
                       <CancelIcon
-                        style={{ color: '#d32f2f', cursor: 'pointer' }}
+                        className={classes.editIcon}
                         onClick={() => handleIconCancle(inEditMode.rowKey)}
                       />
                     ) : (
-                      // <DeleteIcon
-                      //   style={{ color: '#d32f2f', cursor: 'pointer' }}
-                      //   onClick={() => deleteUserById(row.id)}
-                      // />
-                      <div
+                      <Button>
+                        <DeleteIcon
+                          className={classes.buttonIcons}
+                          onClick={() => deleteUserById(row.id)}
+                        />
+                        <div className={classes.background}></div>
+                      </Button>
+                      /* <div
                         className={classes.createIcon}
                         onClick={() => deleteUserById(row.id)}
-                      ></div>
+                      ></div> */
                     )}
                   </TableCell>
                 </TableRow>

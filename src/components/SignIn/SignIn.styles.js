@@ -81,8 +81,8 @@ export const useStyles = makeStyles((theme) => ({
     color: '#fff',
     backgroundColor: theme.palette.secondary.main,
     '&:hover': {
-      backgroundColor: theme.palette.secondary.light,
-      color: '#000',
+      backgroundColor: '#69c5aa',
+      color: '#fff',
     },
   },
   icon: {

@@ -81,6 +81,11 @@ function projectsReducer(state, action) {
           open: action.payload.open,
         },
       };
+    case 'SIDEBAR':
+      return {
+        ...state,
+        sideBar: action.payload,
+      };
 
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -104,6 +109,7 @@ const ProjectsProvider = ({ children }) => {
       severity: 'success',
       open: false,
     },
+    sideBar: 0,
   });
 
   return (

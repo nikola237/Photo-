@@ -5,7 +5,6 @@ import UsersTable from '../../components/UsersTable/UsersTable';
 
 //styles
 import { Grid } from '@material-ui/core';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Tooltip from '@material-ui/core/Tooltip';
 import { useStyles } from './ActiveUsers.styles';
 

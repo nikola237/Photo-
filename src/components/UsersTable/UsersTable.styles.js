@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import ikoncaKreiraj from '../../assets/ikoncaKreiraj.png';
-import ikoncaObrisi from '../../assets/ikoncaObrisi.png';
+
 export const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
@@ -26,17 +25,38 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   editIcon: {
-    backgroundImage: `url(${ikoncaKreiraj})`,
+    // backgroundImage: `url(${ikoncaKreiraj})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    height: '50px',
-    width: '50px',
+    width: 35,
+    height: 35,
+    cursor: 'pointer',
   },
-  createIcon: {
-    backgroundImage: `url(${ikoncaObrisi})`,
+
+  deleteIcon: {
+    // backgroundImage: `url(${ikoncaObrisi})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    height: '50px',
-    width: '50px',
+    width: 35,
+    height: 35,
+    cursor: 'pointer',
+  },
+
+  buttons: {
+    position: 'relative',
+    backgroundColor: 'transparent',
+  },
+  buttonIcons: {
+    width: 35,
+    height: 35,
+    zIndex: 1,
+  },
+  background: {
+    position: 'absolute',
+    top: '25%',
+    right: '19%',
+    height: '68%',
+    width: '48%',
+    backgroundColor: '#f78e1f   ',
   },
 }));

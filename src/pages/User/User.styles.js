@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   itemContainer: {
-    padding: '1%',
+    padding: '3%',
     minHeight: '100vh',
     backgroundColor: '#fff',
   },
@@ -11,7 +11,6 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: '25px',
   },
   offset: theme.mixins.toolbar,
-
   searchContainer: {
     // paddingTop: theme.spacing(8),
     width: '100%',
@@ -20,9 +19,8 @@ export const useStyles = makeStyles((theme) => ({
   radioBtn: {
     paddingBottom: 22,
   },
-
   content: {
-    height: 310,
+    height: 200,
   },
   itemWrapper: {
     padding: '1%',

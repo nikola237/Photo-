@@ -2,6 +2,8 @@ import React from 'react';
 
 //api
 import api from '../../api/api';
+//assets
+import { ReactComponent as RestoreIcon } from '../../assets/restore-icon.svg';
 
 //styles
 import Table from '@material-ui/core/Table';
@@ -12,7 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import RestoreIcon from '@material-ui/icons/Restore';
+
 import { useStyles } from './RemovedProjectsTable.styles';
 
 const RemovedProjectsTable = ({
@@ -110,7 +112,7 @@ const RemovedProjectsTable = ({
                   </TableCell> */}
                   <TableCell align="center">
                     <RestoreIcon
-                      style={{ color: '#64b5f6', cursor: 'pointer' }}
+                      className={classes.buttonIcons}
                       onClick={() => handleRestoreProject(project.id)}
                     />
                   </TableCell>

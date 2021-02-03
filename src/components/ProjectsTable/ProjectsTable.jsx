@@ -5,6 +5,11 @@ import { useProjectsDispatch } from '../../context/projectsContext';
 //api
 import api from '../../api/api';
 
+//assets
+import { ReactComponent as CheckCircleIcon } from '../../assets/confirm-icon.svg';
+import { ReactComponent as CancelIcon } from '../../assets/cancel-icon.svg';
+import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 //styles
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,12 +19,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import Button from '@material-ui/core/Button';
+
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
+
 import { useStyles } from './ProjectsTable.styles';
 
 const ProjectsTable = ({
@@ -195,9 +198,7 @@ const ProjectsTable = ({
             <TableCell align="center" className={classes.headTitle}>
               Име Пројекта
             </TableCell>
-            <TableCell align="center" className={classes.headTitle}>
-              Активан
-            </TableCell>
+
             <TableCell align="center" className={classes.headTitle}>
               Креиран
             </TableCell>
@@ -240,34 +241,7 @@ const ProjectsTable = ({
                       project.projectname
                     )}
                   </TableCell>
-                  <TableCell align="center">
-                    {editMode.status && editMode.rowKey === project.id ? (
-                      <Select
-                        native
-                        labelId="select"
-                        name="isActiveProject"
-                        id="select"
-                        value={isActiveProject}
-                        className={
-                          editMode.status && editMode.rowKey === project.id
-                            ? classes.selected
-                            : null
-                        }
-                        onChange={(e) =>
-                          updateFieldValue(e.target.name, e.target.value)
-                        }
-                      >
-                        <option style={{ color: 'black' }} value={true}>
-                          Да
-                        </option>
-                        <option style={{ color: 'black' }} value={false}>
-                          Не
-                        </option>
-                      </Select>
-                    ) : (
-                      String(project.isactive ? 'Да' : 'Не')
-                    )}
-                  </TableCell>
+
                   <TableCell align="center">
                     {filterDate(project.createdAt)}
                   </TableCell>
@@ -275,35 +249,33 @@ const ProjectsTable = ({
                   <TableCell align="center">
                     {editMode.status && editMode.rowKey === project.id ? (
                       <CheckCircleIcon
-                        style={{ color: '#4caf50', cursor: 'pointer' }}
+                        className={classes.editIcon}
                         onClick={() => handleIconSave()}
                       />
                     ) : (
-                      // <EditIcon
-                      //   style={{ color: '#64b5f6', cursor: 'pointer' }}
-                      //   onClick={() => handleEditProject(project.id)}
-                      // />
-                      <div
-                        className={classes.editIcon}
-                        onClick={() => handleEditProject(project.id)}
-                      ></div>
+                      <Button>
+                        <EditIcon
+                          className={classes.buttonIcons}
+                          onClick={() => handleEditProject(project.id)}
+                        />
+                        <div className={classes.background}></div>
+                      </Button>
                     )}
                   </TableCell>
                   <TableCell align="center">
                     {editMode.status && editMode.rowKey === project.id ? (
                       <CancelIcon
-                        style={{ color: '#d32f2f', cursor: 'pointer' }}
+                        className={classes.editIcon}
                         onClick={() => handleIconCancle(editMode.rowKey)}
                       />
                     ) : (
-                      // <DeleteIcon
-                      //   style={{ color: '#d32f2f', cursor: 'pointer' }}
-                      //   onClick={() => handleRemoveProject(project.id)}
-                      // />
-                      <div
-                        className={classes.createIcon}
-                        onClick={() => handleRemoveProject(project.id)}
-                      ></div>
+                      <Button>
+                        <DeleteIcon
+                          className={classes.buttonIcons}
+                          onClick={() => handleRemoveProject(project.id)}
+                        />
+                        <div className={classes.background}></div>
+                      </Button>
                     )}
                   </TableCell>
                 </TableRow>

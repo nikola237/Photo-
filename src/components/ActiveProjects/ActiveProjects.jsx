@@ -7,7 +7,6 @@ import ProjectsTable from '../ProjectsTable/ProjectsTable';
 
 //style
 import { Grid } from '@material-ui/core';
-import Select from '@material-ui/core/Select';
 import Tooltip from '@material-ui/core/Tooltip';
 import { useStyles } from './ActiveProjects.styles';
 
@@ -41,11 +40,6 @@ function activeProjectsReducer(state, action) {
         ...state,
         projectname: action.payload.projectname,
         isActiveProject: action.payload.isActiveProject,
-      };
-    case 'IS_ACTIVE':
-      return {
-        ...state,
-        isactiveFilter: action.payload,
       };
     case 'REMOVE_PROJECT':
       return {
@@ -87,7 +81,6 @@ const ActiveProjects = () => {
     isactiveFilter: '',
     projectId: null,
     isLoading: false,
-    isActiveProject: false,
     page: 1,
     rowsPerPage: 5,
     count: 0,
@@ -101,7 +94,6 @@ const ActiveProjects = () => {
   const {
     projects,
     projectname,
-    isactiveFilter,
     isActiveProject,
     isLoading,
     page,
@@ -112,12 +104,12 @@ const ActiveProjects = () => {
   const classes = useStyles();
   const getActiveProjects = useCallback(async () => {
     const response = await api.get(
-      `/projects?size=${rowsPerPage}&page=${page}&isactive=${isactiveFilter}`
+      `/projects?size=${rowsPerPage}&page=${page}`
     );
     dispatch({ type: 'COUNT_PAGINATION', payload: response.data.totalItems });
 
     dispatch({ type: 'PROJECTS', payload: response.data.rows });
-  }, [isactiveFilter, page, rowsPerPage]);
+  }, [page, rowsPerPage]);
 
   useEffect(() => {
     getActiveProjects();
@@ -129,18 +121,6 @@ const ActiveProjects = () => {
       dispatch({ type: 'IS_LOADING', payload: false });
     }
   }, [getActiveProjects, isLoading]);
-
-  const handleActivivity = (event) => {
-    dispatch({ type: 'IS_ACTIVE', payload: event.target.value });
-    dispatch({
-      type: 'IN_EDIT_MODE',
-      payload: {
-        status: false,
-        rowKey: null,
-        newProject: false,
-      },
-    });
-  };
 
   const handleClickOpen = () => {
     const createNewProject = [
@@ -165,26 +145,8 @@ const ActiveProjects = () => {
     <Grid container justify="center">
       <Grid item container justify="space-between" className={classes.filter}>
         <Tooltip title="Додај пројекат">
-          {/* <AddCircleIcon
-            fontSize="large"
-            onClick={handleClickOpen}
-            className={classes.addProject}
-          /> */}
           <div className={classes.addProject} onClick={handleClickOpen}></div>
         </Tooltip>
-        <Select
-          className={classes.select}
-          native
-          labelId="isactiveFilter"
-          name="isactiveFilter"
-          id="isactiveFilter"
-          value={isactiveFilter}
-          onChange={handleActivivity}
-        >
-          <option value={''}>Без филтера</option>
-          <option value={1}>Активни</option>
-          <option value={0}>Неактивни</option>
-        </Select>
       </Grid>
       <Grid
         item

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 
 //api
 import api from '../../api/api';
@@ -14,9 +14,8 @@ import {
 
 //components
 import SearchProjects from '../../components/SearchProjects/SearchProjects';
-import ProjectsRadioButtons from '../../components/ProjectsRadioButtons/ProjectsRadioButtons';
+
 import Spinner from '../../components/Spinner/Spinner';
-import Footer from '../../components/Footer/Footer';
 
 //styles
 import { Grid } from '@material-ui/core';
@@ -26,13 +25,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { useStyles } from './ProjectsDownload.styles';
 
 const ProjectsDownload = () => {
   const { itemInfo, kwords, type, projects, projectId } = useProjectsState();
+  const [percentCompleted, setPercentageCompleted] = useState(false);
   const dispatch = useProjectsDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -46,8 +45,17 @@ const ProjectsDownload = () => {
       `/items/download/${pathShort}/${projectId}`,
       {
         responseType: 'blob',
+        onDownloadProgress: (progressEvent) => {
+          let percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          if (percentCompleted !== 0) {
+            setPercentageCompleted(true);
+          }
+        },
       }
     );
+    console.log(response);
     if (response) {
       dispatch({
         type: 'SNACKBAR',
@@ -76,6 +84,13 @@ const ProjectsDownload = () => {
         isactive: type,
       });
 
+      if (response.data.rows[0]?.message) {
+        dispatch({
+          type: 'PROJECTS',
+          payload: [{ projectname: 'Ништа није пронађено', id: 1 }],
+        });
+        return;
+      }
       dispatch({ type: 'PROJECTS', payload: response.data.rows });
     };
     getActiveProjects();
@@ -100,9 +115,8 @@ const ProjectsDownload = () => {
       <Grid container item className={classes.searchContainer}>
         <SearchProjects />
       </Grid>
-      <Grid container item className={classes.radioButtons}>
-        <ProjectsRadioButtons />
-      </Grid>
+      {percentCompleted ? <LinearProgress color="secondary" /> : null}
+
       <Grid item container direction="column" justify="center">
         {projects ? (
           <List className={classes.root}>
@@ -134,6 +148,7 @@ const ProjectsDownload = () => {
                       id={labelId}
                       primary={`${project.projectname},  ID: ${project.id}`}
                     />
+
                     <ListItemSecondaryAction>
                       <div
                         edge="end"

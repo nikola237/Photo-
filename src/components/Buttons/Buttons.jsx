@@ -9,20 +9,18 @@ import { useProjectsDispatch } from '../../context/projectsContext';
 //api
 import api from '../../api/api';
 
+//assets
+import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+import { ReactComponent as GetAppIcon } from '../../assets/download.svg';
+
+import { ReactComponent as CheckCircleIcon } from '../../assets/confirm-icon.svg';
+import { ReactComponent as CancelIcon } from '../../assets/cancel-icon.svg';
+
 //styles
 import Button from '@material-ui/core/Button';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import EditIcon from '@material-ui/icons/Edit';
-// import GetAppIcon from '@material-ui/icons/GetApp';
 import Tooltip from '@material-ui/core/Tooltip';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
 import { Grid } from '@material-ui/core';
-
-import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
-import { ReactComponent as GetAppIcon } from '../../assets/download.svg';
-import { ReactComponent as EditIcon } from '../../assets/edit.svg';
-
 import { useStyles } from './Buttons.styles';
 
 const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
@@ -127,7 +125,7 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
             size="small"
           >
             <Tooltip title="Потврди">
-              <CheckCircleIcon style={{ color: '#4caf50' }} />
+              <CheckCircleIcon className={classes.buttonIcons} />
             </Tooltip>
           </Button>
 
@@ -138,7 +136,7 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
             size="small"
           >
             <Tooltip title="Одустани">
-              <CancelIcon style={{ color: '#d32f2f' }} />
+              <CancelIcon className={classes.buttonIcons} />
             </Tooltip>
           </Button>
         </>

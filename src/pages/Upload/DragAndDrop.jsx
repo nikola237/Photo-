@@ -62,7 +62,7 @@ const DragAndDrop = () => {
   const classes = useStyles();
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: '.png, .jpg,.jpeg, .tiff, .tif,.bmp, .mp3, .wav,.mp4',
+    accept: 'jpg, .png, .jpeg, .bmp, .tif, .tiff|image/*, .mp3, .wav,.mp4',
     onDrop: (acceptedFiles) => {
       dispatch({
         type: 'FILES',
@@ -77,6 +77,9 @@ const DragAndDrop = () => {
 
   const extractDepthMap = useCallback(
     async (filePath) => {
+      const filterFiles = filePath.map((file, index) => {});
+      console.log(filterFiles, ' ovo je ARRAY');
+
       const output = await Promise.all(
         filePath.map((file) => exifr.parse(file))
       );

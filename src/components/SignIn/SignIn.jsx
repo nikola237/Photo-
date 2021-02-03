@@ -116,6 +116,7 @@ const SignIn = () => {
                           aria-label="toggle password visibility"
                           onClick={handleVisibility}
                           edge="end"
+                          style={{ color: '#69c5aa' }}
                         >
                           {icon ? <VisibilityOffIcon /> : <VisibilityIcon />}
                         </IconButton>

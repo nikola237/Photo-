@@ -50,4 +50,10 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: '#6ac5a9',
     transform: 'translateZ(-25px)',
   },
+
+  buttonIcons: {
+    width: 35,
+    height: 35,
+    zIndex: 1,
+  },
 }));

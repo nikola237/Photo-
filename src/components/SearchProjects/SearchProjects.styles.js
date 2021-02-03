@@ -1,4 +1,4 @@
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   search: {
@@ -26,21 +26,13 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  inputRoot: {
-    color: 'inherit',
-  },
+  // inputRoot: {
+  //   color: 'inherit',
+  // },
   inputInput: {
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    // transition: theme.transitions.create('width'),
     fontSize: '20px',
     padding: '2% 3%',
-    width: '100%',
-
-    // [theme.breakpoints.up('sm')]: {
-    //   width: '45ch',
-    //   '&:focus': {
-    //     width: '40ch',
-    //   },
-    // },
+    width: 500,
   },
 }));
