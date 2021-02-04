@@ -104,13 +104,16 @@ export const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(2),
     marginTop: theme.spacing(2),
-    color: '#fff',
-    backgroundColor: theme.palette.secondary.dark,
+    color: 'black',
+    border: '2px solid black',
+    fontWeight: 700,
+
     '&:hover': {
-      backgroundColor: theme.palette.secondary.light,
-      color: '#fff',
+      backgroundColor: theme.palette.secondary.main,
+      color: '#000',
     },
   },
+
   buttonsWraper: {
     padding: theme.spacing(6),
   },

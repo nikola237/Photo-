@@ -67,7 +67,7 @@ const VideoCard = ({
             ))
           ) : (
             <Typography variant="body2" component="p">
-              {`${tags}`}
+              {tags ? `${tags.toLowerCase().slice(0, 80)}...` : 'Нема тагова'}
             </Typography>
           )}
         </CardContent>

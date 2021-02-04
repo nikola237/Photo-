@@ -11,8 +11,8 @@ import api from '../../api/api';
 
 //assets
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
-import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as GetAppIcon } from '../../assets/download.svg';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 
 import { ReactComponent as CheckCircleIcon } from '../../assets/confirm-icon.svg';
 import { ReactComponent as CancelIcon } from '../../assets/cancel-icon.svg';
@@ -142,34 +142,19 @@ const Buttons = ({ dispatch, id, pathShort, filename, items, editMode }) => {
         </>
       ) : (
         <>
-          <Button
-            color="primary"
-            // variant="outlined"
-            onClick={() => handleItemId(id)}
-            // size="small"
-          >
+          <Button color="primary" onClick={() => handleItemId(id)}>
             <Tooltip title="Измени">
               <EditIcon className={classes.buttonIcons} />
             </Tooltip>
             <div className={classes.background}></div>
           </Button>
-          <Button
-            color="primary"
-            // variant="outlined"
-            onClick={() => handleDownloadItem(id)}
-            // size="small"
-          >
+          <Button color="primary" onClick={() => handleDownloadItem(id)}>
             <Tooltip title="Преузми">
               <GetAppIcon className={classes.buttonIcons} />
             </Tooltip>
             <div className={classes.background}></div>
           </Button>
-          <Button
-            color="primary"
-            // variant="outlined"
-            onClick={() => handleRemoveItem(id)}
-            // size="small"
-          >
+          <Button color="primary" onClick={() => handleRemoveItem(id)}>
             <Tooltip title="Обриши">
               <DeleteIcon className={classes.buttonIcons} />
             </Tooltip>

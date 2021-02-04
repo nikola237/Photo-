@@ -2,16 +2,21 @@ import React from 'react';
 //provider
 import { useProjectsDispatch } from '../../context/projectsContext';
 
+//assets
+import { ReactComponent as RestoreIcon } from '../../assets/restore-icon.svg';
+import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+
 //api
 import api from '../../api/api';
+
 //styles
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-import RestoreIcon from '@material-ui/icons/Restore';
 import Tooltip from '@material-ui/core/Tooltip';
+import { useStyles } from './RemoveButtons.styles';
 
 const RemoveButtons = ({ id, dispatch }) => {
   const projectsDispatch = useProjectsDispatch();
+  const classes = useStyles();
   const handleRestoreItem = async (id) => {
     // dispatch({ type: 'REMOVE_ITEM', payload: id });
 
@@ -53,13 +58,15 @@ const RemoveButtons = ({ id, dispatch }) => {
         color="primary"
       >
         <Tooltip title="Vrati">
-          <RestoreIcon />
+          <RestoreIcon className={classes.buttonIcons} />
         </Tooltip>
       </Button>
-      <Button onClick={() => handleDeleteItem(id)} size="small" color="primary">
-        <Tooltip title="Obrisi">
-          <DeleteIcon />
+
+      <Button color="primary" onClick={() => handleDeleteItem(id)}>
+        <Tooltip title="Обриши">
+          <DeleteIcon className={classes.buttonIcons} />
         </Tooltip>
+        <div className={classes.background}></div>
       </Button>
     </div>
   );

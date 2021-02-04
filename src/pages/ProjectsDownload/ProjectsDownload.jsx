@@ -55,7 +55,7 @@ const ProjectsDownload = () => {
         },
       }
     );
-    console.log(response);
+
     if (response) {
       dispatch({
         type: 'SNACKBAR',

@@ -39,14 +39,14 @@ function AuthProvider({ children }) {
       if (response.status === 200) {
         setUser(response.data.user);
         setStatus({
-          message: 'Uspesno ste se ulogovali',
+          message: 'Успешно сте се улоговали',
           severity: 'success',
           open: true,
         });
       }
     } catch (error) {
       setStatus({
-        message: 'Neispravan email ili password',
+        message: 'Неисправана адреса или лозинка',
         severity: 'error',
         open: true,
       });

@@ -1,9 +1,8 @@
 import React from 'react';
 
 //asset
-import play from '../../assets/play.png';
-import audioIcon from '../../assets/file-audio-solid.svg';
 
+import { ReactComponent as MediaIcon } from '../../assets/play-circle-regular.svg';
 ///styles
 import TextField from '@material-ui/core/TextField';
 import { CardActions, Grid } from '@material-ui/core';
@@ -45,14 +44,35 @@ const SingleItemUpload = ({
           />
         </Box>
         <Box className={classes.avatar}>
-          {file.type === 'image/jpeg' || 'image/png' ? (
+          {file.type === 'image/png' ? (
             <img
               src={file.preview}
               alt="media"
               style={{ width: '80px', height: '80px', borderRadius: '12px' }}
             />
-          ) : null}
-          {/* {file.type === } */}
+          ) : file.type === 'image/jpeg' ? (
+            <img
+              src={file.preview}
+              alt="media"
+              style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+            />
+          ) : file.type === 'image/tiff' ? (
+            <img
+              src={file.preview}
+              alt="media"
+              style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+            />
+          ) : file.type === 'image/tiff' ? (
+            <img
+              src={file.preview}
+              alt="media"
+              style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+            />
+          ) : (
+            <MediaIcon
+              style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+            />
+          )}
         </Box>
         <CardContent className={classes.content}>
           <Typography>
@@ -61,14 +81,14 @@ const SingleItemUpload = ({
               : 'Морате додати тагове'}
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions style={{ justifyContent: 'center' }}>
           <form className={classes.txtForm} onSubmit={fileUploadHandler}>
             <TextField
               autoFocus
               name="title"
               margin="dense"
               id="title"
-              label="title"
+              label="Наслов"
               type="text"
               fullWidth
               autoComplete="title"
@@ -79,7 +99,7 @@ const SingleItemUpload = ({
               name="tags"
               margin="dense"
               id="tags"
-              label="tags"
+              label="Тагови"
               type="text"
               fullWidth
               autoComplete="tags"

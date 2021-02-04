@@ -21,7 +21,6 @@ import { Grid } from '@material-ui/core';
 import { useStyles } from './SideBar.styles';
 
 const SideBar = () => {
-  // const [selectedIcon, setSelectedIncon] = useState(0);
   const projectsDispatch = useProjectsDispatch();
   const { sideBar } = useProjectsState();
   const classes = useStyles();
@@ -44,7 +43,7 @@ const SideBar = () => {
 
       onClick: (index) => {
         history.push('/');
-        console.log('usao u ', index);
+
         projectsDispatch({ type: 'SIDEBAR', payload: index });
       },
     },
@@ -65,7 +64,7 @@ const SideBar = () => {
 
       onClick: (index) => {
         history.push('/users');
-        console.log('usao u ', index);
+
         projectsDispatch({ type: 'SIDEBAR', payload: index });
       },
     },
@@ -85,7 +84,7 @@ const SideBar = () => {
       ),
       onClick: (index) => {
         history.push('/statistics');
-        console.log('usao u ', index);
+
         projectsDispatch({ type: 'SIDEBAR', payload: index });
       },
     },
@@ -106,7 +105,7 @@ const SideBar = () => {
 
       onClick: (index) => {
         history.push('/upload');
-        console.log('usao u ', index);
+
         projectsDispatch({ type: 'SIDEBAR', payload: index });
       },
     },
@@ -127,7 +126,7 @@ const SideBar = () => {
       ),
       onClick: (index) => {
         history.push('/projects');
-        console.log('usao u ', index);
+
         projectsDispatch({ type: 'SIDEBAR', payload: index });
       },
     },

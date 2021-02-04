@@ -174,6 +174,7 @@ const Editor = (props) => {
             dispatch={dispatch}
             page={page}
             totalPages={totalPages}
+            itemById={itemById}
           />
         </Grid>
         <SnackbarAlert />

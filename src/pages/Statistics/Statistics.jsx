@@ -146,15 +146,15 @@ const Statistics = () => {
           className={classes.buttons}
         >
           <div className={classes.typeButton} onClick={() => changeType(0)}>
-            {type == 0 && <div className="buttonBackground"></div>}
+            {type === 0 && <div className="buttonBackground"></div>}
             <p>Слике</p>
           </div>
           <div className={classes.typeButton} onClick={() => changeType(1)}>
-            {type == 1 && <div className="buttonBackground"></div>}
+            {type === 1 && <div className="buttonBackground"></div>}
             <p>Видео</p>
           </div>
           <div className={classes.typeButton} onClick={() => changeType(2)}>
-            {type == 2 && <div className="buttonBackground"></div>}
+            {type === 2 && <div className="buttonBackground"></div>}
             <p>Аудио</p>
           </div>
           <div className="totalCount">

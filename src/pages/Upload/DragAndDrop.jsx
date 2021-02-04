@@ -43,6 +43,11 @@ function uploadReducer(state, action) {
         ...state,
         files: state.files.filter((file) => file.name !== action.payload),
       };
+    case 'PHARSED_FILE':
+      return {
+        ...state,
+        pharsedFiles: action.payload,
+      };
     default: {
       throw new Error(`Unhandled action type: ${action.type} `);
     }
@@ -51,10 +56,10 @@ function uploadReducer(state, action) {
 const DragAndDrop = () => {
   const [state, dispatch] = useReducer(uploadReducer, {
     files: [],
+    //stejt
     title: '',
     tags: '',
   });
-
   const projectsDispatch = useProjectsDispatch();
 
   const { files, title, tags } = state;
@@ -62,7 +67,7 @@ const DragAndDrop = () => {
   const classes = useStyles();
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'jpg, .png, .jpeg, .bmp, .tif, .tiff|image/*, .mp3, .wav,.mp4',
+    accept: 'image/*,audio/*, video/*',
     onDrop: (acceptedFiles) => {
       dispatch({
         type: 'FILES',
@@ -77,9 +82,12 @@ const DragAndDrop = () => {
 
   const extractDepthMap = useCallback(
     async (filePath) => {
-      const filterFiles = filePath.map((file, index) => {});
-      console.log(filterFiles, ' ovo je ARRAY');
+      // trebalo bi pre parsovanja filtrirati i promeniti apdejtovati stejt
+      // stejet je FILES array gore na vrhu
+      //problem je cim prebacis nesto u drop zonu on prikaze kartice
+      //trebalo bi da ga zadrzimo da ne prikazuje nista dok se fajlovi ne isparsuju i isfiltriraju zatim posle apdejta stejta da prikazemo kartice
 
+      //  |------>ovde se parsuje
       const output = await Promise.all(
         filePath.map((file) => exifr.parse(file))
       );
@@ -91,14 +99,24 @@ const DragAndDrop = () => {
       const jebem = files.map((file, index) =>
         Object.assign(file, imgDesc[index])
       );
-      dispatch({ type: 'CHECKED', payload: true });
-      return jebem;
+      // } catch (error) {
+      //   projectsDispatch({
+      //     type: 'SNACKBAR',
+      //     payload: {
+      //       message: 'Фајл није подржан',
+      //       severity: 'success',
+      //       open: true,
+      //     },
+      //   });
+      // }
     },
-    [files]
+    [files, projectsDispatch]
   );
 
   useEffect(() => {
     if (files.length > 0) {
+      // |---------->
+      //kada se ubace fajlovi poziva se ova funkcija
       extractDepthMap(files);
     }
     if (files.length > 50) {
@@ -107,7 +125,7 @@ const DragAndDrop = () => {
         type: 'SNACKBAR',
         payload: {
           message: 'Максималан број фајлова је 50',
-          severity: 'success',
+          severity: 'error',
           open: true,
         },
       });
@@ -121,11 +139,21 @@ const DragAndDrop = () => {
     event.preventDefault();
     const formData = new FormData();
     if (files.length <= 1) {
-      console.log('usao u 1');
       for (const file of files) {
-        formData.append('item', file);
-        formData.append('title', title);
-        formData.append('tags', tags);
+        if (file.ImageDecription) {
+          formData.append('item', file);
+          formData.append('title', title);
+          formData.append('tags', tags);
+        } else {
+          projectsDispatch({
+            type: 'SNACKBAR',
+            payload: {
+              message: 'Морате додати тагове',
+              severity: 'error',
+              open: true,
+            },
+          });
+        }
       }
 
       const response = await uploadApi.post('/item/add', formData);
@@ -142,7 +170,9 @@ const DragAndDrop = () => {
       }
     } else {
       for (const file of files) {
-        formData.append('items', file);
+        if (file.ImageDecription) {
+          formData.append('items', file);
+        }
       }
 
       const response = await uploadApi.post('/items/add', formData);

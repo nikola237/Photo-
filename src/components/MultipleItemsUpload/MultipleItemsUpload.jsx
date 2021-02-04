@@ -1,12 +1,10 @@
 import React from 'react';
 
 //asset
-import play from '../../assets/play.png';
-
+import { ReactComponent as MediaIcon } from '../../assets/play-circle-regular.svg';
 //styles
 import { Grid } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
@@ -31,16 +29,35 @@ const MultipleItemUpload = ({ file, dispatch }) => {
             />
           </Box>
           <Box className={classes.avatar}>
-            {/* <Avatar
-              className={classes.avatarImgMulti}
-              alt="Remy Sharp"
-              src={play}
-            /> */}
-            <img
-              src={play}
-              alt="media"
-              style={{ width: '40px', height: '40px' }}
-            />
+            {file.type === 'image/png' ? (
+              <img
+                src={file.preview}
+                alt="media"
+                style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+              />
+            ) : file.type === 'image/jpeg' ? (
+              <img
+                src={file.preview}
+                alt="media"
+                style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+              />
+            ) : file.type === 'image/tiff' ? (
+              <img
+                src={file.preview}
+                alt="media"
+                style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+              />
+            ) : file.type === 'image/tiff' ? (
+              <img
+                src={file.preview}
+                alt="media"
+                style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+              />
+            ) : (
+              <MediaIcon
+                style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+              />
+            )}
           </Box>
           <CardContent className={classes.content}>
             <Typography>

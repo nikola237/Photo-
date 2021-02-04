@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { PlayCircleFilledWhite } from '@material-ui/icons';
+
 export const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 340,
@@ -24,7 +24,6 @@ export const useStyles = makeStyles((theme) => ({
     transform: 'translateZ(10px)',
     transformStyle: 'preserve-3d',
     backgroundColor: 'white',
-    // overflow:"inherit"
   },
 
   id: {
